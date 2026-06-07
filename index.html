@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEKRISE — AI Tennis Swing Analysis</title>
+<meta name="description" content="TEKRISE is an AI tennis swing-analysis app. Record a swing, see exactly what to fix in 15 seconds, and improve faster — with your coach, or on your own.">
+<meta property="og:title" content="TEKRISE — AI Tennis Swing Analysis">
+<meta property="og:description" content="See what your swing is doing. Fix it faster — with a coach or solo.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --cream:#fafaf7; --cream2:#f0eee5;
+  --ink:#0a0e0a; --ink-soft:#3a3e3a;
+  --ink-fog:rgba(10,14,10,0.5); --ink-fog2:rgba(10,14,10,0.18); --ink-fog3:rgba(10,14,10,0.08);
+  --lime:#a2d147; --tangerine:#ff6b1a; --mint:#00c896; --coral:#ff4a5e;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--ink);font-family:'Inter Tight',system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:100;
+  height:72px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 56px;background:var(--cream);border-bottom:1px solid var(--ink-fog2);
+}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-logo-mark{
+  width:30px;height:30px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.nav-logo-mark span{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:15px;color:var(--lime);transform:translate(-1px,-1px);}
+.nav-wordmark{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;letter-spacing:0.12em;color:var(--ink);}
+.nav-links{display:flex;align-items:center;gap:32px;}
+.nav-links a{font-size:14px;font-weight:500;color:var(--ink-soft);text-decoration:none;letter-spacing:-0.005em;transition:color .15s;}
+.nav-links a:hover{color:var(--ink);}
+.nav-right{display:flex;align-items:center;gap:22px;}
+.nav-signin{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);letter-spacing:0.08em;cursor:pointer;}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--ink);color:var(--lime);
+  padding:10px 18px;border:none;cursor:pointer;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.12em;
+  border-radius:2px;text-decoration:none;transition:opacity .15s;
+}
+.btn-primary:hover{opacity:.85;}
+
+/* ── HERO ── */
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 72px - 56px);}
+.hero-left{padding:72px 56px;display:flex;flex-direction:column;justify-content:space-between;}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;
+  padding:7px 12px;border:1px solid var(--ink);border-radius:2px;margin-bottom:28px;
+}
+.eyebrow-dot{width:7px;height:7px;border-radius:50%;background:var(--tangerine);}
+h1{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:clamp(72px,10vw,148px);line-height:.86;letter-spacing:-0.025em;
+  margin:0 0 32px;
+}
+h1 .hl{background:var(--lime);padding:0 16px 0 12px;margin-left:-4px;display:inline-block;line-height:.96;}
+.hero-sub{font-size:18px;font-weight:400;line-height:1.5;color:var(--ink-soft);letter-spacing:-0.005em;max-width:480px;margin-bottom:36px;}
+.hero-sub strong{color:var(--ink);font-weight:600;}
+.hero-ctas{display:flex;gap:12px;align-items:center;margin-bottom:18px;}
+.btn-hero{
+  display:inline-flex;align-items:center;gap:12px;
+  background:var(--ink);color:var(--lime);
+  padding:18px 26px;border:none;cursor:pointer;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;letter-spacing:0.12em;
+  border-radius:2px;transition:opacity .15s;
+}
+.btn-hero:hover{opacity:.85;}
+.btn-hero .arr{color:var(--cream);}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent;color:var(--ink);
+  padding:16.5px 22px;border:1.5px solid var(--ink);cursor:pointer;
+  font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:17px;letter-spacing:0.1em;
+  border-radius:2px;transition:background .15s,color .15s;
+}
+.btn-ghost:hover{background:var(--ink);color:var(--cream);}
+.hero-footnote{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;color:var(--ink-fog);}
+.hero-stats{display:flex;gap:36px;padding-top:20px;border-top:1px solid var(--ink-fog2);}
+.stat-v{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:38px;line-height:.9;letter-spacing:-0.02em;}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:var(--ink-soft);margin-top:4px;}
+
+.hero-right{background:var(--lime);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:560px;}
+.hero-ghost{
+  position:absolute;top:20px;left:-50px;
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:500px;line-height:.78;
+  color:var(--ink);opacity:.07;letter-spacing:-0.04em;pointer-events:none;user-select:none;
+}
+.hero-corner{
+  position:absolute;top:44px;right:44px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;color:var(--ink);text-align:right;line-height:1.4;
+}
+.hero-corner strong{font-weight:600;} .hero-corner span{opacity:.65;}
+
+/* Phone mockup */
+.hero-phone{
+  position:relative;z-index:5;
+  transform:rotate(-3deg) translateY(-10px);
+  filter:drop-shadow(0 30px 60px rgba(10,14,10,.25)) drop-shadow(0 6px 12px rgba(10,14,10,.15));
+}
+.phone-shell{width:244px;background:#1a1e1a;border-radius:36px;padding:12px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);}
+.phone-screen{background:var(--cream);border-radius:26px;overflow:hidden;height:472px;display:flex;flex-direction:column;}
+.phone-status{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 16px 6px;
+  font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.08em;color:var(--ink-soft);
+}
+.d-greet{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 16px 10px;}
+.d-greet-date{font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:.18em;color:var(--ink-fog);margin-bottom:2px;}
+.d-greet-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;line-height:1;}
+.d-avatar{
+  width:28px;height:28px;background:var(--ink);border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:10px;color:var(--lime);
+}
+.d-card{margin:0 10px;background:var(--lime);border-radius:2px;padding:12px;}
+.d-card-lbl{font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:.18em;margin-bottom:4px;}
+.d-score{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:52px;line-height:.85;letter-spacing:-0.02em;text-align:center;padding:6px 0;}
+.d-delta{display:flex;justify-content:space-between;align-items:center;margin-top:4px;}
+.d-delta-lbl{font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:.1em;}
+.d-badge{background:var(--ink);color:var(--lime);padding:2px 6px;border-radius:1px;font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:.06em;}
+.d-bars{padding:10px 16px 0;display:flex;flex-direction:column;gap:7px;}
+.d-bar-row{display:flex;align-items:center;gap:8px;}
+.d-bar-lbl{width:60px;font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:.1em;color:var(--ink-soft);flex-shrink:0;}
+.d-bar-track{flex:1;height:2px;background:var(--ink-fog3);position:relative;}
+.d-bar-fill{position:absolute;top:0;left:0;height:100%;}
+.d-bar-num{width:18px;text-align:right;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;}
+.d-cta{margin:10px 10px 8px;background:var(--ink);border-radius:2px;padding:10px;display:flex;align-items:center;gap:8px;}
+.d-cta-ico{width:20px;height:20px;background:var(--lime);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
+.d-cta-txt{flex:1;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:.06em;color:var(--cream);}
+.d-cta-arr{font-size:12px;color:var(--lime);}
+.d-nav{display:flex;padding:6px 0 14px;border-top:1px solid var(--ink-fog2);margin-top:auto;}
+.d-nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.d-nav-dot{width:14px;height:2px;background:var(--lime);}
+.d-nav-lbl{font-family:'JetBrains Mono',monospace;font-size:6px;letter-spacing:.12em;}
+
+/* ── TICKER ── */
+.ticker{height:56px;background:var(--ink);display:flex;align-items:center;overflow:hidden;white-space:nowrap;border-top:1px solid rgba(255,255,255,.06);}
+.ticker-track{
+  display:flex;gap:36px;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;letter-spacing:.18em;
+  animation:tick 40s linear infinite;flex-shrink:0;will-change:transform;
+}
+.ticker-track span{flex-shrink:0;color:var(--lime);}
+.ticker-track .sep{color:var(--tangerine);}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ── SECTIONS ── */
+section{border-top:1px solid var(--ink-fog2);}
+.wrap{max-width:1440px;margin:0 auto;padding:80px 56px;}
+.eyebrow{
+  display:flex;align-items:center;gap:10px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;color:var(--ink-fog);
+  margin-bottom:12px;
+}
+.eyebrow::before{content:'';display:inline-block;width:16px;height:1px;background:var(--ink);opacity:.3;}
+.sec-title{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:clamp(48px,5vw,72px);line-height:.88;letter-spacing:-0.02em;
+}
+
+/* ── HOW IT WORKS ── */
+.how-grid{display:grid;grid-template-columns:500px 1fr;border:1px solid var(--ink-fog2);}
+.how-left{padding:52px;border-right:1px solid var(--ink-fog2);}
+.how-step{display:flex;align-items:flex-start;gap:18px;padding:20px 0;border-top:1px solid var(--ink-fog2);}
+.how-n{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:32px;color:var(--lime);line-height:1;flex-shrink:0;width:36px;}
+.how-title{font-size:16px;font-weight:700;margin-bottom:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.tag{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.1em;background:var(--cream2);color:var(--ink-soft);padding:2px 7px;border-radius:1px;}
+.tag.lime{background:var(--lime);color:var(--ink);}
+.how-desc{font-size:13px;color:var(--ink-soft);line-height:1.6;}
+.how-right{padding:52px;display:flex;flex-direction:column;gap:24px;}
+.skel-panel{background:var(--cream2);border:1px solid var(--ink-fog2);border-radius:2px;height:260px;position:relative;overflow:hidden;}
+.tech-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--ink-fog2);}
+.tech-card{padding:18px 20px;border-right:1px solid var(--ink-fog2);}
+.tech-card:last-child{border-right:none;}
+.tech-badge{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.12em;padding:2px 8px;display:inline-block;margin-bottom:8px;}
+.tech-badge.lm{background:var(--lime);color:var(--ink-soft);}
+.tech-badge.ik{background:var(--ink);color:var(--lime);}
+.tech-badge.pl{background:var(--cream2);color:var(--ink-soft);}
+.tech-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:19px;letter-spacing:.02em;margin-bottom:4px;}
+.tech-desc{font-size:11px;color:var(--ink-soft);line-height:1.55;}
+
+/* ── PRICING ── */
+.pricing-hd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px;}
+.toggle{display:flex;padding:4px;background:var(--cream2);border:1px solid var(--ink-fog2);}
+.tgl-btn{
+  padding:8px 20px;cursor:pointer;background:transparent;color:var(--ink-soft);
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:.1em;
+  border:none;border-radius:1px;display:flex;align-items:center;gap:8px;transition:background .15s,color .15s;
+}
+.tgl-btn.on{background:var(--ink);color:var(--cream);}
+.save-badge{background:var(--lime);color:var(--ink);padding:1px 6px;font-size:10px;letter-spacing:.06em;}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--ink-fog2);}
+.plan{padding:32px;border-right:1px solid var(--ink-fog2);display:flex;flex-direction:column;position:relative;}
+.plan:last-child{border-right:none;}
+.plan.ft{background:var(--lime);}
+.plan-pop{
+  position:absolute;top:0;left:50%;transform:translateX(-50%);
+  background:var(--ink);color:var(--lime);padding:4px 16px;
+  font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;font-weight:600;
+}
+.plan-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:30px;letter-spacing:.04em;margin-bottom:4px;}
+.plan-sub{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--ink-soft);margin-bottom:18px;}
+.plan-price{display:flex;align-items:flex-end;gap:4px;margin-bottom:22px;}
+.plan-pv{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:54px;line-height:.85;letter-spacing:-0.02em;}
+.plan-pp{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);padding-bottom:8px;}
+.plan-feats{flex:1;display:flex;flex-direction:column;}
+.plan-feat{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--ink-fog2);font-size:13px;font-weight:500;}
+.plan.ft .plan-feat{border-top-color:rgba(10,14,10,.12);}
+.plan-feat.dim{color:var(--ink-fog);font-weight:300;}
+.fchk{width:14px;height:14px;background:var(--ink);border-radius:1px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;font-weight:700;}
+.plan.ft .fchk{color:var(--lime);}
+.plan:not(.ft) .fchk{color:var(--cream);}
+.fchk.empty{background:transparent;}
+.plan-cta{margin-top:24px;width:100%;padding:14px;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:.1em;cursor:pointer;transition:opacity .15s;}
+.plan-cta:hover{opacity:.85;}
+.plan-cta.ik{background:var(--ink);color:var(--cream);border:none;}
+.plan-cta.gh{background:transparent;color:var(--ink);border:1.5px solid var(--ink-fog2);}
+.pricing-ft{text-align:center;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--ink-fog);}
+
+/* ── ABOUT ── */
+.about-split{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--ink-fog2);margin:0 -56px;}
+.about-l{padding:52px 56px;border-right:1px solid var(--ink-fog2);}
+.about-r{background:var(--lime);padding:52px 56px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;}
+.about-ghost{
+  position:absolute;right:-30px;bottom:-40px;
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:320px;line-height:.78;
+  color:var(--ink);opacity:.06;letter-spacing:-0.04em;pointer-events:none;user-select:none;
+}
+.about-big{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:110px;line-height:.8;letter-spacing:-0.03em;}
+.about-grids{display:grid;grid-template-columns:1fr 1fr;margin-top:52px;}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink-fog2);border-right:none;}
+.sc{padding:28px;border-bottom:1px solid var(--ink-fog2);border-right:1px solid var(--ink-fog2);}
+.sc:nth-child(3),.sc:nth-child(4){border-bottom:none;}
+.sc-v{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:40px;line-height:.9;letter-spacing:-0.02em;margin-bottom:6px;}
+.sc-l{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;color:var(--ink-fog);}
+.vals-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink-fog2);}
+.vc{padding:24px;border-bottom:1px solid var(--ink-fog2);border-right:1px solid var(--ink-fog2);}
+.vc:nth-child(3),.vc:nth-child(4){border-bottom:none;}
+.vc:nth-child(2),.vc:nth-child(4){border-right:none;}
+.vc-bar{width:20px;height:3px;background:var(--lime);margin-bottom:10px;}
+.vc-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;letter-spacing:.01em;margin-bottom:6px;}
+.vc-desc{font-size:13px;color:var(--ink-soft);line-height:1.55;}
+
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:420px 1fr;border:1px solid var(--ink-fog2);}
+.contact-l{padding:52px 48px;border-right:1px solid var(--ink-fog2);display:flex;flex-direction:column;gap:28px;}
+.cmethod{display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid var(--ink-fog2);}
+.cico{
+  width:36px;height:36px;background:var(--cream2);border:1px solid var(--ink-fog2);
+  border-radius:2px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;
+}
+.cml{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--ink-fog);margin-bottom:2px;}
+.cmv{font-size:14px;font-weight:500;}
+.c-resp{background:var(--lime);padding:14px 18px;border-radius:2px;display:flex;align-items:center;gap:12px;}
+.c-resp-ico{font-size:22px;}
+.c-resp-title{font-size:14px;font-weight:600;}
+.c-resp-sub{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.08em;color:var(--ink-soft);margin-top:2px;}
+.contact-r{padding:52px 56px;}
+.form-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:26px;letter-spacing:.02em;margin-bottom:28px;}
+.form-grid{display:flex;flex-direction:column;gap:16px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.ff label{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;color:var(--ink-soft);margin-bottom:6px;}
+.ff input,.ff textarea,.ff select{
+  width:100%;height:44px;background:var(--cream2);border:1px solid var(--ink-fog2);
+  border-radius:2px;padding:0 14px;font-family:'Inter Tight',sans-serif;font-size:14px;
+  color:var(--ink);outline:none;appearance:none;transition:border-color .15s;
+}
+.ff input:focus,.ff textarea:focus{border-color:var(--ink);}
+.ff textarea{height:110px;padding:14px;resize:vertical;}
+.role-chips{display:flex;gap:8px;flex-wrap:wrap;}
+.rchip{
+  padding:8px 14px;border:1px solid var(--ink-fog2);border-radius:2px;
+  font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:13px;letter-spacing:.06em;
+  cursor:pointer;transition:background .15s,border-color .15s;
+}
+.rchip.on{background:var(--lime);border-color:var(--ink);}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--ink);color:var(--cream);
+  padding:40px 56px;display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.footer-logo{display:flex;align-items:center;gap:10px;}
+.footer-mark{
+  width:28px;height:28px;
+  display:flex;align-items:center;justify-content:center;
+}
+.footer-mark span{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;color:var(--ink);transform:translate(-1px,-1px);}
+.footer-wm{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;letter-spacing:.12em;}
+.footer-copy{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;color:rgba(250,250,247,.4);}
+.footer-links{display:flex;gap:28px;}
+.footer-links a{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;color:rgba(250,250,247,.5);text-decoration:none;transition:color .15s;}
+.footer-links a:hover{color:var(--lime);}
+
+/* ── CAMPAIGN BANNER ── */
+.campaign-bar{
+  background:var(--ink);color:var(--cream);
+  padding:10px 56px;display:flex;align-items:center;justify-content:space-between;gap:24px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;
+  position:sticky;top:0;z-index:101;
+}
+.cb-pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--coral);margin-right:8px;animation:pulse 1.5s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.3);}}
+.cb-left{display:flex;align-items:center;}
+.cb-mid{display:flex;align-items:center;gap:24px;color:var(--lime);}
+.cb-mid b{color:var(--cream);font-weight:600;}
+.cb-cta{background:var(--lime);color:var(--ink);padding:6px 14px;border-radius:2px;text-decoration:none;font-weight:700;font-size:11px;letter-spacing:.12em;transition:opacity .15s;}
+.cb-cta:hover{opacity:.85;}
+nav{top:38px;}
+
+/* ── FUNDING STATUS HERO ── */
+.funding{padding:80px 56px;background:var(--cream2);border-top:1px solid var(--ink-fog2);border-bottom:1px solid var(--ink-fog2);}
+.funding-grid{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr;gap:64px;align-items:center;}
+.f-eyebrow{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;color:var(--ink-fog);margin-bottom:14px;}
+.f-eyebrow::before{content:'';width:16px;height:1px;background:var(--ink);opacity:.3;}
+.f-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(48px,5vw,76px);line-height:.88;letter-spacing:-0.02em;margin-bottom:24px;}
+.f-title em{font-style:normal;background:var(--lime);padding:0 12px;display:inline-block;}
+.f-sub{font-size:17px;line-height:1.55;color:var(--ink-soft);max-width:480px;margin-bottom:32px;}
+.f-bar-wrap{margin-bottom:24px;}
+.f-bar-stats{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--ink-soft);}
+.f-bar-stats .raised{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:36px;color:var(--ink);letter-spacing:-0.01em;line-height:1;}
+.f-bar-track{height:14px;background:var(--cream);border:1px solid var(--ink);position:relative;overflow:hidden;}
+.f-bar-fill{height:100%;background:var(--lime);width:67%;position:relative;transition:width .8s cubic-bezier(.2,.8,.3,1);}
+.f-bar-fill::after{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,transparent,transparent 6px,rgba(10,14,10,.08) 6px,rgba(10,14,10,.08) 8px);}
+.f-bar-marker{position:absolute;top:-4px;height:22px;width:2px;background:var(--ink);}
+.f-stats-row{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--ink);}
+.f-stat{padding:18px 20px;border-right:1px solid var(--ink);}
+.f-stat:last-child{border-right:none;}
+.f-stat-v{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:38px;line-height:.9;letter-spacing:-0.02em;margin-bottom:4px;}
+.f-stat-l{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;color:var(--ink-soft);}
+
+.funding-right{background:var(--ink);color:var(--cream);padding:36px;border-radius:2px;position:relative;overflow:hidden;}
+.fr-corner{position:absolute;top:14px;right:14px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.18em;color:var(--lime);opacity:.7;}
+.fr-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;color:var(--lime);margin-bottom:8px;}
+.fr-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:28px;letter-spacing:-0.01em;margin-bottom:18px;line-height:1.05;}
+.fr-list{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+.fr-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.5;color:rgba(250,250,247,.85);}
+.fr-item::before{content:'✓';color:var(--lime);font-weight:700;flex-shrink:0;}
+.fr-cta{display:block;width:100%;background:var(--lime);color:var(--ink);padding:14px;text-align:center;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:.12em;border-radius:2px;text-decoration:none;transition:opacity .15s;}
+.fr-cta:hover{opacity:.85;}
+.fr-note{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;color:rgba(250,250,247,.4);text-align:center;margin-top:10px;}
+
+/* ── PLEDGE TIERS ── */
+.pledges-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--ink-fog2);}
+.pledge{padding:28px 28px 24px;border-right:1px solid var(--ink-fog2);border-bottom:1px solid var(--ink-fog2);display:flex;flex-direction:column;position:relative;background:var(--cream);transition:background .15s;}
+.pledge:nth-child(3n){border-right:none;}
+.pledge:nth-last-child(-n+2){border-bottom:none;}
+.pledge.sold-out{opacity:.6;}
+.pledge.featured{background:var(--lime);}
+.pledge.founders{background:var(--ink);color:var(--cream);}
+.pledge.founders .pl-name,.pledge.founders .pl-amount{color:var(--cream);}
+.pledge.founders .pl-feat{border-top-color:rgba(250,250,247,.15);}
+.pledge.founders .pl-sub,.pledge.founders .pl-was{color:rgba(250,250,247,.6);}
+.pl-ribbon{position:absolute;top:0;right:0;background:var(--coral);color:var(--cream);padding:5px 12px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;font-weight:600;}
+.pl-ribbon.sold{background:var(--ink-fog);color:var(--cream);}
+.pl-ribbon.best{background:var(--ink);color:var(--lime);}
+.pl-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:26px;letter-spacing:.04em;color:var(--ink);margin-bottom:4px;}
+.pl-sub{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;color:var(--ink-soft);margin-bottom:18px;}
+.pl-price-row{display:flex;align-items:baseline;gap:8px;margin-bottom:6px;}
+.pl-amount{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:52px;line-height:.9;letter-spacing:-0.02em;color:var(--ink);}
+.pl-was{font-family:'Inter Tight',sans-serif;font-size:14px;color:var(--ink-soft);text-decoration:line-through;}
+.pl-save{display:inline-block;background:var(--coral);color:var(--cream);padding:2px 8px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;font-weight:600;margin-bottom:14px;align-self:flex-start;}
+.pledge.founders .pl-save{background:var(--lime);color:var(--ink);}
+.pledge.featured .pl-save{background:var(--ink);color:var(--lime);}
+.pl-feats{flex:1;display:flex;flex-direction:column;margin-bottom:18px;}
+.pl-feat{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-top:1px solid var(--ink-fog2);font-size:13px;font-weight:500;line-height:1.4;}
+.pledge.featured .pl-feat{border-top-color:rgba(10,14,10,.15);}
+.pl-feat::before{content:'';width:14px;height:14px;flex-shrink:0;background:var(--ink);margin-top:2px;display:inline-flex;align-items:center;justify-content:center;color:var(--cream);font-size:9px;font-weight:700;border-radius:1px;}
+.pledge.featured .pl-feat::before{color:var(--lime);}
+.pl-claim{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;color:var(--ink-soft);}
+.pledge.founders .pl-claim{color:rgba(250,250,247,.6);}
+.pl-claim-bar{flex:1;height:3px;background:rgba(10,14,10,.15);margin:0 10px;position:relative;}
+.pledge.founders .pl-claim-bar{background:rgba(250,250,247,.15);}
+.pl-claim-fill{position:absolute;left:0;top:0;height:100%;background:var(--coral);}
+.pl-cta{width:100%;background:var(--ink);color:var(--lime);padding:13px;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:.1em;border-radius:2px;transition:opacity .15s;display:flex;justify-content:space-between;align-items:center;}
+.pl-cta:hover{opacity:.85;}
+.pl-cta:disabled{cursor:not-allowed;background:var(--ink-fog);color:var(--cream);}
+.pledge.featured .pl-cta{background:var(--ink);}
+.pledge.founders .pl-cta{background:var(--lime);color:var(--ink);}
+
+/* ── ROADMAP ── */
+.roadmap{display:flex;gap:0;border:1px solid var(--ink-fog2);}
+.road-step{flex:1;padding:24px 24px 28px;border-right:1px solid var(--ink-fog2);position:relative;}
+.road-step:last-child{border-right:none;}
+.road-step.done{background:var(--cream2);}
+.road-step.now{background:var(--lime);}
+.road-status{display:flex;align-items:center;gap:8px;margin-bottom:14px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;font-weight:600;}
+.road-dot{width:10px;height:10px;border-radius:50%;background:var(--ink-fog2);border:1.5px solid var(--ink);}
+.road-step.done .road-dot{background:var(--ink);}
+.road-step.now .road-dot{background:var(--coral);animation:pulse 1.5s ease-in-out infinite;}
+.road-date{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--ink-soft);margin-bottom:6px;}
+.road-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:20px;line-height:1.05;letter-spacing:-0.005em;margin-bottom:10px;}
+.road-list{font-size:12px;line-height:1.6;color:var(--ink-soft);display:flex;flex-direction:column;gap:4px;}
+.road-list span{display:flex;align-items:flex-start;gap:6px;}
+.road-list span::before{content:'·';color:var(--ink);font-weight:700;}
+
+/* ── STRETCH GOALS ── */
+.stretch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--ink-fog2);margin-top:32px;}
+.stretch{padding:24px;border-right:1px solid var(--ink-fog2);position:relative;}
+.stretch:last-child{border-right:none;}
+.stretch.unlocked{background:var(--lime);}
+.stretch.unlocked::before{content:'UNLOCKED ✓';position:absolute;top:8px;right:8px;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.14em;font-weight:600;color:var(--ink);}
+.stretch-amt{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:30px;letter-spacing:-0.01em;line-height:1;margin-bottom:4px;}
+.stretch-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;color:var(--ink-soft);margin-bottom:14px;}
+.stretch-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;letter-spacing:.01em;margin-bottom:6px;}
+.stretch-desc{font-size:12px;line-height:1.55;color:var(--ink-soft);}
+
+/* ── TEAM ── */
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--ink-fog2);}
+.tm{padding:32px;border-right:1px solid var(--ink-fog2);display:flex;flex-direction:column;align-items:flex-start;}
+.tm:last-child{border-right:none;}
+.tm-photo{width:88px;height:88px;background:var(--lime);border:2px solid var(--ink);margin-bottom:18px;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:32px;color:var(--ink);position:relative;}
+.tm-photo::after{content:'';position:absolute;inset:-4px -4px 4px 4px;border:1px solid var(--ink);z-index:-1;}
+.tm-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;letter-spacing:.01em;margin-bottom:2px;}
+.tm-role{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;color:var(--ink-soft);margin-bottom:14px;}
+.tm-bio{font-size:13px;line-height:1.55;color:var(--ink-soft);}
+
+/* ── BACKERS FEED ── */
+.backers-row{display:flex;gap:0;border:1px solid var(--ink-fog2);overflow:hidden;}
+.bk{flex:1;padding:18px 20px;border-right:1px solid var(--ink-fog2);min-width:0;}
+.bk:last-child{border-right:none;}
+.bk-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:.01em;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.bk-meta{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--ink-soft);}
+.bk-tier{display:inline-block;background:var(--lime);color:var(--ink);padding:1px 6px;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.1em;font-weight:600;margin-top:6px;}
+
+/* ── FAQ ── */
+.faq-grid{border:1px solid var(--ink-fog2);}
+.faq-item{border-bottom:1px solid var(--ink-fog2);}
+.faq-item:last-child{border-bottom:none;}
+.faq-q{padding:20px 28px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;letter-spacing:.01em;transition:background .15s;}
+.faq-q:hover{background:var(--cream2);}
+.faq-q::after{content:'+';font-size:24px;font-weight:300;color:var(--ink-fog);transition:transform .2s;line-height:1;}
+.faq-item.open .faq-q::after{transform:rotate(45deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;padding:0 28px;}
+.faq-item.open .faq-a{max-height:300px;padding:0 28px 24px;}
+.faq-a-inner{font-size:14px;line-height:1.65;color:var(--ink-soft);}
+
+/* ── TRUST BAR ── */
+.trust-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--ink-fog2);margin-top:32px;background:var(--cream2);}
+.trust{padding:20px 24px;border-right:1px solid var(--ink-fog2);display:flex;align-items:center;gap:12px;}
+.trust:last-child{border-right:none;}
+.trust-ico{width:36px;height:36px;background:var(--lime);border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;border-radius:2px;}
+.trust-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:.04em;line-height:1.1;margin-bottom:2px;}
+.trust-sub{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.1em;color:var(--ink-soft);}
+
+/* ── PAYMENT MODAL ── */
+.modal-bg{position:fixed;inset:0;background:rgba(10,14,10,.6);z-index:1000;display:none;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px);}
+.modal-bg.open{display:flex;}
+.modal{background:var(--cream);width:100%;max-width:520px;max-height:90vh;overflow-y:auto;border-radius:2px;position:relative;}
+.modal-head{padding:24px 28px 18px;border-bottom:1px solid var(--ink-fog2);display:flex;align-items:center;justify-content:space-between;}
+.modal-eyebrow{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.18em;color:var(--ink-fog);margin-bottom:4px;}
+.modal-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:24px;letter-spacing:.01em;}
+.modal-close{width:32px;height:32px;border:1px solid var(--ink-fog2);background:transparent;cursor:pointer;border-radius:2px;font-size:18px;color:var(--ink);display:flex;align-items:center;justify-content:center;transition:background .15s;}
+.modal-close:hover{background:var(--cream2);}
+.modal-body{padding:24px 28px;}
+.modal-summary{background:var(--lime);padding:16px 18px;border-radius:2px;margin-bottom:20px;}
+.modal-summary-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:18px;letter-spacing:.02em;}
+.modal-summary-price{display:flex;align-items:baseline;gap:8px;margin-top:6px;}
+.modal-summary-amt{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:38px;line-height:.9;letter-spacing:-0.02em;}
+.modal-summary-was{font-size:13px;color:var(--ink-soft);text-decoration:line-through;}
+.modal-card-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.ff-mini label{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;color:var(--ink-soft);margin-bottom:6px;}
+.ff-mini input{width:100%;height:42px;background:var(--cream2);border:1px solid var(--ink-fog2);border-radius:2px;padding:0 12px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ink);outline:none;}
+.ff-mini input:focus{border-color:var(--ink);}
+.card-icons{display:flex;gap:6px;margin-top:8px;}
+.card-icons span{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-fog);letter-spacing:.1em;padding:2px 6px;background:var(--cream2);border:1px solid var(--ink-fog2);}
+.modal-footer{padding:18px 28px;border-top:1px solid var(--ink-fog2);background:var(--cream2);display:flex;align-items:center;justify-content:space-between;gap:14px;}
+.modal-secure{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--ink-soft);display:flex;align-items:center;gap:6px;}
+.modal-pay{background:var(--ink);color:var(--lime);padding:13px 24px;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:.1em;border-radius:2px;display:flex;align-items:center;gap:10px;transition:opacity .15s;}
+.modal-pay:hover{opacity:.85;}
+.modal-success{padding:40px 32px;text-align:center;display:none;}
+.modal-success.show{display:block;}
+.modal-success-ico{width:64px;height:64px;background:var(--mint);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:32px;color:var(--cream);}
+.modal-success-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:30px;letter-spacing:.01em;margin-bottom:8px;}
+.modal-success-msg{font-size:14px;line-height:1.55;color:var(--ink-soft);margin-bottom:20px;}
+
+/* ── APP SCREENS GALLERY ── */
+.app-gallery{background:var(--ink);color:var(--cream);padding:80px 56px;border-top:1px solid var(--ink-fog2);}
+.app-gallery-wrap{max-width:1440px;margin:0 auto;}
+.app-gallery .eyebrow{color:rgba(250,250,247,.5);}
+.app-gallery .eyebrow::before{background:var(--lime);opacity:1;}
+.app-gallery h2{color:var(--cream);}
+.app-gallery .sec-title em{font-style:normal;background:var(--lime);color:var(--ink);padding:0 12px;display:inline-block;}
+.app-gallery .lead{font-size:16px;line-height:1.55;color:rgba(250,250,247,.6);max-width:540px;margin:18px 0 48px;}
+
+.screens-row{display:grid;grid-template-columns:repeat(6,1fr);gap:20px;align-items:end;}
+.screen-card{display:flex;flex-direction:column;align-items:center;text-align:center;}
+.screen-frame{
+  width:100%;aspect-ratio:250/540;
+  background:transparent;position:relative;
+  transition:transform .3s ease;
+  margin-bottom:16px;
+}
+.screen-card:hover .screen-frame{transform:translateY(-6px);}
+.screen-frame img{width:100%;height:100%;object-fit:contain;object-position:top left;display:block;filter:drop-shadow(0 12px 32px rgba(0,0,0,.4)) drop-shadow(0 4px 8px rgba(0,0,0,.3));}
+.screen-num{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.16em;color:var(--lime);margin-bottom:4px;}
+.screen-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:.04em;color:var(--cream);margin-bottom:2px;line-height:1.1;}
+.screen-desc{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;color:rgba(250,250,247,.45);}
+
+.app-gallery-foot{margin-top:48px;padding-top:28px;border-top:1px solid rgba(250,250,247,.1);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;}
+.agf-l{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:rgba(250,250,247,.5);}
+.agf-l b{color:var(--lime);font-weight:600;}
+.agf-cta{background:var(--lime);color:var(--ink);padding:12px 22px;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:.12em;border-radius:2px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:opacity .15s;}
+.agf-cta:hover{opacity:.85;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  nav{padding:0 32px;}
+  .campaign-bar{padding:10px 32px;}
+  .hero-left{padding:52px 32px;}
+  .wrap{padding:64px 32px;}
+  .funding{padding:64px 32px;}
+  footer{padding:32px;}
+  .how-grid{grid-template-columns:1fr;}
+  .how-left{border-right:none;border-bottom:1px solid var(--ink-fog2);}
+  .tech-grid{grid-template-columns:1fr 1fr;}
+  .tech-card:nth-child(2){border-right:none;}
+  .tech-card:nth-child(3){border-top:1px solid var(--ink-fog2);}
+  .tech-card:nth-child(4){border-right:none;border-top:1px solid var(--ink-fog2);}
+  .funding-grid{grid-template-columns:1fr;gap:36px;}
+  .stretch-grid{grid-template-columns:1fr 1fr;}
+  .stretch:nth-child(2){border-right:none;}
+  .stretch:nth-child(3),.stretch:nth-child(4){border-top:1px solid var(--ink-fog2);}
+  .stretch:nth-child(4){border-right:none;}
+  .trust-bar{grid-template-columns:1fr 1fr;}
+  .trust:nth-child(2){border-right:none;}
+  .trust:nth-child(3),.trust:nth-child(4){border-top:1px solid var(--ink-fog2);}
+  .trust:nth-child(4){border-right:none;}
+  .roadmap{flex-direction:column;}
+  .road-step{border-right:none;border-bottom:1px solid var(--ink-fog2);}
+  .road-step:last-child{border-bottom:none;}
+  .pledges-grid{grid-template-columns:1fr 1fr;}
+  .pledge:nth-child(3n){border-right:1px solid var(--ink-fog2);}
+  .pledge:nth-child(2n){border-right:none;}
+  .pledge:nth-last-child(-n+2){border-bottom:1px solid var(--ink-fog2);}
+  .pledge:nth-last-child(-n+1){border-bottom:none;}
+}
+@media(max-width:1100px){
+  .app-gallery{padding:64px 32px;}
+  .screens-row{grid-template-columns:repeat(3,1fr);gap:28px;}
+}
+@media(max-width:860px){
+  nav{padding:0 20px;}
+  .campaign-bar{padding:8px 20px;font-size:9px;flex-wrap:wrap;gap:8px;}
+  .app-gallery{padding:52px 20px;}
+  .screens-row{grid-template-columns:repeat(2,1fr);gap:20px;}
+  .cb-mid{display:none;}
+  .nav-links{display:none;}
+  .hero{grid-template-columns:1fr;}
+  .hero-right{display:none;}
+  .hero-left{padding:48px 20px;}
+  h1{font-size:72px;}
+  .wrap{padding:52px 20px;}
+  .funding{padding:52px 20px;}
+  .funding-right{padding:24px;}
+  .pledges-grid{grid-template-columns:1fr;}
+  .pledge{border-right:none;border-bottom:1px solid var(--ink-fog2);}
+  .pledge:last-child{border-bottom:none;}
+  .team-grid{grid-template-columns:1fr;}
+  .tm{border-right:none;border-bottom:1px solid var(--ink-fog2);}
+  .tm:last-child{border-bottom:none;}
+  .backers-row{flex-direction:column;}
+  .bk{border-right:none;border-bottom:1px solid var(--ink-fog2);}
+  .bk:last-child{border-bottom:none;}
+  .about-split{grid-template-columns:1fr;margin:0 -20px;}
+  .about-l{border-right:none;border-bottom:1px solid var(--ink-fog2);}
+  .about-grids{grid-template-columns:1fr;}
+  .stats-grid{border-right:1px solid var(--ink-fog2);}
+  .plans{grid-template-columns:1fr;}
+  .plan{border-right:none;border-bottom:1px solid var(--ink-fog2);}
+  .plan:last-child{border-bottom:none;}
+  .contact-grid{grid-template-columns:1fr;}
+  .contact-l{border-right:none;border-bottom:1px solid var(--ink-fog2);}
+  footer{flex-direction:column;gap:20px;text-align:center;}
+}
+  .screen-frame.screen-ph{background:linear-gradient(135deg,#23272a,#15181a);border:1px solid rgba(250,250,247,.12);border-radius:8px;}
+  /* ── DUAL-TRACK (For Players / For Coaches) ── */
+  .tracks{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink-fog2);}
+  .track{padding:44px;border-right:1px solid var(--ink-fog2);}
+  .track:last-child{border-right:none;}
+  .track.coach{background:var(--ink);color:var(--cream);}
+  .track-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--ink-fog);margin-bottom:12px;}
+  .track.coach .track-eyebrow{color:var(--lime);}
+  .track h3{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:38px;line-height:.92;letter-spacing:-0.01em;margin-bottom:14px;}
+  .track-sub{font-size:15px;line-height:1.55;color:var(--ink-soft);margin-bottom:22px;}
+  .track.coach .track-sub{color:rgba(250,250,247,.7);}
+  .track-list{display:flex;flex-direction:column;gap:12px;margin-bottom:26px;}
+  .track-pt{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.5;}
+  .track-pt::before{content:'';width:13px;height:13px;flex-shrink:0;margin-top:3px;background:var(--lime);border-radius:1px;}
+  /* ── FOR COACHES (detail) ── */
+  .coach-models{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(250,250,247,.14);}
+  .cmodel{padding:26px 24px;border-right:1px solid rgba(250,250,247,.14);}
+  .cmodel:last-child{border-right:none;}
+  .cmodel-n{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:30px;color:var(--lime);line-height:1;margin-bottom:12px;}
+  .cmodel-t{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:19px;letter-spacing:.01em;margin-bottom:8px;}
+  .cmodel-d{font-size:13px;line-height:1.55;color:rgba(250,250,247,.6);}
+  .coach-cta-row{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;margin-top:32px;padding-top:26px;border-top:1px solid rgba(250,250,247,.1);}
+  .coach-cta-txt{font-size:15px;color:rgba(250,250,247,.7);max-width:520px;}
+  @media(max-width:1100px){.coach-models{grid-template-columns:1fr 1fr;}.cmodel:nth-child(2){border-right:none;}.cmodel:nth-child(3),.cmodel:nth-child(4){border-top:1px solid rgba(250,250,247,.14);}}
+  @media(max-width:860px){.tracks{grid-template-columns:1fr;}.track{border-right:none;border-bottom:1px solid var(--ink-fog2);}.track:last-child{border-bottom:none;}.coach-models{grid-template-columns:1fr;}.cmodel{border-right:none;border-bottom:1px solid rgba(250,250,247,.14);}.cmodel:last-child{border-bottom:none;}}
+</style>
+<!-- Supabase JS client (for the feedback form) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  /* ============================================================
+     CONFIG — edit these three values, then redeploy.
+     ============================================================ */
+  // Supabase project. The anon/publishable key is SAFE to expose in the
+  // browser — it only grants what your RLS policies allow (here: insert
+  // into the feedback table, nothing else).
+  const SUPABASE_URL      = 'https://pfmxuujzffdlcujcxoim.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_1upD8FOxb7b6VEnDyF4mtQ_71f38mlN';
+  // Your Ko-fi donation page. Create one at https://ko-fi.com, then paste
+  // the full URL here (e.g. 'https://ko-fi.com/tekrise').
+  const KOFI_URL          = 'https://ko-fi.com/YOUR_KOFI_NAME'; // TODO: replace
+  /* ============================================================ */
+  const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+</script>
+</head>
+<body>
+
+<!-- CAMPAIGN BANNER -->
+<div class="campaign-bar">
+  <div class="cb-left"><span class="cb-pulse"></span>AN INDIE PROJECT BY TENNIS ENTHUSIASTS</div>
+  <div class="cb-mid">
+    <span><b>FREE</b> TO PLAY</span>
+    <span>BUILT BY PLAYERS, FOR PLAYERS</span>
+    <span>KEPT ALIVE BY DONATIONS</span>
+  </div>
+  <a class="cb-cta" href="#pledges">DONATE →</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-mark">
+      <svg width="30" height="30" viewBox="0 0 120 120" aria-hidden="true">
+        <defs><clipPath id="nbc"><circle cx="60" cy="60" r="54"/></clipPath></defs>
+        <circle cx="60" cy="60" r="54" fill="#a2d147"/>
+        <g clip-path="url(#nbc)">
+          <path d="M 12 25 Q 60 60 12 95" fill="none" stroke="#fafaf7" stroke-width="5.6" stroke-linecap="round"/>
+          <path d="M 108 25 Q 60 60 108 95" fill="none" stroke="#fafaf7" stroke-width="5.6" stroke-linecap="round"/>
+        </g>
+        <path d="M 44.9 46.2 L 74.1 46.2 L 74.1 53.6 L 64.1 53.6 L 64.1 77.2 L 54.8 77.2 L 54.8 53.6 L 44.9 53.6 Z" fill="#0a0e0a"/>
+      </svg>
+    </div>
+    <span class="nav-wordmark">TEKRISE</span>
+  </a>
+  <div class="nav-links">
+    <a href="#players">For Players</a>
+    <a href="#coaches">For Coaches</a>
+    <a href="#how">How It Works</a>
+    <a href="#screens">App</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-signin">SIGN IN</div>
+    <a href="#pledges" class="btn-primary">SUPPORT US →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div>
+      <div class="hero-eyebrow"><div class="eyebrow-dot"></div>AI TENNIS SWING ANALYSIS · BETA</div>
+      <h1>SEE<br>WHAT<br><span class="hl">YOU MISS</span></h1>
+      <p class="hero-sub">Record a swing. Our AI maps 47 joints, measures every angle, and shows you exactly what to fix in <strong>15 seconds</strong> — whether you train with a coach or on your own.</p>
+      <div class="hero-ctas">
+        <button class="btn-hero" onclick="document.getElementById('players').scrollIntoView({behavior:'smooth'})">I'M A PLAYER <span class="arr">→</span></button>
+        <button class="btn-ghost" onclick="document.getElementById('coaches').scrollIntoView({behavior:'smooth'})">I'M A COACH →</button>
+      </div>
+      <div class="hero-footnote">WORKS WITH OR WITHOUT A COACH · ANDROID FIRST · iOS COMING</div>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-v">15s</div><div class="stat-l">TO REPORT</div></div>
+      <div><div class="stat-v">47</div><div class="stat-l">JOINTS TRACKED</div></div>
+      <div><div class="stat-v">6</div><div class="stat-l">SHOT TYPES</div></div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-ghost">74</div>
+    <div class="hero-corner"><strong>LIVE / SESSION 12</strong><br><span>FOREHAND · DTL</span></div>
+    <div class="hero-phone">
+      <div class="phone-shell">
+        <div class="phone-screen">
+          <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+          <div class="d-greet">
+            <div>
+              <div class="d-greet-date">SUN · MAY 17</div>
+              <div class="d-greet-name">Morning, Alex.</div>
+            </div>
+            <div class="d-avatar">AK</div>
+          </div>
+          <div class="d-card">
+            <div class="d-card-lbl">TECHNIQUE SCORE</div>
+            <div class="d-score">74</div>
+            <div class="d-delta">
+              <span class="d-delta-lbl">— 12 SESSIONS</span>
+              <span class="d-badge">↑ +19 / MO</span>
+            </div>
+          </div>
+          <div class="d-bars">
+            <div class="d-bar-row"><div class="d-bar-lbl">FOOTWORK</div><div class="d-bar-track"><div class="d-bar-fill" style="width:82%;background:var(--ink)"></div></div><div class="d-bar-num">82</div></div>
+            <div class="d-bar-row"><div class="d-bar-lbl">RACKET</div><div class="d-bar-track"><div class="d-bar-fill" style="width:68%;background:var(--tangerine)"></div></div><div class="d-bar-num">68</div></div>
+            <div class="d-bar-row"><div class="d-bar-lbl">FOLLOW-THRU</div><div class="d-bar-track"><div class="d-bar-fill" style="width:71%;background:var(--ink)"></div></div><div class="d-bar-num">71</div></div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="d-cta">
+            <div class="d-cta-ico">+</div>
+            <div class="d-cta-txt">ANALYSE NEW SWING</div>
+            <div class="d-cta-arr">→</div>
+          </div>
+          <div class="d-nav">
+            <div class="d-nav-item" style="opacity:1">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11L12 4l9 7v9a1 1 0 01-1 1h-5v-7H9v7H4a1 1 0 01-1-1z"/></svg>
+              <div class="d-nav-lbl">HOME</div>
+              <div class="d-nav-dot"></div>
+            </div>
+            <div class="d-nav-item" style="opacity:.4">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="6" width="13" height="12" rx="1"/><path d="M16 10l5-3v10l-5-3z"/></svg>
+              <div class="d-nav-lbl">ANALYSE</div>
+            </div>
+            <div class="d-nav-item" style="opacity:.4">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="1"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="17" y2="13"/><line x1="7" y1="17" x2="13" y2="17"/></svg>
+              <div class="d-nav-lbl">DRILLS</div>
+            </div>
+            <div class="d-nav-item" style="opacity:.4">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3,17 9,11 13,15 21,6"/><polyline points="15,6 21,6 21,12"/></svg>
+              <div class="d-nav-lbl">TRACK</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span>FOREHAND</span><span class="sep">◆</span><span>BACKHAND</span><span class="sep">◆</span>
+    <span>SERVE</span><span class="sep">◆</span><span>VOLLEY</span><span class="sep">◆</span>
+    <span>SMASH</span><span class="sep">◆</span><span>SLICE</span><span class="sep">◆</span>
+    <span>15-SECOND REPORTS</span><span class="sep">◆</span>
+    <span>47 JOINTS</span><span class="sep">◆</span>
+    <span>RACKET &amp; BALL TRACKING</span><span class="sep">◆</span>
+    <span>FOREHAND</span><span class="sep">◆</span><span>BACKHAND</span><span class="sep">◆</span>
+    <span>SERVE</span><span class="sep">◆</span><span>VOLLEY</span><span class="sep">◆</span>
+    <span>SMASH</span><span class="sep">◆</span><span>SLICE</span><span class="sep">◆</span>
+    <span>15-SECOND REPORTS</span><span class="sep">◆</span>
+    <span>47 JOINTS</span><span class="sep">◆</span>
+    <span>RACKET &amp; BALL TRACKING</span><span class="sep">◆</span>
+  </div>
+</div>
+
+<!-- TWO TRACKS: PLAYERS / COACHES -->
+<section id="players">
+  <div class="wrap">
+    <div class="eyebrow">ONE APP · TWO WAYS IN</div>
+    <h2 class="sec-title" style="margin-bottom:28px;">Built for players —<br>and the coaches behind them.</h2>
+    <div class="tracks">
+      <div class="track">
+        <div class="track-eyebrow">— FOR PLAYERS</div>
+        <h3>See what you<br>can't see.</h3>
+        <p class="track-sub">Most technique errors are invisible to the naked eye. TEKRISE shows you exactly what your swing is doing — and what to work on next.</p>
+        <div class="track-list">
+          <div class="track-pt"><span><strong>Training with a coach?</strong> Practise the right things between lessons and arrive already improving.</span></div>
+          <div class="track-pt"><span><strong>No coach?</strong> Get clear, technical feedback on every swing and improve on your own schedule.</span></div>
+          <div class="track-pt"><span>Track your progress across every session and every shot type.</span></div>
+        </div>
+        <button class="btn-hero" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">SEE HOW IT WORKS <span class="arr">→</span></button>
+      </div>
+      <div class="track coach">
+        <div class="track-eyebrow">— FOR COACHES</div>
+        <h3>Your students'<br>homework, handled.</h3>
+        <p class="track-sub">TEKRISE is the homework, not the teacher. It keeps your students practising what you taught — and shows you what they did between lessons.</p>
+        <div class="track-list">
+          <div class="track-pt"><span>Students arrive having grooved the right patterns — so you coach the high-value stuff.</span></div>
+          <div class="track-pt"><span>A dashboard into every student's between-session practice.</span></div>
+          <div class="track-pt"><span>Earn a recurring share on every student you refer.</span></div>
+        </div>
+        <button class="btn-hero" style="background:var(--lime);color:var(--ink);" onclick="document.getElementById('coaches').scrollIntoView({behavior:'smooth'})">HOW WE WORK WITH COACHES <span style="color:var(--ink);">→</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FUNDING STATUS -->
+<section class="funding" id="funding">
+  <div class="funding-grid">
+    <div>
+      <div class="f-eyebrow">SUPPORT THE PROJECT</div>
+      <h2 class="f-title">Help keep<br>TEKRISE <em>free</em>.</h2>
+      <p class="f-sub">Tennis is one of the hardest sports to master — and building a tool that genuinely helps has meant overcoming a lot of hurdles. We're not perfect yet, and we're improving it every week.</p>
+      <p class="f-sub">Our promise: we'll always do our best to keep TEKRISE <strong>free</strong>, so anyone can get real feedback on their game — with a coach or without one. It's built and funded by tennis enthusiasts, not a big company. A small, affordable donation is what keeps it running and sustainable.</p>
+      <a class="fr-cta" href="#" onclick="openPledge();return false;" style="max-width:300px;">DONATE VIA KO-FI →</a>
+      <div class="f-stat-l" style="margin-top:14px;">NO PRESSURE · GIVE WHAT FEELS RIGHT · THE APP STAYS FREE EITHER WAY</div>
+    </div>
+
+    <div class="funding-right">
+      <div class="fr-corner">★ TENNIS ENTHUSIASTS</div>
+      <div class="fr-lbl">— WHERE YOUR DONATION GOES</div>
+      <div class="fr-title">A little goes<br>a long way.</div>
+      <div class="fr-list">
+        <div class="fr-item">Keeps the app free for players who can't afford coaching</div>
+        <div class="fr-item">Pays the server &amp; AI costs behind every analysis</div>
+        <div class="fr-item">Funds new shot types, drills and features</div>
+        <div class="fr-item">Keeps us independent — no investors pulling the strings</div>
+        <div class="fr-item">Helps us bring TEKRISE to more players, on more devices</div>
+      </div>
+      <a class="fr-cta" href="#" onclick="openPledge();return false;">DONATE NOW →</a>
+      <div class="fr-note">DONATIONS HANDLED SECURELY BY KO-FI</div>
+    </div>
+  </div>
+</section>
+<!-- APP SCREENS GALLERY -->
+<section class="app-gallery" id="screens">
+  <div class="app-gallery-wrap">
+    <div class="eyebrow">A LOOK INSIDE THE APP</div>
+    <h2 class="sec-title">A look inside<br>the <em>app</em>.</h2>
+    <p class="lead">Real screens from TEKRISE. Record a swing, see your findings ranked by what matters most, follow a drill plan, and watch your progress build over time.</p>
+
+    <div class="screens-row">
+      <div class="screen-card">
+        <div class="screen-frame"><img src="app_screens/dashboard.png" alt="Dashboard screen"></div>
+        <div class="screen-num">01</div>
+        <div class="screen-name">DASHBOARD</div>
+        <div class="screen-desc">TECHNIQUE SCORE</div>
+      </div>
+      <div class="screen-card">
+        <div class="screen-frame"><img src="app_screens/upload.png" alt="Upload screen"></div>
+        <div class="screen-num">02</div>
+        <div class="screen-name">ANALYSE</div>
+        <div class="screen-desc">UPLOAD SWING</div>
+      </div>
+      <div class="screen-card">
+        <div class="screen-frame"><img src="app_screens/results.png" alt="Results screen"></div>
+        <div class="screen-num">03</div>
+        <div class="screen-name">RESULTS</div>
+        <div class="screen-desc">AI FINDINGS</div>
+      </div>
+      <div class="screen-card">
+        <div class="screen-frame"><img src="app_screens/drills.png" alt="Drills screen"></div>
+        <div class="screen-num">04</div>
+        <div class="screen-name">DRILLS</div>
+        <div class="screen-desc">DAILY PLAN</div>
+      </div>
+      <div class="screen-card">
+        <div class="screen-frame"><img src="app_screens/progress.png" alt="Progress screen"></div>
+        <div class="screen-num">05</div>
+        <div class="screen-name">PROGRESS</div>
+        <div class="screen-desc">4-WEEK TREND</div>
+      </div>
+      <div class="screen-card">
+        <div class="screen-frame"><img src="app_screens/profile.png" alt="Profile screen"></div>
+        <div class="screen-num">06</div>
+        <div class="screen-name">PROFILE</div>
+        <div class="screen-desc">ACCOUNT &amp; SETTINGS</div>
+      </div>
+    </div>
+
+    <div class="app-gallery-foot">
+      <div class="agf-l">→ <b>6 SHOT TYPES</b> · ANDROID FIRST · iOS COMING</div>
+      <a class="agf-cta" href="#" onclick="openPledge();return false;">SUPPORT TEKRISE →</a>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="how-grid">
+      <div class="how-left">
+        <div class="eyebrow">4-STEP PROCESS</div>
+        <h2 class="sec-title">HOW IT<br>WORKS</h2>
+        <div style="margin-top:36px;">
+          <div class="how-step">
+            <div class="how-n">01</div>
+            <div><div class="how-title">Record your swing <span class="tag">ON YOUR PHONE</span></div>
+            <div class="how-desc">Prop up your phone or ask a friend. Any angle works — side-on gives the most data. 15–60 seconds of footage is plenty.</div></div>
+          </div>
+          <div class="how-step">
+            <div class="how-n">02</div>
+            <div><div class="how-title">AI maps 47 body joints <span class="tag">ON-DEVICE · INSTANT</span></div>
+            <div class="how-desc">MediaPipe Pose runs on-device, tracking every joint frame-by-frame. No video leaves your phone at this stage.</div></div>
+          </div>
+          <div class="how-step">
+            <div class="how-n">03</div>
+            <div><div class="how-title">Gemini Vision checks your racket <span class="tag">CLOUD · ~12 SECONDS</span></div>
+            <div class="how-desc">We extract 3–5 key frames around impact and send only those to Gemini Vision, which checks your racket face angle at the moment of contact.</div></div>
+          </div>
+          <div class="how-step">
+            <div class="how-n">04</div>
+            <div><div class="how-title">You get a full coaching report <span class="tag lime">15 SECONDS TOTAL</span></div>
+            <div class="how-desc">Findings ranked by severity. Personalised drill plan. Progress tracked across every session.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="how-right">
+        <div class="skel-panel">
+          <svg width="100%" height="100%" viewBox="0 0 800 260" preserveAspectRatio="xMidYMid meet" style="position:absolute;inset:0;">
+            <defs><pattern id="g" width="50" height="40" patternUnits="userSpaceOnUse"><line x1="50" y1="0" x2="50" y2="40" stroke="rgba(10,14,10,0.04)" stroke-width="1"/><line x1="0" y1="40" x2="50" y2="40" stroke="rgba(10,14,10,0.04)" stroke-width="1"/></pattern></defs>
+            <rect width="800" height="260" fill="url(#g)"/>
+            <circle cx="260" cy="46" r="18" fill="none" stroke="#0a0e0a" stroke-width="2"/>
+            <line x1="260" y1="64" x2="260" y2="138" stroke="#0a0e0a" stroke-width="2"/>
+            <line x1="260" y1="90" x2="224" y2="108" stroke="#0a0e0a" stroke-width="2"/>
+            <line x1="260" y1="90" x2="302" y2="102" stroke="#0a0e0a" stroke-width="2"/>
+            <line x1="224" y1="108" x2="200" y2="150" stroke="#0a0e0a" stroke-width="2"/>
+            <line x1="302" y1="102" x2="348" y2="78" stroke="#0a0e0a" stroke-width="2"/>
+            <line x1="348" y1="78" x2="390" y2="58" stroke="#0a0e0a" stroke-width="2"/>
+            <line x1="260" y1="138" x2="236" y2="196" stroke="#0a0e0a" stroke-width="2"/>
+            <line x1="260" y1="138" x2="284" y2="196" stroke="#0a0e0a" stroke-width="2"/>
+            <line x1="236" y1="196" x2="228" y2="232" stroke="#0a0e0a" stroke-width="2"/>
+            <line x1="284" y1="196" x2="292" y2="232" stroke="#0a0e0a" stroke-width="2"/>
+            <circle cx="260" cy="90" r="3.5" fill="#0a0e0a"/><circle cx="224" cy="108" r="3.5" fill="#0a0e0a"/>
+            <circle cx="302" cy="102" r="3.5" fill="#0a0e0a"/><circle cx="260" cy="138" r="3.5" fill="#0a0e0a"/>
+            <circle cx="236" cy="196" r="3.5" fill="#0a0e0a"/><circle cx="284" cy="196" r="3.5" fill="#0a0e0a"/>
+            <circle cx="348" cy="78" r="12" fill="rgba(255,74,94,0.15)" stroke="#ff4a5e" stroke-width="2"/>
+            <circle cx="348" cy="78" r="3.5" fill="#ff4a5e"/>
+            <line x1="358" y1="70" x2="418" y2="48" stroke="#ff4a5e" stroke-width="1" stroke-dasharray="3,2"/>
+            <rect x="420" y="36" width="82" height="26" fill="#ff4a5e" rx="1"/>
+            <text x="461" y="46" font-family="Barlow Condensed" font-weight="700" font-size="12" fill="#fafaf7" text-anchor="middle">8° CLOSED</text>
+            <text x="461" y="58" font-family="JetBrains Mono" font-size="8" fill="#fafaf7" text-anchor="middle">RACKET FACE</text>
+            <circle cx="228" cy="232" r="9" fill="none" stroke="#00c896" stroke-width="1.5"/>
+            <circle cx="292" cy="232" r="9" fill="none" stroke="#00c896" stroke-width="1.5"/>
+            <line x1="220" y1="232" x2="178" y2="218" stroke="#00c896" stroke-width="1" stroke-dasharray="3,2"/>
+            <rect x="90" y="207" width="88" height="22" fill="#00c896" rx="1"/>
+            <text x="134" y="222" font-family="JetBrains Mono" font-size="8.5" fill="#0a0e0a" text-anchor="middle">STANCE OK ✓</text>
+            <text x="20" y="20" font-family="JetBrains Mono" font-size="9" fill="rgba(10,14,10,0.4)">T = 0.84s · IMPACT FRAME</text>
+            <text x="780" y="20" font-family="JetBrains Mono" font-size="9" fill="rgba(10,14,10,0.4)" text-anchor="end">MEDIAPIPE · 47 JOINTS</text>
+          </svg>
+        </div>
+        <div class="tech-grid">
+          <div class="tech-card"><div class="tech-badge lm">ON-DEVICE</div><div class="tech-name">MediaPipe</div><div class="tech-desc">47 landmarks per frame. Runs entirely on-device using Apple Vision framework.</div></div>
+          <div class="tech-card"><div class="tech-badge ik">CLOUD</div><div class="tech-name">Gemini Vision</div><div class="tech-desc">Google's multimodal AI. Checks racket face angle, grip and contact point around impact.</div></div>
+          <div class="tech-card"><div class="tech-badge pl">iOS FIRST</div><div class="tech-name">Swift / SwiftUI</div><div class="tech-desc">Native iOS performance. ARKit-ready for future real-time overlay features.</div></div>
+          <div class="tech-card"><div class="tech-badge pl">GDPR READY</div><div class="tech-name">Privacy-first</div><div class="tech-desc">Only key frames leave the device. Full video never stored on our servers.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLEDGE TIERS -->
+<section id="pledges">
+  <div class="wrap">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;flex-wrap:wrap;gap:16px;">
+      <div>
+        <div class="eyebrow">DONATE · NO SUBSCRIPTION, NO PRESSURE</div>
+        <h2 class="sec-title">Chip in what<br>feels right.</h2>
+      </div>
+      <div style="text-align:right;max-width:320px;">
+        <div style="font-size:14px;line-height:1.55;color:var(--ink-soft);">These aren't paywalls or subscriptions — just a few friendly amounts to say thanks. Any amount helps, and it all goes through Ko-fi.</div>
+      </div>
+    </div>
+
+    <div class="pledges-grid">
+
+      <!-- Donation: Coffee -->
+      <div class="pledge">
+        <div class="pl-name">Coffee</div>
+        <div class="pl-sub">A SMALL THANK-YOU</div>
+        <div class="pl-price-row">
+          <span class="pl-amount">$5</span>
+        </div>
+        <div class="pl-feats">
+          <div class="pl-feat">Buy the team a coffee</div>
+          <div class="pl-feat">Keeps us caffeinated and coding</div>
+          <div class="pl-feat">Every little bit genuinely helps</div>
+        </div>
+        <button class="pl-cta" onclick="openPledge()">DONATE $5 <span>→</span></button>
+      </div>
+
+      <!-- Donation: Supporter (featured) -->
+      <div class="pledge featured">
+        <div class="pl-ribbon best">MOST LOVED</div>
+        <div class="pl-name">Supporter</div>
+        <div class="pl-sub">KEEP IT RUNNING</div>
+        <div class="pl-price-row">
+          <span class="pl-amount">$15</span>
+        </div>
+        <div class="pl-feats">
+          <div class="pl-feat">Helps cover server &amp; AI costs</div>
+          <div class="pl-feat">Keeps TEKRISE free for players who need it</div>
+          <div class="pl-feat">Our heartfelt thanks</div>
+        </div>
+        <button class="pl-cta" onclick="openPledge()">DONATE $15 <span>→</span></button>
+      </div>
+
+      <!-- Donation: Champion -->
+      <div class="pledge">
+        <div class="pl-name">Champion</div>
+        <div class="pl-sub">FUEL WHAT'S NEXT</div>
+        <div class="pl-price-row">
+          <span class="pl-amount">$40</span>
+        </div>
+        <div class="pl-feats">
+          <div class="pl-feat">Funds new features and shot types</div>
+          <div class="pl-feat">Keeps the project independent</div>
+          <div class="pl-feat">You're a legend — thank you</div>
+        </div>
+        <button class="pl-cta" onclick="openPledge()">DONATE $40 <span>→</span></button>
+      </div>
+
+    </div>
+    <div style="text-align:center;margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--ink-soft);">PREFER A DIFFERENT AMOUNT? KO-FI LETS YOU GIVE ANYTHING YOU LIKE — EVEN $2 HELPS.</div>
+
+    <!-- Trust bar -->
+    <div class="trust-bar">
+      <div class="trust">
+        <div class="trust-ico">🔒</div>
+        <div><div class="trust-title">SECURE</div><div class="trust-sub">PAYMENTS VIA KO-FI</div></div>
+      </div>
+      <div class="trust">
+        <div class="trust-ico">🎾</div>
+        <div><div class="trust-title">BY ENTHUSIASTS</div><div class="trust-sub">AN INDEPENDENT PROJECT</div></div>
+      </div>
+      <div class="trust">
+        <div class="trust-ico">💚</div>
+        <div><div class="trust-title">100% OPTIONAL</div><div class="trust-sub">THE APP STAYS FREE</div></div>
+      </div>
+      <div class="trust">
+        <div class="trust-ico">⚡</div>
+        <div><div class="trust-title">EVERY BIT HELPS</div><div class="trust-sub">GIVE WHAT FEELS RIGHT</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="wrap">
+    <div class="eyebrow">DEVELOPMENT ROADMAP</div>
+    <h2 class="sec-title" style="margin-bottom:32px;">What we're<br>building &amp; when.</h2>
+
+    <div class="roadmap">
+      <div class="road-step done">
+        <div class="road-status"><div class="road-dot"></div>SHIPPED</div>
+        <div class="road-date">Q1 2026</div>
+        <div class="road-title">Core AI engine</div>
+        <div class="road-list"><span>MediaPipe pose tracking</span><span>Gemini Vision integration</span><span>Forehand analysis MVP</span></div>
+      </div>
+      <div class="road-step done">
+        <div class="road-status"><div class="road-dot"></div>SHIPPED</div>
+        <div class="road-date">Q2 2026</div>
+        <div class="road-title">Closed alpha</div>
+        <div class="road-list"><span>On-device pose tracking</span><span>Racket &amp; ball detection</span><span>Drill recommendations</span></div>
+      </div>
+      <div class="road-step now">
+        <div class="road-status"><div class="road-dot"></div>IN PROGRESS</div>
+        <div class="road-date">Q3 2026</div>
+        <div class="road-title">Public beta</div>
+        <div class="road-list"><span>Android open beta</span><span>All 6 shot types</span><span>Progress tracking</span></div>
+      </div>
+      <div class="road-step">
+        <div class="road-status"><div class="road-dot"></div>PLANNED</div>
+        <div class="road-date">Q4 2026</div>
+        <div class="road-title">v1.0 launch</div>
+        <div class="road-list"><span>App Store release</span><span>Coach dashboard</span><span>iCloud sync</span></div>
+      </div>
+      <div class="road-step">
+        <div class="road-status"><div class="road-dot"></div>PLANNED</div>
+        <div class="road-date">2027+</div>
+        <div class="road-title">Real-time overlay</div>
+        <div class="road-list"><span>Live on-court feedback</span><span>Web dashboard</span><span>More sports</span></div>
+      </div>
+    </div>
+
+    <!-- STRETCH GOALS -->
+    <div style="margin-top:48px;">
+      <div class="eyebrow">ON THE HORIZON</div>
+      <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:32px;letter-spacing:-0.01em;margin-bottom:8px;">Where we'd love to take it.</h3>
+      <p style="font-size:14px;color:var(--ink-soft);line-height:1.55;max-width:600px;">Your donations help us build the next thing. Here's what's on our wishlist — no promises on dates, just where we're headed.</p>
+
+      <div class="stretch-grid">
+        <div class="stretch">
+          <div class="stretch-lbl">WISHLIST</div>
+          <div class="stretch-title">Smartwatch app</div>
+          <div class="stretch-desc">Track movement &amp; heart rate during play, synced with your swing analyses.</div>
+        </div>
+        <div class="stretch">
+          <div class="stretch-lbl">WISHLIST</div>
+          <div class="stretch-title">Match analysis mode</div>
+          <div class="stretch-desc">Analyse a whole match — every shot scored, with patterns and weaknesses surfaced.</div>
+        </div>
+        <div class="stretch">
+          <div class="stretch-lbl">WISHLIST</div>
+          <div class="stretch-title">More sports</div>
+          <div class="stretch-desc">The same swing-analysis engine, extended to other racquet sports.</div>
+        </div>
+        <div class="stretch">
+          <div class="stretch-lbl">WISHLIST</div>
+          <div class="stretch-title">Pro swing library</div>
+          <div class="stretch-desc">Compare your form side-by-side with the pros, frame by frame.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-split">
+      <div class="about-l">
+        <div class="eyebrow">OUR MISSION</div>
+        <h2 class="sec-title" style="font-size:clamp(40px,4vw,56px);margin-bottom:20px;">We make<br>practice count.</h2>
+        <p style="font-size:16px;line-height:1.6;color:var(--ink-soft);">106 million people play tennis, and almost all of them practise without anyone watching. Between lessons — or with no coach at all — they groove the same mistakes, because they can't see what their swing is actually doing.</p>
+        <p style="font-size:16px;line-height:1.6;color:var(--ink-soft);margin-top:14px;"><strong>We don't replace coaches — we make their work stick.</strong> TEKRISE is the feedback loop for everything that happens between lessons.</p>
+      </div>
+      <div class="about-r">
+        <div class="about-ghost">SEE</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;color:var(--ink);opacity:.65;margin-bottom:10px;position:relative;z-index:1;">WHAT THE NAKED EYE MISSES</div>
+        <div class="about-big" style="position:relative;z-index:1;">See it.<br>Fix it.</div>
+        <p style="font-size:16px;line-height:1.5;color:var(--ink-soft);margin-top:16px;max-width:380px;position:relative;z-index:1;">Most players plateau not because they aren't trying, but because they literally can't see what they're doing wrong. TEKRISE shows you — frame by frame.</p>
+      </div>
+    </div>
+    <div class="about-grids">
+      <div class="stats-grid">
+        <div class="sc"><div class="sc-v">106M</div><div class="sc-l">TENNIS PLAYERS GLOBALLY</div></div>
+        <div class="sc"><div class="sc-v">6 days</div><div class="sc-l">BETWEEN LESSONS, PRACTISING BLIND</div></div>
+        <div class="sc"><div class="sc-v">15s</div><div class="sc-l">TO A COACHING REPORT</div></div>
+        <div class="sc"><div class="sc-v">6</div><div class="sc-l">SHOT TYPES ANALYSED</div></div>
+      </div>
+      <div class="vals-grid">
+        <div class="vc"><div class="vc-bar"></div><div class="vc-title">Works with your coach</div><div class="vc-desc">TEKRISE reinforces what your coach teaches between sessions — it's the homework, not the teacher.</div></div>
+        <div class="vc"><div class="vc-bar"></div><div class="vc-title">Honest AI</div><div class="vc-desc">We tell you what the model can and can't do. No magic — just computer vision and physics.</div></div>
+        <div class="vc"><div class="vc-bar"></div><div class="vc-title">Privacy-first</div><div class="vc-desc">Your video never leaves your phone. Only 3–5 key frames are processed cloud-side.</div></div>
+        <div class="vc"><div class="vc-bar"></div><div class="vc-title">Coach-friendly</div><div class="vc-desc">TEKRISE is a tool, not a replacement. Coaches who use it get better outcomes.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="wrap">
+    <div class="eyebrow">WHO'S BEHIND TEKRISE</div>
+    <h2 class="sec-title" style="margin-bottom:24px;">Made by people<br>who play.</h2>
+
+    <p style="font-size:16px;line-height:1.6;color:var(--ink-soft);max-width:640px;">TEKRISE is a small, independent project built by tennis enthusiasts — people who love the game, got tired of plateauing, and wanted honest feedback that didn't cost a fortune. We're not a big company and we don't have outside investors. That's exactly why your support matters: it keeps us independent, and it keeps the app free.</p>
+    <p style="font-size:13px;line-height:1.7;color:var(--ink-fog);max-width:640px;margin-top:16px;font-family:'JetBrains Mono',monospace;letter-spacing:.02em;">[ PLACEHOLDER — add your real story here: who you are, why you built TEKRISE, and a photo or two. People donate to people, so a genuine, personal note matters more than anything else on this page. ]</p>
+  </div>
+</section>
+
+<!-- BACKERS FEED -->
+<section id="backers" style="background:var(--cream2);">
+  <div class="wrap">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:20px;flex-wrap:wrap;gap:16px;">
+      <div>
+        <div class="eyebrow">SUPPORTERS</div>
+        <h2 class="sec-title" style="font-size:clamp(40px,4vw,52px);">Be one of our<br>first supporters.</h2>
+      </div>
+    </div>
+    <p style="font-size:16px;line-height:1.6;color:var(--ink-soft);max-width:600px;margin-bottom:24px;">We're just getting started — there's no big crowd to point to yet, and we'd rather be honest about that than fake it. Every early supporter genuinely helps prove this can work. With your blessing, we'll add your first name to a thank-you wall right here.</p>
+    <a class="agf-cta" href="#" onclick="openPledge();return false;" style="background:var(--ink);color:var(--lime);">BECOME A SUPPORTER →</a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="eyebrow">FREQUENTLY ASKED</div>
+    <h2 class="sec-title" style="margin-bottom:32px;">Got questions?<br>We've got answers.</h2>
+
+    <div class="faq-grid">
+      <div class="faq-item open">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Will TEKRISE replace my tennis coach?</div>
+        <div class="faq-a"><div class="faq-a-inner">No — and it's not meant to. TEKRISE does one thing: it measures your swing and shows you what's happening. That's maybe 10–15% of what a great coach does — it can't read your opponent, run live drills, feed balls, fix your grip mid-swing, or keep you motivated. Think of it as the slow-motion replay and the measuring tape: <strong>the eye, not the coach.</strong></div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">I don't have a coach — is this still for me?</div>
+        <div class="faq-a"><div class="faq-a-inner">Absolutely. If you practise on your own, TEKRISE gives you the clear, technical feedback that's otherwise hard to get without someone watching — so you work on the right thing next instead of grooving the same mistake. Improve on your own schedule, at your own pace.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">I'm a coach — how does TEKRISE help me?</div>
+        <div class="faq-a"><div class="faq-a-inner">It solves your biggest problem: students reinforcing bad habits in the six days between lessons. They arrive having practised the right things, so you spend less time repeating corrections and more on strategy, footwork and match play. A Coach dashboard shows what each student worked on, and you earn a share on every student you refer. <a href="#coaches" style="color:inherit;font-weight:700;">See For Coaches →</a></div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is the app really free?</div>
+        <div class="faq-a"><div class="faq-a-inner">Yes — the core swing analysis is free to use, and we'll always do our best to keep it that way. Running it isn't free for us (servers and AI cost money on every analysis), which is exactly why donations help. There may be optional paid extras down the line, but the feedback that helps you improve stays free.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Where does my donation go?</div>
+        <div class="faq-a"><div class="faq-a-inner">Straight into keeping TEKRISE alive and free: the server and AI costs behind every analysis, new features and shot types, and the time it takes to keep improving the app. We're an independent project with no outside investors — donations are what keep us going.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Do I have to donate to use the app?</div>
+        <div class="faq-a"><div class="faq-a-inner">Not at all. Donations are completely optional and the app stays free whether you give or not. If TEKRISE has helped your game and you'd like to chip in something affordable so we can keep it running, we'd be hugely grateful — but there's zero pressure.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What devices does it work on?</div>
+        <div class="faq-a"><div class="faq-a-inner">TEKRISE is built for <strong>Android first</strong>, with full on-device pose tracking. An iOS version is in the works. Pose analysis runs on your phone; only a few key frames are sent to the cloud for the racket check.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How accurate is the AI?</div>
+        <div class="faq-a"><div class="faq-a-inner">TEKRISE tracks your body pose frame-by-frame on-device and checks your racket using AI vision around the moment of impact. It's genuinely useful for spotting technique patterns and tracking change over time — but it's an estimate from a single phone camera, not a motion-capture lab. We're honest about that: it's a guide, not gospel, and it keeps getting better.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is my video data private?</div>
+        <div class="faq-a"><div class="faq-a-inner">The full video <strong>never leaves your phone</strong> — pose analysis runs on-device. Only a few key frames around impact are sent to the cloud for the racket check, and we don't sell your data.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How do I support TEKRISE?</div>
+        <div class="faq-a"><div class="faq-a-inner">The easiest way is a one-off donation via Ko-fi — give whatever feels right, even a couple of dollars helps. You can also help by telling a hitting partner about the app, or sending us feedback so we can make it better. Questions? Email <strong><a href="mailto:hello@tekrise.app">hello@tekrise.app</a></strong>.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR COACHES (detail) -->
+<section id="coaches" style="background:var(--ink);color:var(--cream);border-top:1px solid rgba(255,255,255,.06);">
+  <div class="wrap">
+    <div class="eyebrow" style="color:rgba(250,250,247,.5);">FOR COACHES · PARTNER WITH US</div>
+    <h2 class="sec-title" style="color:var(--cream);">TEKRISE works for<br>you, not against you.</h2>
+    <p class="lead" style="font-size:16px;line-height:1.55;color:rgba(250,250,247,.65);max-width:560px;margin:18px 0 44px;">A good coach gives an hour a week. The other six days, students practise blind — and quietly undo your work. TEKRISE closes that gap, and we make it worth your while.</p>
+    <div class="coach-models">
+      <div class="cmodel"><div class="cmodel-n">01</div><div class="cmodel-t">Coach dashboard</div><div class="cmodel-d">See exactly what each student practised between lessons. Walk in already knowing what to work on.</div></div>
+      <div class="cmodel"><div class="cmodel-n">02</div><div class="cmodel-t">Revenue share</div><div class="cmodel-d">Earn a recurring share on every student who subscribes through your referral. Genuine supplementary income.</div></div>
+      <div class="cmodel"><div class="cmodel-n">03</div><div class="cmodel-t">Certified Coach badge</div><div class="cmodel-d">Get listed in our in-app coach directory, so TEKRISE becomes a channel that sends new students your way.</div></div>
+      <div class="cmodel"><div class="cmodel-n">04</div><div class="cmodel-t">Your brand, your link</div><div class="cmodel-d">Share a coach-branded link, so students feel they're using your programme — a recommendation, not a competitor.</div></div>
+    </div>
+    <div class="coach-cta-row">
+      <div class="coach-cta-txt">Run a club or coach a full roster? Let's set you up with team access and a partner deal that fits.</div>
+      <a class="agf-cta" href="#contact" onclick="var r=Array.from(document.querySelectorAll('.rchip')).find(function(c){return c.textContent.trim()==='Coach';}); if(r){selectRole(r);}">PARTNER WITH US →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="eyebrow" style="margin-bottom:28px;">GET IN TOUCH</div>
+    <div class="contact-grid">
+      <div class="contact-l">
+        <div>
+          <h2 class="sec-title" style="font-size:clamp(40px,4vw,62px);margin-bottom:18px;">We'd love<br>to hear<br>from you.</h2>
+          <p style="font-size:15px;line-height:1.6;color:var(--ink-soft);">Whether you're a player with feedback, a coach wanting to partner, or a journalist covering tennis tech — drop us a line.</p>
+        </div>
+        <div>
+          <div class="cmethod"><div class="cico">✉</div><div><div class="cml">General</div><div class="cmv"><a href="mailto:hello@tekrise.app">hello@tekrise.app</a></div></div></div>
+          <div class="cmethod"><div class="cico">🤝</div><div><div class="cml">Partnerships &amp; Clubs</div><div class="cmv"><a href="mailto:partnerships@tekrise.app">partnerships@tekrise.app</a></div></div></div>
+          <div class="cmethod"><div class="cico">🐛</div><div><div class="cml">Bug reports</div><div class="cmv"><a href="mailto:bugs@tekrise.app">bugs@tekrise.app</a></div></div></div>
+          <div class="cmethod"><div class="cico">📰</div><div><div class="cml">Press</div><div class="cmv"><a href="mailto:press@tekrise.app">press@tekrise.app</a></div></div></div>
+        </div>
+        <div class="c-resp">
+          <div class="c-resp-ico">⚡</div>
+          <div>
+            <div class="c-resp-title">Usually reply within 24 hours</div>
+            <div class="c-resp-sub">MON–FRI · LONDON TIME</div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-r">
+        <div class="form-title">Send us a message</div>
+        <form class="form-grid" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="ff"><label>FIRST NAME</label><input id="f-first" type="text" placeholder="Alex"></div>
+            <div class="ff"><label>LAST NAME</label><input id="f-last" type="text" placeholder="Kowalski"></div>
+          </div>
+          <div class="ff"><label>EMAIL</label><input id="f-email" type="email" required placeholder="you@email.com"></div>
+          <div class="ff">
+            <label>I AM A...</label>
+            <div class="role-chips">
+              <div class="rchip on" onclick="selectRole(this)">Player</div>
+              <div class="rchip" onclick="selectRole(this)">Coach</div>
+              <div class="rchip" onclick="selectRole(this)">Club</div>
+              <div class="rchip" onclick="selectRole(this)">Press</div>
+              <div class="rchip" onclick="selectRole(this)">Other</div>
+            </div>
+          </div>
+          <div class="ff"><label>MESSAGE</label><textarea id="f-message" required placeholder="Tell us what's on your mind..."></textarea></div>
+          <button type="submit" class="btn-hero" style="width:100%;justify-content:space-between;" id="submit-btn">
+            <span>SEND MESSAGE</span><span class="arr">→</span>
+          </button>
+          <div id="form-status" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--ink-soft);min-height:14px;"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <div class="footer-mark">
+      <svg width="28" height="28" viewBox="0 0 120 120" aria-hidden="true">
+        <defs><clipPath id="fbc"><circle cx="60" cy="60" r="54"/></clipPath></defs>
+        <circle cx="60" cy="60" r="54" fill="#a2d147"/>
+        <g clip-path="url(#fbc)">
+          <path d="M 12 25 Q 60 60 12 95" fill="none" stroke="#fafaf7" stroke-width="5.6" stroke-linecap="round"/>
+          <path d="M 108 25 Q 60 60 108 95" fill="none" stroke="#fafaf7" stroke-width="5.6" stroke-linecap="round"/>
+        </g>
+        <path d="M 44.9 46.2 L 74.1 46.2 L 74.1 53.6 L 64.1 53.6 L 64.1 77.2 L 54.8 77.2 L 54.8 53.6 L 44.9 53.6 Z" fill="#0a0e0a"/>
+      </svg>
+    </div>
+    <span class="footer-wm">TEKRISE</span>
+  </div>
+  <div class="footer-copy">© 2026 TEKRISE · SEE WHAT YOU MISS</div>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+    <a href="#">App Store</a>
+  </div>
+</footer>
+
+<script>
+function setPricing(annual) {
+  document.getElementById('tmo').classList.toggle('on', !annual);
+  document.getElementById('tyr').classList.toggle('on',  annual);
+  document.getElementById('pro-price').textContent   = annual ? '$8'  : '$12';
+  document.getElementById('coach-price').textContent = annual ? '$19' : '$29';
+}
+function selectRole(el) {
+  document.querySelectorAll('.rchip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+}
+async function handleSubmit(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  const status = document.getElementById('form-status');
+  const selectedRole = document.querySelector('.rchip.on');
+  const payload = {
+    first_name: document.getElementById('f-first').value.trim() || null,
+    last_name:  document.getElementById('f-last').value.trim()  || null,
+    email:      document.getElementById('f-email').value.trim(),
+    role:       selectedRole ? selectedRole.textContent.trim() : null,
+    message:    document.getElementById('f-message').value.trim(),
+  };
+  btn.disabled = true;
+  status.style.color = 'var(--ink-soft)';
+  status.textContent = 'SENDING…';
+  const { error } = await sbClient.from('feedback').insert(payload);
+  if (error) {
+    btn.disabled = false;
+    status.style.color = 'var(--coral)';
+    status.textContent = 'COULD NOT SEND — PLEASE EMAIL US INSTEAD.';
+    console.error('Feedback insert failed:', error);
+    return;
+  }
+  btn.innerHTML = '<span>MESSAGE SENT ✓</span><span style="color:var(--lime)">→</span>';
+  btn.style.background = 'var(--mint)';
+  btn.style.color = 'var(--ink)';
+  status.style.color = 'var(--mint)';
+  status.textContent = 'THANKS — WE USUALLY REPLY WITHIN 24 HOURS.';
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.innerHTML = '<span>SEND MESSAGE</span><span class="arr">→</span>';
+    btn.style.background = '';
+    btn.style.color = '';
+    status.textContent = '';
+    e.target.reset();
+    document.querySelectorAll('.rchip').forEach((c,i) => c.classList.toggle('on', i===0));
+  }, 4000);
+}
+</script>
+<!-- DONATIONS — handled entirely by Ko-fi. No card data ever touches this site. -->
+<script>
+  // Every "Back us / Pledge" button calls this and opens your Ko-fi page.
+  // (The old tiers still call openPledge(name, amount, ...) — the args are
+  // ignored; all routes lead to the single Ko-fi donation page.)
+  function openPledge() {
+    if (!KOFI_URL || KOFI_URL.includes('YOUR_KOFI_NAME')) {
+      alert('Donation link not set up yet.\n\nSet KOFI_URL at the top of index.html to your Ko-fi page.');
+      return;
+    }
+    window.open(KOFI_URL, '_blank', 'noopener');
+  }
+  // Graceful fallback: any app screenshot that hasn't been added yet
+  // collapses to a styled placeholder instead of a broken-image icon.
+  document.querySelectorAll('.screen-frame img').forEach(img => {
+    img.addEventListener('error', () => {
+      const frame = img.closest('.screen-frame');
+      if (frame) frame.classList.add('screen-ph');
+      img.remove();
+    });
+  });
+</script>
+
+</body>
+</html>
