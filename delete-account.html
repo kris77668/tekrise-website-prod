@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delete Your Account — Tekrise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #16263A;
+    --bg: #F7F8F4;
+    --card: #FFFFFF;
+    --accent: #CFEF3F;
+    --accent-ink: #2B3300;
+    --muted: #5B6B68;
+    --line: #DCE3DA;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 56px;
+  }
+
+  .wordmark {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .topbar a.site-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+  }
+  .topbar a.site-link:hover { color: var(--ink); border-color: var(--ink); }
+
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(32px, 6vw, 44px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin: 0 0 12px;
+  }
+
+  .subhead {
+    font-size: 17px;
+    color: var(--muted);
+    margin: 0 0 40px;
+    max-width: 52ch;
+  }
+
+  .court-divider {
+    width: 100%;
+    height: 13px;
+    margin: 48px 0;
+  }
+  .court-divider svg { display: block; width: 100%; height: 100%; }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 18px;
+  }
+
+  p { margin: 0 0 16px; color: var(--ink); }
+  p.lede { font-size: 16px; }
+
+  .steps { list-style: none; margin: 0; padding: 0; }
+  .steps li {
+    display: flex;
+    gap: 18px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+  }
+  .steps li:last-child { border-bottom: 1px solid var(--line); }
+  .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--accent-ink);
+    background: var(--accent);
+    border-radius: 4px;
+    padding: 2px 7px;
+    height: fit-content;
+    white-space: nowrap;
+  }
+  .step-text { font-size: 15px; }
+  .step-text strong { font-weight: 600; }
+
+  .grid-two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  @media (max-width: 540px) {
+    .grid-two { grid-template-columns: 1fr; }
+  }
+
+  .data-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 14.5px;
+  }
+  .data-list li {
+    padding: 8px 0 8px 18px;
+    position: relative;
+    color: var(--ink);
+  }
+  .data-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 16px;
+    width: 6px;
+    height: 6px;
+    background: var(--ink);
+    border-radius: 50%;
+  }
+  .data-list.retain li::before { background: var(--muted); }
+  .data-list.retain li { color: var(--muted); }
+
+  .col-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    margin: 0 0 12px;
+  }
+
+  .timeline-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 28px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .timeline-stat {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .timeline-stat span {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    display: block;
+    margin-top: 6px;
+    letter-spacing: 0.04em;
+  }
+  .timeline-copy { font-size: 14.5px; color: var(--muted); margin: 0; }
+
+  .cta-row {
+    margin-top: 48px;
+    text-align: center;
+  }
+  .button {
+    display: inline-block;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--accent-ink);
+    background: var(--accent);
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    transition: transform 0.15s ease;
+  }
+  .button:hover { transform: translateY(-1px); }
+  .button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+  }
+  .cta-note {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 14px;
+  }
+  .cta-note a { color: var(--muted); }
+
+  footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .button { transition: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <span class="wordmark">TEKRISE</span>
+    <a class="site-link" href="https://tekrise.app">tekrise.app ↗</a>
+  </div>
+
+  <h1>Delete your account &amp; data</h1>
+  <p class="subhead">You can ask us to permanently delete your Tekrise account and everything associated with it. Here's exactly how that works.</p>
+
+  <div class="court-divider" aria-hidden="true">
+    <svg viewBox="0 0 680 13" preserveAspectRatio="none">
+      <line x1="0" y1="6.5" x2="680" y2="6.5" stroke="#16263A" stroke-width="1.5"/>
+      <line x1="340" y1="0" x2="340" y2="13" stroke="#16263A" stroke-width="1.5"/>
+    </svg>
+  </div>
+
+  <p class="eyebrow">How to request deletion</p>
+  <ol class="steps">
+    <li><span class="step-num">01</span><span class="step-text">Email <strong>hello@tekrise.app</strong> from the address registered to your account.</span></li>
+    <li><span class="step-num">02</span><span class="step-text">Use the subject line <strong>"Delete my account"</strong>.</span></li>
+    <li><span class="step-num">03</span><span class="step-text">We verify the request matches an existing account.</span></li>
+    <li><span class="step-num">04</span><span class="step-text">Your account and data are permanently deleted, and we email you to confirm.</span></li>
+  </ol>
+
+  <div class="court-divider" aria-hidden="true">
+    <svg viewBox="0 0 680 13" preserveAspectRatio="none">
+      <line x1="0" y1="6.5" x2="680" y2="6.5" stroke="#16263A" stroke-width="1.5"/>
+      <line x1="340" y1="0" x2="340" y2="13" stroke="#16263A" stroke-width="1.5"/>
+    </svg>
+  </div>
+
+  <div class="grid-two">
+    <div>
+      <p class="col-title">What gets deleted</p>
+      <ul class="data-list">
+        <li>Account profile (name, email)</li>
+        <li>Sign-in records (Apple, Facebook, email/password)</li>
+        <li>Swing analysis videos and session history</li>
+        <li>Performance and progress data</li>
+      </ul>
+    </div>
+    <div>
+      <p class="col-title">What we may retain</p>
+      <ul class="data-list retain">
+        <li>Records required by law (e.g. billing history, for tax purposes)</li>
+        <li>Aggregated, anonymized data that can no longer identify you</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="court-divider" aria-hidden="true">
+    <svg viewBox="0 0 680 13" preserveAspectRatio="none">
+      <line x1="0" y1="6.5" x2="680" y2="6.5" stroke="#16263A" stroke-width="1.5"/>
+      <line x1="340" y1="0" x2="340" y2="13" stroke="#16263A" stroke-width="1.5"/>
+    </svg>
+  </div>
+
+  <p class="eyebrow">Timeline</p>
+  <div class="timeline-card">
+    <div class="timeline-stat">30<span>DAYS&nbsp;MAX</span></div>
+    <p class="timeline-copy">We process verified deletion requests within 30 days. You'll receive an email once it's complete. If you don't hear back, reply to your original request or contact us again.</p>
+  </div>
+
+  <div class="cta-row">
+    <a class="button" href="mailto:hello@tekrise.app?subject=Delete%20my%20account">Email us to delete my account</a>
+    <p class="cta-note">Or contact <a href="mailto:hello@tekrise.app">hello@tekrise.app</a> directly with any questions.</p>
+  </div>
+
+  <footer>
+    <span>© Tekrise</span>
+    <span>tekrise.app</span>
+  </footer>
+
+</div>
+</body>
+</html>
