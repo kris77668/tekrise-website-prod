@@ -6,15 +6,13 @@
    Every page reads from here, so nothing else needs touching.
    ============================================================ */
 (function () {
-  // ─── EDIT HERE ──────────────────────────────────────────────
-  var SITE_DOMAIN   = 'tekrise.pages.dev';     // no protocol, no trailing slash
-  var CONTACT_EMAIL = 'tekris678@gmail.com';    // a real inbox you monitor
-  // ────────────────────────────────────────────────────────────
+  var SITE_DOMAIN   = 'tekrise.app';     // no protocol, no trailing slash
+  var CONTACT_EMAIL = 'hello@tekrise.app'; 
 
   window.TEKRISE_SITE = { domain: SITE_DOMAIN, email: CONTACT_EMAIL };
 
   function fill() {
-    // <span data-site-domain></span>  →  tekrise.pages.dev
+    // <span data-site-domain></span>  →  tekrise.app
     document.querySelectorAll('[data-site-domain]').forEach(function (el) {
       el.textContent = SITE_DOMAIN;
     });
