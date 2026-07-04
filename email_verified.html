@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Verified - TEKRISE</title>
+<meta name="description" content="Your TEKRISE email address has been verified. Open the app to log in.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#a2d147">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;800;900&family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="legal.css">
+<style>
+  .verified-wrap{min-height:calc(100vh - 72px - 137px);display:flex;flex-direction:column;justify-content:center;}
+  .verified-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:32px 0 26px;}
+  .app-button{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-height:52px;padding:14px 24px;border:1.5px solid var(--ink);border-radius:2px;
+    background:var(--ink);color:var(--lime);text-decoration:none;
+    font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:17px;letter-spacing:.12em;
+    transition:opacity .15s,transform .15s;
+  }
+  .app-button:hover{color:var(--lime);opacity:.88;transform:translateY(-1px);}
+  .app-button:focus-visible{outline:2px solid var(--tangerine);outline-offset:4px;}
+  .home-link{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;
+    color:var(--ink-soft);text-decoration:underline;text-underline-offset:3px;
+  }
+  .home-link:hover{color:var(--tangerine);}
+  .verified-note{max-width:680px;}
+  .verified-note a{color:var(--ink);text-decoration:underline;text-underline-offset:2px;}
+  @media(max-width:520px){
+    .verified-wrap{justify-content:flex-start;}
+    .app-button{width:100%;}
+    .verified-actions{align-items:stretch;gap:14px;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .app-button{transition:none;}
+    .app-button:hover{transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-logo-mark">
+      <svg width="30" height="30" viewBox="0 0 120 120" aria-hidden="true">
+        <defs><clipPath id="nbc"><circle cx="60" cy="60" r="54"/></clipPath></defs>
+        <circle cx="60" cy="60" r="54" fill="#a2d147"/>
+        <g clip-path="url(#nbc)">
+          <path d="M 12 25 Q 60 60 12 95" fill="none" stroke="#fafaf7" stroke-width="5.6" stroke-linecap="round"/>
+          <path d="M 108 25 Q 60 60 108 95" fill="none" stroke="#fafaf7" stroke-width="5.6" stroke-linecap="round"/>
+        </g>
+        <path d="M 44.9 46.2 L 74.1 46.2 L 74.1 53.6 L 64.1 53.6 L 64.1 77.2 L 54.8 77.2 L 54.8 53.6 L 44.9 53.6 Z" fill="#0a0e0a"/>
+      </svg>
+    </div>
+    <span class="nav-wordmark">TEKRISE</span>
+  </a>
+  <a class="nav-back" href="index.html">&larr; BACK TO HOME</a>
+</nav>
+
+<div class="legal-wrap verified-wrap">
+  <div class="legal-eyebrow">ACCOUNT READY</div>
+  <h1 class="legal-title"><span class="hl">EMAIL</span> VERIFIED</h1>
+  <div class="legal-meta">
+    <span><b>Status:</b> verified</span>
+    <span><b>Next step:</b> open the app</span>
+    <!--span><b>Site:</b> <span data-site-domain></span></span-->
+  </div>
+  <p class="legal-intro">
+    Your email address has been verified. Open the TEKRISE app and log in with the email
+    you have registered.
+  </p>
+
+  <div class="verified-actions">
+    <!--a class="app-button" href="tekrise://login">OPEN TEKRISE APP</a-->
+    <a class="home-link" href="index.html">Back to home</a>
+  </div>
+
+  <div class="callout lime verified-note">
+    <!--div class="callout-h">If the button does not open the app</div>
+    <p>If the button does not open the app, open TEKRISE manually on your phone and log in.</p-->
+    <p>Need help? <a data-site-email href="mailto:hello@tekrise.com">Email us</a>.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-wm">TEKRISE</div>
+  <div class="footer-copy">&copy; <span data-site-year></span> TEKRISE &middot; AN INDIE PROJECT</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+  </div>
+</footer>
+
+<script src="site-config.js"></script>
+</body>
+</html>
