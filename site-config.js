@@ -7,9 +7,22 @@
    ============================================================ */
 (function () {
   var SITE_DOMAIN   = 'tekrise.app';     // no protocol, no trailing slash
-  var CONTACT_EMAIL = 'hello@tekrise.app'; 
+  var CONTACT_EMAIL = 'hello@tekrise.app';
 
-  window.TEKRISE_SITE = { domain: SITE_DOMAIN, email: CONTACT_EMAIL };
+  // Supabase public config. Both values are PUBLIC by design (the anon key is
+  // the same one that ships in the mobile app; data is protected by RLS, not by
+  // hiding this key). Used only by reset-password.html. If you rotate the anon
+  // key or move projects, update these to match the app's .env SUPABASE_URL /
+  // SUPABASE_ANON_KEY.
+  var SUPABASE_URL      = 'https://pfmxuujzffdlcujcxoim.supabase.co';
+  var SUPABASE_ANON_KEY = 'sb_publishable_1upD8FOxb7b6VEnDyF4mtQ_71f38mlN';
+
+  window.TEKRISE_SITE = {
+    domain: SITE_DOMAIN,
+    email: CONTACT_EMAIL,
+    supabaseUrl: SUPABASE_URL,
+    supabaseAnonKey: SUPABASE_ANON_KEY,
+  };
 
   function fill() {
     // <span data-site-domain></span>  →  tekrise.app
