@@ -111,6 +111,9 @@ h1 .hl{background:var(--lime);padding:0 16px 0 12px;margin-left:-4px;display:inl
 .store-icon-btn svg{width:28px;height:28px;fill:currentColor;}
 .store-icon-btn.apple{background:#000;color:#fff;border-color:#000;box-shadow:0 8px 22px rgba(0,0,0,0.22);}
 .store-icon-btn.android{background:#fff;color:var(--ink);border-color:#dadce0;box-shadow:0 6px 18px rgba(60,64,67,0.08);}
+.store-icon-btn.telegram{background:#229ED9;color:#fff;border-color:#229ED9;box-shadow:0 8px 22px rgba(34,158,217,0.28);}
+.store-icon-btn.telegram:hover{background:#1c8adb;color:#fff;}
+.store-icon-btn.telegram svg{width:30px;height:30px;transform:translateX(-1px);}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
 .hero-stats{display:flex;gap:36px;padding-top:20px;border-top:1px solid var(--ink-fog2);}
 .stat-v{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:38px;line-height:.9;letter-spacing:-0.02em;}
@@ -293,6 +296,29 @@ section{border-top:1px solid var(--ink-fog2);}
 .c-resp-title{font-size:14px;font-weight:600;}
 .c-resp-sub{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.08em;color:var(--ink-soft);margin-top:2px;}
 .contact-r{padding:52px 56px;}
+/* ── COMMUNITY (Telegram) ── */
+.community{display:grid;grid-template-columns:1fr 220px;gap:48px;align-items:center;
+  border:1px solid var(--ink-fog2);background:var(--cream2);border-radius:2px;
+  padding:44px 48px;margin-bottom:40px;position:relative;overflow:hidden;}
+.community::before{content:"";position:absolute;top:0;left:0;width:6px;height:100%;background:var(--lime);}
+.community-badge{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:.14em;color:var(--ink-soft);margin-bottom:16px;text-transform:uppercase;}
+.community-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--mint);
+  box-shadow:0 0 0 0 rgba(0,200,150,.5);animation:cpulse 2.2s infinite;}
+@keyframes cpulse{0%{box-shadow:0 0 0 0 rgba(0,200,150,.45);}70%{box-shadow:0 0 0 8px rgba(0,200,150,0);}100%{box-shadow:0 0 0 0 rgba(0,200,150,0);}}
+.community-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(28px,3.2vw,40px);
+  line-height:1.05;letter-spacing:.01em;margin-bottom:14px;}
+.community-copy{font-size:15px;line-height:1.65;color:var(--ink-soft);max-width:520px;margin-bottom:26px;}
+.community-copy strong{color:var(--ink);}
+.tg-btn{display:inline-flex;align-items:center;gap:12px;background:var(--ink);color:var(--cream);
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:.06em;
+  padding:15px 26px;border-radius:2px;text-decoration:none;transition:transform .15s,background .15s;text-transform:uppercase;}
+.tg-btn:hover{background:#1c8adb;transform:translateX(3px);}
+.tg-btn svg{width:20px;height:20px;flex-shrink:0;}
+.community-qr{background:var(--cream);border:1px solid var(--ink-fog2);border-radius:2px;
+  padding:16px;display:flex;flex-direction:column;align-items:center;gap:10px;}
+.community-qr img{width:180px;height:180px;display:block;image-rendering:crisp-edges;}
+.community-qr span{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--ink-fog);text-transform:uppercase;}
 .form-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:26px;letter-spacing:.02em;margin-bottom:28px;}
 .form-grid{display:flex;flex-direction:column;gap:16px;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
@@ -625,6 +651,10 @@ nav{top:38px;}
   .plan:last-child{border-bottom:none;}
   .contact-grid{grid-template-columns:1fr;}
   .contact-l{border-right:none;border-bottom:1px solid var(--ink-fog2);}
+  .community{grid-template-columns:1fr;gap:32px;padding:36px 28px;justify-items:center;text-align:center;}
+  .community::before{width:100%;height:6px;}
+  .community-badge{justify-content:center;}
+  .community-copy{margin-left:auto;margin-right:auto;}
   footer{flex-direction:column;gap:20px;text-align:center;}
 }
   .screen-frame.screen-ph{background:linear-gradient(135deg,#23272a,#15181a);border:1px solid rgba(250,250,247,.12);border-radius:8px;}
@@ -803,7 +833,7 @@ nav{top:38px;}
         <button class="btn-ghost" onclick="document.getElementById('coaches').scrollIntoView({behavior:'smooth'})">I'M A COACH →</button>
       </div>
       <div class="hero-footnote">WORKS WITH OR WITHOUT A COACH</div>
-      <div class="hero-footnote">App Store and Google Play will be available soon!</div>
+      <div class="hero-footnote">App Store &amp; Google Play coming soon — join our community in the meantime</div>
       <div class="hero-store-links">
         <a class="store-icon-btn apple"  rel="noopener" title="Download on the App Store"><!--href="https://apps.apple.com/app/idYOUR_APP_ID" target="_blank"-->
           <svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c.3-45.4 19.4-79.8 60.4-107.4-22.4-32.5-55.9-49.3-101.2-49.3-43 0-79.2 24.5-97.9 24.5-20.5 0-53.7-23.9-88.3-23.2-45.3.8-87.1 26.3-111 66.8-47.4 82.2-12.1 204 34 270.9 22.5 33 49.4 70 84.8 68.5 34.1-1.5 47.1-22.1 88.4-22.1 40.7 0 52.4 22.1 88.4 21.5 36.3-.6 59.2-33.5 81.4-66.7 25.6-38.4 36.2-75.4 36.6-77.4-1-.4-70.5-27-70.9-106.3zm-73.6-154.9c18.5-22.4 31-53.6 27.6-84.6-26.7 1-59.2 17.9-78.5 40.3-17.3 20.4-32.5 53.2-28.5 84.1 30.2 2.3 60.9-15.4 79.4-39.8z"/></svg>
@@ -817,6 +847,10 @@ nav{top:38px;}
             <path fill="#EA4335" d="M20.6 14.5 3.5 22.3c-.1.1-.3.1-.4 0L20.6 9.5v5Z"/>
           </svg>
           <span class="sr-only">Google Play</span>
+        </a>
+        <a class="store-icon-btn telegram" href="https://t.me/+8s8jccOt0UswNWY1" target="_blank" rel="noopener" title="Join our Telegram community">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.14-3.05-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+          <span class="sr-only">Telegram community</span>
         </a>
       </div>
     </div>
@@ -1341,6 +1375,24 @@ nav{top:38px;}
 <section id="contact">
   <div class="wrap">
     <div class="eyebrow" style="margin-bottom:28px;">GET IN TOUCH</div>
+
+    <!-- COMMUNITY (Telegram) -->
+    <div class="community">
+      <div>
+        <div class="community-badge"><span class="dot"></span>Join the community</div>
+        <h2 class="community-title">Built with players,<br>not just for them.</h2>
+        <p class="community-copy">TEKRISE is a <strong>community-first app</strong> — your feedback shapes what we build next, and we mean it. Hop into our Telegram group to share ideas, report what's not working, ask for a feature, or just talk tennis. Every voice in there directly steers the roadmap. We'd genuinely love to have you. 🎾</p>
+        <a class="tg-btn" href="https://t.me/+8s8jccOt0UswNWY1" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.14-3.05-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+          Join on Telegram
+        </a>
+      </div>
+      <div class="community-qr">
+        <img src="images/telegram-qr.png" alt="Scan to join the TEKRISE Telegram community" width="180" height="180">
+        <span>Scan to join</span>
+      </div>
+    </div>
+
     <div class="contact-grid">
       <div class="contact-l">
         <div>

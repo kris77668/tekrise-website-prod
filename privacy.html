@@ -97,7 +97,9 @@
     <ul>
       <li><strong>Account details</strong> — your email address and the name you provide at
         sign-up, or the equivalent details from a Google, Apple, or Facebook sign-in if you use
-        one. Authentication is handled by our backend provider (Supabase); we do not store your
+        one. You can also start as a <strong>guest</strong> without giving us an email — a guest
+        session uses an anonymous identifier, and you can convert it to a full account later.
+        Authentication is handled by our backend provider (Supabase); we do not store your
         password ourselves.</li>
       <li><strong>Player profile</strong> — your dominant hand, self-described playing level,
         and <strong>gender</strong> (male, female, or "prefer not to say"). Gender is
@@ -143,11 +145,13 @@
     <p>We do <strong>not</strong> sell your personal information. We share data only with the
     service providers needed to operate the app, and only for the purposes below.</p>
     <ul>
-      <li><strong>AI coaching providers (Google and Groq).</strong> To generate your feedback,
-        we send the movement/technique data derived from your swing — along with the shot type,
-        dominant hand, playing level, and gender — to third-party AI services (currently Google
-        and Groq), which process it and return coaching text. This processing happens on their
-        systems and is subject to their terms.</li>
+      <li><strong>AI coaching provider (Google).</strong> To generate your feedback, we send your
+        short swing video clip together with the movement and technique data derived from it — the
+        body-position ("pose") keypoints and biomechanical measurements — along with the shot type,
+        dominant hand, and gender (when set), to Google's Gemini AI service, which processes it and
+        returns coaching text. We do not send your full original recording; only the short swing
+        clip leaves your device. This processing happens on Google's systems and is subject to
+        Google's terms.</li>
       <li><strong>Hosting and storage (Supabase).</strong> Your account data, the uploaded swing
         clip, your analysis results, and usage records are stored with our backend provider.</li>
       <li><strong>Subscriptions (RevenueCat).</strong> If you purchase a subscription, purchase
@@ -155,6 +159,11 @@
         Store or Google Play) to manage it.</li>
       <li><strong>Advertising (Google AdMob).</strong> If you watch a rewarded ad to unlock an
         analysis, Google AdMob serves the ad and we verify the reward.</li>
+      <li><strong>Coaches you connect with (optional).</strong> TEKRISE includes optional coaching
+        features. If you choose to connect with a human coach in the app and share a swing with
+        them, that coach can view the swing clip and analysis results you shared and send you
+        written feedback. You choose which swings to share and can stop sharing at any time; a
+        coach only sees swings you explicitly share with them.</li>
     </ul>
     <p>We may also share information to comply with the law, enforce our Terms, or protect the
     rights and safety of our users and our service.</p>
