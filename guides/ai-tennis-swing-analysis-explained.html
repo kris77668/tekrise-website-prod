@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How AI Tennis Swing Analysis Works — and How Accurate It Really Is</title>
+<meta name="description" content="What actually happens to your video, what phone-based swing analysis measures reliably, what it cannot measure, and an honest comparison with a human coach.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://tekrise.app/guides/ai-tennis-swing-analysis-explained">
+<meta property="og:site_name" content="TEKRISE">
+<meta property="og:title" content="How AI Tennis Swing Analysis Works — and How Accurate It Really Is">
+<meta property="og:description" content="What actually happens to your video, what phone-based swing analysis measures reliably, what it cannot measure, and an honest comparison with a human coach.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://tekrise.app/guides/ai-tennis-swing-analysis-explained">
+<meta property="og:image" content="https://tekrise.app/images/og-card.jpg">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How AI Tennis Swing Analysis Works — and How Accurate It Really Is">
+<meta name="twitter:description" content="What actually happens to your video, what phone-based swing analysis measures reliably, what it cannot measure, and an honest comparison with a human coach.">
+<meta name="twitter:image" content="https://tekrise.app/images/og-card.jpg">
+<meta name="theme-color" content="#a2d147">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/vendor/fonts.css">
+<link rel="stylesheet" href="/legal.css">
+<link rel="stylesheet" href="/guide.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://tekrise.app/#organization",
+      "name": "TEKRISE",
+      "url": "https://tekrise.app/",
+      "logo": "https://tekrise.app/images/tekrise-logo.png",
+      "email": "hello@tekrise.app",
+      "sameAs": [
+        "https://apps.apple.com/app/id6776563439",
+        "https://play.google.com/store/apps/details?id=com.tekrise.aitennis",
+        "https://t.me/+8s8jccOt0UswNWY1"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://tekrise.app/#website",
+      "url": "https://tekrise.app/",
+      "name": "TEKRISE",
+      "publisher": {
+        "@id": "https://tekrise.app/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "MobileApplication",
+      "@id": "https://tekrise.app/#app",
+      "name": "TEKRISE",
+      "applicationCategory": "SportsApplication",
+      "operatingSystem": "iOS 15 or later, Android",
+      "url": "https://tekrise.app/"
+    },
+    {
+      "@type": "Article",
+      "@id": "https://tekrise.app/guides/ai-tennis-swing-analysis-explained#article",
+      "headline": "AI tennis swing analysis, explained",
+      "description": "What actually happens to your video, what phone-based swing analysis measures reliably, what it cannot measure, and an honest comparison with a human coach.",
+      "inLanguage": "en",
+      "datePublished": "2026-09-07",
+      "dateModified": "2026-09-07",
+      "author": {
+        "@id": "https://tekrise.app/#organization"
+      },
+      "publisher": {
+        "@id": "https://tekrise.app/#organization"
+      },
+      "isPartOf": {
+        "@id": "https://tekrise.app/#website"
+      },
+      "mainEntityOfPage": "https://tekrise.app/guides/ai-tennis-swing-analysis-explained",
+      "about": {
+        "@id": "https://tekrise.app/#app"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://tekrise.app/guides/ai-tennis-swing-analysis-explained#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://tekrise.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Guides",
+          "item": "https://tekrise.app/guides/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "How AI analysis works",
+          "item": "https://tekrise.app/guides/ai-tennis-swing-analysis-explained"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://tekrise.app/guides/ai-tennis-swing-analysis-explained#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How accurate is AI tennis swing analysis?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Accurate enough to identify technique patterns and track change over time; not accurate enough to be a laboratory measurement. It is reliable for large deviations, consistency between swings, and timing within a clip. It is unreliable for absolute precision, anything happening towards or away from the camera, and any measurement taken from badly off-axis footage."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does AI swing analysis work from a normal phone camera?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Pose tracking runs on the phone itself using standard on-device models. Camera angle and framing matter far more than camera quality — a square-on or side-on shot with your whole body including your feet in frame beats a higher-resolution clip filmed from a bad angle."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can AI replace a tennis coach?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, and the gap is large. Measuring a swing is perhaps a tenth of what a coach does. Software cannot feed you balls, correct your grip mid-rally, teach tactics, read your opponent, or judge when you need pushing rather than encouragement. What it does well is cover the days between lessons, when most players practise unsupervised."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does the camera angle matter so much?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A single camera sees two dimensions, so any measurement involving width or depth is a projection that compresses as the camera moves off-square. Rather than report a confident wrong number, TEKRISE classifies your camera view and skips the measurements that stop being trustworthy at that angle."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">
+    <div class="nav-logo-mark">
+      <svg width="30" height="30" viewBox="0 0 120 120" aria-hidden="true">
+        <defs><clipPath id="nbc"><circle cx="60" cy="60" r="54"/></clipPath></defs>
+        <circle cx="60" cy="60" r="54" fill="#a2d147"/>
+        <g clip-path="url(#nbc)">
+          <path d="M 12 25 Q 60 60 12 95" fill="none" stroke="#fafaf7" stroke-width="5.6" stroke-linecap="round"/>
+          <path d="M 108 25 Q 60 60 108 95" fill="none" stroke="#fafaf7" stroke-width="5.6" stroke-linecap="round"/>
+        </g>
+        <path d="M 44.9 46.2 L 74.1 46.2 L 74.1 53.6 L 64.1 53.6 L 64.1 77.2 L 54.8 77.2 L 54.8 53.6 L 44.9 53.6 Z" fill="#0a0e0a"/>
+      </svg>
+    </div>
+    <span class="nav-wordmark">TEKRISE</span>
+  </a>
+  <a class="nav-back" href="/guides/">&#8592; ALL GUIDES</a>
+</nav>
+
+<main class="legal-wrap">
+<div class="crumbs"><a href="/">Home</a><span>/</span><a href="/guides/">Guides</a><span>/</span><span>How AI analysis works</span></div>
+  <div class="legal-eyebrow">GUIDE</div>
+  <h1 class="legal-title">AI tennis swing analysis, explained</h1>
+  <div class="legal-meta">
+    <span><b>Last updated:</b> 7 September 2026</span>
+    <span><b>By:</b> the TEKRISE founder</span>
+  </div>
+
+<div class="answer">
+  <div class="answer-h">THE SHORT ANSWER</div>
+  <p>AI swing analysis tracks your body joints frame by frame from a phone video, converts them into coach-readable measurements like joint angles and shoulder rotation, and compares them against healthy ranges. It is accurate enough to spot technique patterns and track change over time, but it is a 2-D estimate from one camera — not a motion-capture lab, and not a coach.</p>
+</div>
+<div class="takeaways">
+  <div class="takeaways-h">KEY TAKEAWAYS</div>
+  <ul>
+    <li><strong>Pose tracking runs on your phone.</strong> Only a short silent clip is sent for the written coaching feedback.</li>
+    <li><strong>Reliable for:</strong> relative change over time, large deviations, consistency between swings, and timing within a clip.</li>
+    <li><strong>Unreliable for:</strong> absolute precision, depth, grip, spin rate, and any measurement from badly off-axis footage.</li>
+    <li><strong>Camera angle matters more than camera quality.</strong> It is the single largest factor in analysis quality.</li>
+    <li><strong>It is a guide, not gospel</strong> — and roughly a tenth of what a human coach does.</li>
+  </ul>
+</div>
+<nav class="legal-toc" aria-label="Contents">
+  <div class="legal-toc-h">ON THIS PAGE</div>
+  <ol>
+      <li><a href="#how">What happens to your video</a></li>
+      <li><a href="#accuracy">How accurate is it</a></li>
+      <li><a href="#better">What makes it better or worse</a></li>
+      <li><a href="#vs-coach">Compared with a coach</a></li>
+      <li><a href="#privacy">What happens to your video</a></li>
+      <li><a href="#faq">Frequently asked</a></li>
+  </ol>
+</nav>
+
+<article class="legal-body">
+
+<h2 id="how"><span class="n">01</span> What actually happens to your video</h2>
+<p>The phrase "AI swing analysis" covers several quite different things. Here is the specific pipeline TEKRISE uses, because "AI" on its own tells you nothing about accuracy.</p>
+<ul>
+  <li><strong>Pose tracking, on your phone.</strong> A pose model finds 12 body joints &mdash; shoulders, elbows, wrists, hips, knees, ankles &mdash; in every frame. This runs on the device itself: ML Kit on Android, Apple Vision on iOS. Nothing is uploaded for this step.</li>
+  <li><strong>Racquet and ball detection, also on your phone (Android).</strong> A separate object-detection model locates the racquet and ball. On iPhone this model is not shipped yet, so the analysis there runs on pose alone.</li>
+  <li><strong>Derived measurements.</strong> Raw joint coordinates are useless to a coach. They are converted into readable quantities: joint angles, hip&ndash;shoulder separation, torso lean, stance width relative to your own body, racquet-head speed, follow-through ratio.</li>
+  <li><strong>Coaching feedback.</strong> A short silent clip &mdash; at most 3 seconds, the swing you chose &mdash; is sent to Google Gemini, which returns the written coaching. Your full original recording stays on your phone.</li>
+</ul>
+
+<h2 id="accuracy"><span class="n">02</span> How accurate is it, honestly</h2>
+<p><strong>Accurate enough to spot technique patterns and track change over time. Not accurate enough to be treated as a laboratory measurement.</strong> That distinction is the whole answer, and it is worth being precise about why.</p>
+
+<h3>What it is genuinely good at</h3>
+<ul>
+  <li><strong>Relative change.</strong> Comparing your shoulder turn this month against last month, filmed the same way, is reliable &mdash; systematic errors mostly cancel.</li>
+  <li><strong>Large, obvious deviations.</strong> An elbow at 130&deg; when it should be near 165&deg; is far outside the noise floor.</li>
+  <li><strong>Consistency.</strong> Whether you do the same thing every swing, which is often more diagnostic than any single value.</li>
+  <li><strong>Timing.</strong> When events happen relative to each other &mdash; coil peak versus contact &mdash; because that is measured within one clip.</li>
+</ul>
+
+<h3>What it is not good at</h3>
+<ul>
+  <li><strong>Absolute precision.</strong> A single degree of difference between two swings is noise, not signal.</li>
+  <li><strong>Depth.</strong> One camera sees two dimensions. Anything happening towards or away from the lens is inferred, not measured.</li>
+  <li><strong>Anything off-axis.</strong> Widths and stances are projections and compress as the camera moves off-square. TEKRISE classifies your camera view and <em>skips</em> the checks that stop being trustworthy rather than reporting a confident wrong number.</li>
+  <li><strong>Grip, string tension, spin rate, ball speed.</strong> None of these are visible to a pose model.</li>
+  <li><strong>Whether the shot was the right choice.</strong> Technique and tactics are different questions.</li>
+</ul>
+
+<div class="callout lime">
+  <div class="callout-h">The honest summary</div>
+  <p>Treat it as a very patient training partner with an excellent memory and a slow-motion replay &mdash; not as a measuring instrument, and not as a coach. It is a guide, not gospel.</p>
+</div>
+
+<h2 id="better"><span class="n">03</span> What makes the analysis better or worse</h2>
+<div class="gtable-wrap">
+<table class="gtable">
+  <thead><tr><th>Factor</th><th>Effect</th><th>What to do</th></tr></thead>
+  <tbody>
+    <tr><td><b>Camera angle</b></td><td>Largest single factor. Off-axis footage disables several measurements entirely.</td><td>Film square-on or side-on. Keep it consistent between sessions.</td></tr>
+    <tr><td><b>Whole body in frame</b></td><td>Cropped feet means no footwork, stance or weight-transfer data.</td><td>Frame head to feet, with room to move.</td></tr>
+    <tr><td><b>Lighting</b></td><td>Poor light degrades joint detection, which degrades everything downstream.</td><td>Daylight or a well-lit court. Avoid shooting into the sun.</td></tr>
+    <tr><td><b>Background</b></td><td>Other people in frame can confuse person detection.</td><td>Film when your half of the court is clear.</td></tr>
+    <tr><td><b>Frame rate</b></td><td>Contact lasts about 4&nbsp;milliseconds. No phone camera catches it exactly.</td><td>Nothing &mdash; but it is why the contact frame is an estimate, not a certainty.</td></tr>
+    <tr><td><b>Camera stability</b></td><td>A moving camera adds apparent body movement that is not yours.</td><td>Prop the phone up. Do not hand-hold if you can avoid it.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="vs-coach"><span class="n">04</span> How this compares with a human coach</h2>
+<p>It is not a competition, and it is worth being clear about the size of the gap. Measuring a swing is perhaps a tenth of what a good coach does.</p>
+<div class="gtable-wrap">
+<table class="gtable">
+  <thead><tr><th></th><th>AI swing analysis</th><th>A human coach</th></tr></thead>
+  <tbody>
+    <tr><td><b>Measures precise body angles</b></td><td>Yes, every swing</td><td>By eye, approximately</td></tr>
+    <tr><td><b>Perfect memory across months</b></td><td>Yes</td><td>Partially</td></tr>
+    <tr><td><b>Available at 7am on a Tuesday</b></td><td>Yes</td><td>No</td></tr>
+    <tr><td><b>Feeds you balls</b></td><td>No</td><td>Yes</td></tr>
+    <tr><td><b>Fixes your grip mid-rally</b></td><td>No</td><td>Yes</td></tr>
+    <tr><td><b>Reads your opponent, teaches tactics</b></td><td>No</td><td>Yes</td></tr>
+    <tr><td><b>Knows when you need encouragement</b></td><td>No</td><td>Yes</td></tr>
+    <tr><td><b>Cost per session</b></td><td>Free to start</td><td>Typically $50&ndash;100</td></tr>
+  </tbody>
+</table>
+</div>
+<p>The realistic use is the gap between lessons. A coach gives you an hour a week; the other six days you practise unsupervised and can quietly groove the very habit they just corrected. That is the problem this kind of tool actually solves.</p>
+
+<h2 id="privacy"><span class="n">05</span> What happens to your video</h2>
+<ul>
+  <li><strong>Pose tracking — and racquet detection on Android — happens on your device.</strong> Your footage is not uploaded for those steps.</li>
+  <li><strong>Only a short silent clip is sent for coaching feedback</strong> &mdash; at most 3 seconds, the swing you selected, with no audio track. That clip is also stored with your analysis history so you can replay it later; you can have it deleted with your account.</li>
+  <li><strong>Your full original recording stays on your phone</strong> unless you choose to delete it.</li>
+  <li>Full detail is in the <a href="/privacy">privacy policy</a>.</li>
+</ul>
+
+
+<h2 id="faq">Frequently asked</h2>
+<div class="gfaq">
+  <div class="gfaq-item"><div class="gfaq-q">How accurate is AI tennis swing analysis?</div><div class="gfaq-a">Accurate enough to identify technique patterns and track change over time; not accurate enough to be a laboratory measurement. It is reliable for large deviations, consistency between swings, and timing within a clip. It is unreliable for absolute precision, anything happening towards or away from the camera, and any measurement taken from badly off-axis footage.</div></div>
+  <div class="gfaq-item"><div class="gfaq-q">Does AI swing analysis work from a normal phone camera?</div><div class="gfaq-a">Yes. Pose tracking runs on the phone itself using standard on-device models. Camera angle and framing matter far more than camera quality &mdash; a square-on or side-on shot with your whole body including your feet in frame beats a higher-resolution clip filmed from a bad angle.</div></div>
+  <div class="gfaq-item"><div class="gfaq-q">Can AI replace a tennis coach?</div><div class="gfaq-a">No, and the gap is large. Measuring a swing is perhaps a tenth of what a coach does. Software cannot feed you balls, correct your grip mid-rally, teach tactics, read your opponent, or judge when you need pushing rather than encouragement. What it does well is cover the days between lessons, when most players practise unsupervised.</div></div>
+  <div class="gfaq-item"><div class="gfaq-q">Does my tennis video get uploaded to the cloud?</div><div class="gfaq-a">Pose and racquet detection run entirely on your device. Only a short silent clip &mdash; at most 3 seconds, the swing you chose &mdash; is sent for the written coaching feedback. Your full original recording stays on your phone.</div></div>
+  <div class="gfaq-item"><div class="gfaq-q">Why does the camera angle matter so much?</div><div class="gfaq-a">A single camera sees two dimensions, so any measurement involving width or depth is a projection that compresses as the camera moves off-square. Rather than report a confident wrong number, TEKRISE classifies your camera view and skips the measurements that stop being trustworthy at that angle.</div></div>
+</div>
+
+<h2 id="more">Keep reading</h2>
+<div class="related">
+  <a class="rel-card" href="/guides/tennis-swing-faults"><div class="rel-k">GUIDE</div><div class="rel-t">Every swing fault, measured, with healthy ranges</div></a>
+  <a class="rel-card" href="/guides/how-to-improve-your-forehand"><div class="rel-k">GUIDE</div><div class="rel-t">How to improve your tennis forehand</div></a>
+  <a class="rel-card" href="/guides/practice-tennis-alone"><div class="rel-k">GUIDE</div><div class="rel-t">How to practise tennis without a coach</div></a>
+  <a class="rel-card" href="/pricing"><div class="rel-k">PRICING</div><div class="rel-t">What TEKRISE costs</div></a>
+</div>
+<div class="gcta">
+  <h2>See it on your own swing</h2>
+  <p>TEKRISE measures every point on this page from a phone video of your swing, then tells you which one to work on first. Free to start &mdash; 3 analyses a day, no credit card, no account needed.</p>
+  <div class="gcta-btns">
+    <a class="gbtn" href="/get">GET THE APP</a>
+    <a class="gbtn ghost" href="/pricing">SEE PRICING</a>
+  </div>
+</div>
+</article>
+</main>
+
+<footer>
+  <div class="footer-wm">TEKRISE</div>
+  <div class="footer-copy">&copy; <span data-site-year>2026</span> TEKRISE &middot; AN INDIE PROJECT</div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/guides/">Guides</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+  </div>
+</footer>
+<script src="/site-config.js"></script>
+</body>
+</html>

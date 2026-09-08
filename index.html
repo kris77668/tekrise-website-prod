@@ -15,16 +15,22 @@
 <meta property="og:description" content="Record or upload your tennis swing, get clear AI technique feedback, follow drills, and track progress over time.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://tekrise.app/">
-<meta property="og:image" content="https://tekrise.app/app_screens/results.jpg">
+<meta property="og:image" content="https://tekrise.app/images/og-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
 <meta property="og:image:alt" content="TEKRISE tennis swing analysis results screen">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="TEKRISE - AI Tennis Swing Analysis App">
 <meta name="twitter:description" content="Record your tennis swing, get clear AI technique feedback, follow drills, and track progress.">
-<meta name="twitter:image" content="https://tekrise.app/app_screens/results.jpg">
+<meta name="twitter:image" content="https://tekrise.app/images/og-card.jpg">
 <meta name="twitter:image:alt" content="TEKRISE tennis swing analysis results screen">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/vendor/fonts.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -199,15 +205,14 @@ section{border-top:1px solid var(--ink-fog2);}
 }
 
 /* ── HOW IT WORKS ── */
-.how-grid{display:grid;grid-template-columns:500px 1fr;border:1px solid var(--ink-fog2);}
-.how-left{padding:52px;border-right:1px solid var(--ink-fog2);}
+.how-grid{display:grid;grid-template-columns:1fr;border:1px solid var(--ink-fog2);}
+.how-left{padding:52px;}
 .how-step{display:flex;align-items:flex-start;gap:18px;padding:20px 0;border-top:1px solid var(--ink-fog2);}
 .how-n{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:32px;color:var(--lime);line-height:1;flex-shrink:0;width:36px;}
 .how-title{font-size:16px;font-weight:700;margin-bottom:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .tag{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.1em;background:var(--cream2);color:var(--ink-soft);padding:2px 7px;border-radius:1px;}
 .tag.lime{background:var(--lime);color:var(--ink);}
 .how-desc{font-size:13px;color:var(--ink-soft);line-height:1.6;}
-.how-right{padding:52px;display:flex;flex-direction:column;gap:24px;}
 .skel-panel{background:var(--cream2);border:1px solid var(--ink-fog2);border-radius:2px;height:260px;position:relative;overflow:hidden;}
 .tech-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--ink-fog2);}
 .tech-card{padding:18px 20px;border-right:1px solid var(--ink-fog2);}
@@ -579,8 +584,6 @@ nav{top:38px;}
   .wrap{padding:64px 32px;}
   .funding{padding:64px 32px;}
   footer{padding:32px;}
-  .how-grid{grid-template-columns:1fr;}
-  .how-left{border-right:none;border-bottom:1px solid var(--ink-fog2);}
   .tech-grid{grid-template-columns:1fr 1fr;}
   .tech-card:nth-child(2){border-right:none;}
   .tech-card:nth-child(3){border-top:1px solid var(--ink-fog2);}
@@ -682,6 +685,31 @@ nav{top:38px;}
   .coach-cta-txt{font-size:15px;color:rgba(250,250,247,.7);max-width:520px;}
   @media(max-width:1100px){.coach-models{grid-template-columns:1fr 1fr;}.cmodel:nth-child(2){border-right:none;}.cmodel:nth-child(3),.cmodel:nth-child(4){border-top:1px solid rgba(250,250,247,.14);}}
   @media(max-width:860px){.tracks{grid-template-columns:1fr;}.track{border-right:none;border-bottom:1px solid var(--ink-fog2);}.track:last-child{border-bottom:none;}.coach-models{grid-template-columns:1fr;}.cmodel{border-right:none;border-bottom:1px solid rgba(250,250,247,.14);}.cmodel:last-child{border-bottom:none;}}
+/* -- PRICING -- */
+.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:36px;border:1.5px solid var(--ink);border-radius:2px;}
+.price-card{padding:26px 22px;border-right:1.5px solid var(--ink-fog2);display:flex;flex-direction:column;min-width:0;}
+.price-card:last-child{border-right:none;}
+.price-card.feat{background:var(--ink);color:var(--cream);}
+.price-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:24px;letter-spacing:.02em;}
+.price-amt{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(30px,2.6vw,40px);line-height:1;margin:10px 0 2px;white-space:nowrap;}
+.price-per{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--ink-fog);}
+.price-card.feat .price-per{color:rgba(250,250,247,.6);}
+.price-quota{font-size:13px;line-height:1.5;margin-top:14px;padding-top:14px;border-top:1px solid var(--ink-fog2);}
+.price-card.feat .price-quota{border-top-color:rgba(250,250,247,.2);}
+.price-note{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--ink-fog);margin-top:20px;}
+.price-tag{align-self:flex-start;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;background:var(--lime);color:var(--ink);padding:3px 7px;border-radius:2px;margin-bottom:10px;}
+@media(max-width:900px){.pricing-grid{grid-template-columns:1fr 1fr;}.price-card:nth-child(2){border-right:none;}.price-card:nth-child(3),.price-card:nth-child(4){border-top:1.5px solid var(--ink-fog2);}}
+@media(max-width:560px){.pricing-grid{grid-template-columns:1fr;}.price-card{border-right:none;border-top:1.5px solid var(--ink-fog2);}.price-card:first-child{border-top:none;}}
+/* -- GUIDES TEASER -- */
+.gl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin-top:34px;border:1.5px solid var(--ink);border-radius:2px;}
+.gl-item{padding:26px 24px;border-right:1.5px solid var(--ink-fog2);border-bottom:1.5px solid var(--ink-fog2);text-decoration:none;display:block;transition:background .15s;min-width:0;}
+.gl-item:nth-child(2n){border-right:none;}
+.gl-item:nth-last-child(-n+2){border-bottom:none;}
+.gl-item:hover{background:var(--cream2);}
+.gl-k{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--ink-fog);margin-bottom:9px;}
+.gl-t{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:24px;line-height:1.05;color:var(--ink);margin-bottom:7px;}
+.gl-d{font-size:14px;line-height:1.5;color:var(--ink-soft);}
+@media(max-width:760px){.gl-grid{grid-template-columns:1fr;}.gl-item{border-right:none;}.gl-item:nth-last-child(-n+2){border-bottom:1.5px solid var(--ink-fog2);}.gl-item:last-child{border-bottom:none;}}
 </style>
 <script type="application/ld+json">
 {
@@ -692,32 +720,118 @@ nav{top:38px;}
       "@id": "https://tekrise.app/#organization",
       "name": "TEKRISE",
       "url": "https://tekrise.app/",
-      "logo": "https://tekrise.app/app_screens/dashboard.jpg",
-      "email": "hello@tekrise.app"
+      "logo": "https://tekrise.app/images/tekrise-logo.png",
+      "email": "hello@tekrise.app",
+      "sameAs": [
+        "https://apps.apple.com/app/id6776563439",
+        "https://play.google.com/store/apps/details?id=com.tekrise.aitennis",
+        "https://t.me/+8s8jccOt0UswNWY1"
+      ]
     },
     {
       "@type": "WebSite",
       "@id": "https://tekrise.app/#website",
       "url": "https://tekrise.app/",
       "name": "TEKRISE",
-      "publisher": { "@id": "https://tekrise.app/#organization" },
+      "publisher": {
+        "@id": "https://tekrise.app/#organization"
+      },
       "inLanguage": "en"
     },
     {
-      "@type": "SoftwareApplication",
+      "@type": "WebPage",
+      "@id": "https://tekrise.app/#webpage",
+      "url": "https://tekrise.app/",
+      "name": "TEKRISE - AI Tennis Swing Analysis App for Players and Coaches",
+      "description": "TEKRISE is an AI tennis swing analysis app for players and coaches. Record or upload a swing, get clear technique feedback, follow drills, and track progress.",
+      "isPartOf": {
+        "@id": "https://tekrise.app/#website"
+      },
+      "about": {
+        "@id": "https://tekrise.app/#app"
+      },
+      "inLanguage": "en",
+      "datePublished": "2026-06-04",
+      "dateModified": "2026-09-07"
+    },
+    {
+      "@type": "MobileApplication",
       "@id": "https://tekrise.app/#app",
       "name": "TEKRISE",
+      "alternateName": "TEKRISE - AI Tennis Coach",
       "applicationCategory": "SportsApplication",
-      "operatingSystem": "iOS, Android",
+      "applicationSubCategory": "Tennis training",
+      "operatingSystem": "iOS 15 or later, Android",
       "url": "https://tekrise.app/",
-      "image": "https://tekrise.app/app_screens/results.jpg",
-      "description": "AI tennis swing analysis for players and coaches. Record or upload a swing, get clear technique feedback, follow drills, and track progress.",
+      "downloadUrl": [
+        "https://apps.apple.com/app/id6776563439",
+        "https://play.google.com/store/apps/details?id=com.tekrise.aitennis"
+      ],
+      "installUrl": [
+        "https://apps.apple.com/app/id6776563439",
+        "https://play.google.com/store/apps/details?id=com.tekrise.aitennis"
+      ],
+      "image": "https://tekrise.app/images/og-card.jpg",
+      "screenshot": [
+        "https://tekrise.app/app_screens/record.jpg",
+        "https://tekrise.app/images/og-card.jpg",
+        "https://tekrise.app/app_screens/dashboard.jpg",
+        "https://tekrise.app/app_screens/drills.jpg",
+        "https://tekrise.app/app_screens/progress.jpg",
+        "https://tekrise.app/app_screens/improvements.jpg"
+      ],
+      "description": "AI tennis swing analysis for players and coaches. Record or upload a swing and TEKRISE tracks 12 body joints on your phone (plus racquet and ball detection on Android), then returns written AI coaching that names what to fix first, a drill plan and progress tracking. Free to start with 3 analyses a day; paid plans raise the limit and remove ads.",
+      "featureList": [
+        "AI tennis swing analysis from a phone video",
+        "On-device pose tracking of 12 body joints",
+        "On-device racquet and ball detection (Android)",
+        "Written AI coaching that names what to fix first",
+        "Personalised drill plan",
+        "Progress tracking across sessions and shot types",
+        "Forehand, backhand, serve, volley and slice",
+        "Coach tools for reviewing student swings",
+        "Available in 13 languages"
+      ],
       "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
+        "@type": "AggregateOffer",
+        "priceCurrency": "USD",
+        "lowPrice": "0",
+        "highPrice": "69.90",
+        "offerCount": "4",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Free",
+            "price": "0",
+            "priceCurrency": "USD",
+            "description": "3 AI swing analyses per day, ad-supported. No credit card or account required."
+          },
+          {
+            "@type": "Offer",
+            "name": "Plus",
+            "price": "14.90",
+            "priceCurrency": "USD",
+            "description": "10 AI swing analyses per day, no ads. Billed monthly."
+          },
+          {
+            "@type": "Offer",
+            "name": "Pro",
+            "price": "29.90",
+            "priceCurrency": "USD",
+            "description": "30 AI swing analyses per day, no ads. Billed monthly."
+          },
+          {
+            "@type": "Offer",
+            "name": "Ultra",
+            "price": "69.90",
+            "priceCurrency": "USD",
+            "description": "200 AI swing analyses per day, no ads. Billed monthly."
+          }
+        ]
       },
-      "publisher": { "@id": "https://tekrise.app/#organization" }
+      "publisher": {
+        "@id": "https://tekrise.app/#organization"
+      }
     },
     {
       "@type": "FAQPage",
@@ -725,34 +839,18 @@ nav{top:38px;}
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Will TEKRISE replace my tennis coach?",
+          "name": "Where does my donation go?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. TEKRISE measures your swing and shows what is happening, but it does not replace a coach's live instruction, drills, tactics, motivation, or personal judgement."
+            "text": "Straight into keeping TEKRISE alive: the server and AI costs behind every analysis, new features and shot types, and the time it takes to keep improving the app. Donations help keep the free tier as generous as we can make it. We're an independent project with no outside investors."
           }
         },
         {
           "@type": "Question",
-          "name": "Is TEKRISE for players without a coach?",
+          "name": "How do I support TEKRISE?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Players practising alone can use TEKRISE to get technical feedback, choose what to work on next, follow drills, and track progress over time."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How does TEKRISE help tennis coaches?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "TEKRISE helps coaches see what students practise between lessons, review progress, and support players with clearer feedback and coach dashboard tools."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is TEKRISE free?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The core swing analysis is free to use. Donations help cover server and AI costs, and optional paid extras may be added later."
+            "text": "The easiest way is a one-off donation via Ko-fi — give whatever feels right, even a couple of dollars helps. You can also help by telling a hitting partner about the app, or sending us feedback so we can make it better. Questions? Email hello@tekrise.app ."
           }
         }
       ]
@@ -760,24 +858,34 @@ nav{top:38px;}
   ]
 }
 </script>
-<!-- Supabase JS client (for the feedback form) -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/site-config.js" defer></script>
+<!-- Supabase JS client (for the feedback form). Deferred: it is only needed when
+     someone actually submits, so it must not block first paint. -->
+<script src="vendor/supabase-js-2.58.0.min.js" defer></script>
 <script>
- const SUPABASE_URL      = 'https://pfmxuujzffdlcujcxoim.supabase.co';
-  const SUPABASE_ANON_KEY = 'sb_publishable_1upD8FOxb7b6VEnDyF4mtQ_71f38mlN';
-  const KOFI_URL          = 'https://ko-fi.com/tekrise'; 
-  const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const KOFI_URL = 'https://ko-fi.com/tekrise';
+  let sbClient = null;
+  function supabaseClient() {
+    if (!sbClient) {
+      // Values come from site-config.js; the literals are an offline fallback.
+      const cfg = window.TEKRISE_SITE || {};
+      sbClient = window.supabase.createClient(
+        cfg.supabaseUrl || 'https://pfmxuujzffdlcujcxoim.supabase.co',
+        cfg.supabaseAnonKey || 'sb_publishable_1upD8FOxb7b6VEnDyF4mtQ_71f38mlN');
+    }
+    return sbClient;
+  }
 </script>
 </head>
 <body>
 
 <!-- CAMPAIGN BANNER -->
 <div class="campaign-bar">
-  <div class="cb-left"><span class="cb-pulse"></span><span class="cb-text-desktop">A PROJECT BY TENNIS ENTHUSIASTS</span><span class="cb-text-mobile"><b>FREE</b> &middot;BUILT FOR PLAYERS<br>KEPT ALIVE BY DONATIONS</span></div>
+  <div class="cb-left"><span class="cb-pulse"></span><span class="cb-text-desktop">A PROJECT BY TENNIS ENTHUSIASTS</span><span class="cb-text-mobile"><b>FREE</b> TO START &middot; BUILT FOR PLAYERS<br>NO CARD, NO ACCOUNT NEEDED</span></div>
   <div class="cb-mid">
-    <span><b>FREE</b> TO PLAY</span>
+    <span><b>FREE</b> TO START</span>
     <span>BUILT BY PLAYERS, FOR PLAYERS</span>
-    <span>KEPT ALIVE BY DONATIONS</span>
+    <span>NO CARD, NO ACCOUNT NEEDED</span>
   </div>
   <a class="cb-cta" href="#pledges">DONATE →</a>
 </div>
@@ -803,6 +911,8 @@ nav{top:38px;}
     <a href="#coaches">For Coaches</a>
     <a href="#screens">App</a>
     <a href="#how">How It Works</a>
+    <a href="/guides/">Guides</a>
+    <a href="#pricing">Pricing</a>
     <a href="#faq">FAQ</a>
     <a href="#contact">Contact us</a>
   </div>
@@ -812,6 +922,8 @@ nav{top:38px;}
     <a href="#coaches" onclick="closeMobileNav()">For Coaches</a>
     <a href="#screens" onclick="closeMobileNav()">App</a>
     <a href="#how" onclick="closeMobileNav()">How It Works</a>
+    <a href="/guides/" onclick="closeMobileNav()">Guides</a>
+    <a href="#pricing" onclick="closeMobileNav()">Pricing</a>
     <a href="#faq" onclick="closeMobileNav()">FAQ</a>
     <a href="#contact" onclick="closeMobileNav()">Contact us</a>
   </div>
@@ -821,25 +933,26 @@ nav{top:38px;}
   </div-->
 </nav>
 
+<main>
+
 <!-- HERO -->
 <div class="hero">
   <div class="hero-left">
     <div>
-      <div class="hero-eyebrow"><div class="eyebrow-dot"></div>AI TENNIS SWING ANALYSIS · BETA</div>
+      <div class="hero-eyebrow"><div class="eyebrow-dot"></div>AI TENNIS SWING ANALYSIS · OUT NOW</div>
       <h1>SEE<br>WHAT<br><span class="hl">YOU MISS</span></h1>
-      <p class="hero-sub">Record a swing. Our AI maps 47 joints, measures every angle, and shows you exactly what to fix — whether you train with a coach or on your own.</p>
+      <p class="hero-sub">Record a swing. Our AI tracks 12 body joints frame by frame, measures the angles that matter, and shows you exactly what to fix — whether you train with a coach or on your own.</p>
       <div class="hero-ctas">
         <button class="btn-hero" onclick="document.getElementById('players').scrollIntoView({behavior:'smooth'})">I'M A PLAYER <span class="arr">→</span></button>
         <button class="btn-ghost" onclick="document.getElementById('coaches').scrollIntoView({behavior:'smooth'})">I'M A COACH →</button>
       </div>
-      <div class="hero-footnote">WORKS WITH OR WITHOUT A COACH</div>
-      <div class="hero-footnote">App Store &amp; Google Play coming soon — join our community in the meantime</div>
+      <div class="hero-footnote">AVAILABLE NOW ON THE APP STORE AND GOOGLE PLAY · WORKS WITH OR WITHOUT A COACH</div>
       <div class="hero-store-links">
-        <a class="store-icon-btn apple"  rel="noopener" title="Download on the App Store"><!--href="https://apps.apple.com/app/idYOUR_APP_ID" target="_blank"-->
+        <a class="store-icon-btn apple"  rel="noopener" title="Download on the App Store" href="https://apps.apple.com/app/id6776563439" target="_blank">
           <svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c.3-45.4 19.4-79.8 60.4-107.4-22.4-32.5-55.9-49.3-101.2-49.3-43 0-79.2 24.5-97.9 24.5-20.5 0-53.7-23.9-88.3-23.2-45.3.8-87.1 26.3-111 66.8-47.4 82.2-12.1 204 34 270.9 22.5 33 49.4 70 84.8 68.5 34.1-1.5 47.1-22.1 88.4-22.1 40.7 0 52.4 22.1 88.4 21.5 36.3-.6 59.2-33.5 81.4-66.7 25.6-38.4 36.2-75.4 36.6-77.4-1-.4-70.5-27-70.9-106.3zm-73.6-154.9c18.5-22.4 31-53.6 27.6-84.6-26.7 1-59.2 17.9-78.5 40.3-17.3 20.4-32.5 53.2-28.5 84.1 30.2 2.3 60.9-15.4 79.4-39.8z"/></svg>
           <span class="sr-only">App Store</span>
         </a>
-        <a class="store-icon-btn android"  rel="noopener" title="Get it on Google Play"><!--href="https://play.google.com/store/apps/details?id=YOUR_APP_PACKAGE" target="_blank"-->
+        <a class="store-icon-btn android"  rel="noopener" title="Get it on Google Play" href="https://play.google.com/store/apps/details?id=com.tekrise.aitennis" target="_blank">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path fill="#4285F4" d="M3.1 1.7 14.3 12 3.1 22.3c-.4.2-.8 0-.8-.5V2.2c0-.5.4-.8.8-.5Z"/>
             <path fill="#34A853" d="M14.3 12 3.1 22.3c.1.1.3.1.4 0L20.6 14.5 14.3 12Z"/>
@@ -919,12 +1032,12 @@ nav{top:38px;}
   <div class="ticker-track">
     <span>FOREHAND</span><span class="sep">◆</span><span>BACKHAND</span><span class="sep">◆</span>
     <span>SERVE</span><span class="sep">◆</span>
-    <span>47 JOINTS</span><span class="sep">◆</span>
-    <span>RACQUET &amp; BALL TRACKING</span><span class="sep">◆</span>
+    <span>12 JOINTS TRACKED</span><span class="sep">◆</span>
+    <span>ON-DEVICE POSE TRACKING</span><span class="sep">◆</span>
     <span>FOREHAND</span><span class="sep">◆</span><span>BACKHAND</span><span class="sep">◆</span>
     <span>SERVE</span><span class="sep">◆</span>
-   <span>47 JOINTS</span><span class="sep">◆</span>
-    <span>RACQUET &amp; BALL TRACKING</span><span class="sep">◆</span>
+   <span>12 JOINTS TRACKED</span><span class="sep">◆</span>
+    <span>ON-DEVICE POSE TRACKING</span><span class="sep">◆</span>
   </div>
 </div>
 
@@ -965,11 +1078,11 @@ nav{top:38px;}
   <div class="funding-grid">
     <div>
       <div class="f-eyebrow">SUPPORT THE PROJECT</div>
-      <h2 class="f-title">Help keep<br>TEKRISE <em>free</em>.</h2>
+      <h2 class="f-title">Help keep<br>TEKRISE <em>going</em>.</h2>
       <p class="f-sub">Tennis is one of the hardest sports to master — and building a tool that genuinely helps has meant overcoming a lot of hurdles. We're not perfect yet, and we're improving it every week.</p>
-      <p class="f-sub">Our promise: we'll always do our best to keep TEKRISE <strong>free</strong>, so anyone can get real feedback on their game — with a coach or without one. It's built and funded by tennis enthusiasts, not a big company. A small, affordable donation is what keeps it running and sustainable.</p>
+      <p class="f-sub">Our promise: there will always be a <strong>free tier</strong>, so anyone can get real feedback on their game — with a coach or without one. No credit card, no account required to start. Paid plans and donations are what cover the server and AI costs behind every analysis.</p>
       <a class="fr-cta" href="#" onclick="openPledge();return false;" style="max-width:300px;">DONATE VIA KO-FI →</a>
-      <div class="f-stat-l" style="margin-top:14px;">NO PRESSURE · GIVE WHAT FEELS RIGHT · THE APP STAYS FREE EITHER WAY</div>
+      <div class="f-stat-l" style="margin-top:14px;">NO PRESSURE · GIVE WHAT FEELS RIGHT · THERE IS ALWAYS A FREE TIER</div>
     </div>
 
     <div class="funding-right">
@@ -977,7 +1090,7 @@ nav{top:38px;}
       <div class="fr-lbl">— WHERE YOUR DONATION GOES</div>
       <div class="fr-title">A little goes<br>a long way.</div>
       <div class="fr-list">
-        <div class="fr-item">Keeps the app free for players who can't afford coaching</div>
+        <div class="fr-item">Keeps the free tier open to players who can't afford coaching</div>
         <div class="fr-item">Pays the server &amp; AI costs behind every analysis</div>
         <div class="fr-item">Funds new shot types, drills and features</div>
         <div class="fr-item">Keeps us independent — no investors pulling the strings</div>
@@ -997,37 +1110,37 @@ nav{top:38px;}
 
     <div class="screens-row">
       <div class="screen-card">
-        <div class="screen-frame"><img src="app_screens/record.jpg" alt="TEKRISE record and upload tennis swing screen" loading="lazy"></div>
+        <div class="screen-frame"><img src="app_screens/record.jpg" alt="TEKRISE record and upload tennis swing screen" loading="lazy" width="1440" height="2936"></div>
         <div class="screen-num">01</div>
         <div class="screen-name">ANALYSE</div>
         <div class="screen-desc">RECORD/UPLOAD SWING</div>
       </div>
       <div class="screen-card">
-        <div class="screen-frame"><img src="app_screens/results.jpg" alt="TEKRISE AI tennis swing analysis results screen" loading="lazy"></div>
+        <div class="screen-frame"><img src="app_screens/results.jpg" alt="TEKRISE AI tennis swing analysis results screen" loading="lazy" width="1440" height="2936"></div>
         <div class="screen-num">02</div>
         <div class="screen-name">RESULTS</div>
         <div class="screen-desc">AI FINDINGS</div>
       </div>
       <div class="screen-card">
-        <div class="screen-frame"><img src="app_screens/dashboard.jpg" alt="TEKRISE tennis training dashboard with technique score" loading="lazy"></div>
+        <div class="screen-frame"><img src="app_screens/dashboard.jpg" alt="TEKRISE tennis training dashboard with technique score" loading="lazy" width="1440" height="2936"></div>
         <div class="screen-num">03</div>
         <div class="screen-name">DASHBOARD</div>
         <div class="screen-desc">TECHNIQUE SCORE</div>
       </div>
       <div class="screen-card">
-        <div class="screen-frame"><img src="app_screens/drills.jpg" alt="TEKRISE tennis drills and daily training plan screen" loading="lazy"></div>
+        <div class="screen-frame"><img src="app_screens/drills.jpg" alt="TEKRISE tennis drills and daily training plan screen" loading="lazy" width="1440" height="2936"></div>
         <div class="screen-num">04</div>
         <div class="screen-name">DRILLS</div>
         <div class="screen-desc">DAILY PLAN</div>
       </div>
       <div class="screen-card">
-        <div class="screen-frame"><img src="app_screens/progress.jpg" alt="TEKRISE tennis progress tracking screen" loading="lazy"></div>
+        <div class="screen-frame"><img src="app_screens/progress.jpg" alt="TEKRISE tennis progress tracking screen" loading="lazy" width="1440" height="2936"></div>
         <div class="screen-num">05</div>
         <div class="screen-name">PROGRESS</div>
         <div class="screen-desc">4-WEEK TREND</div>
       </div>
       <div class="screen-card">
-        <div class="screen-frame"><img src="app_screens/improvements.jpg" alt="TEKRISE tennis technique improvements screen" loading="lazy"></div>
+        <div class="screen-frame"><img src="app_screens/improvements.jpg" alt="TEKRISE tennis technique improvements screen" loading="lazy" width="1440" height="2936"></div>
         <div class="screen-num">06</div>
         <div class="screen-name">IMPROVEMENTS</div>
         <div class="screen-desc">HOW TO IMPROVE</div>
@@ -1055,8 +1168,8 @@ nav{top:38px;}
           </div>
           <div class="how-step">
             <div class="how-n">02</div>
-            <div><div class="how-title">AI maps 47 body joints <span class="tag">ON-DEVICE · INSTANT</span></div>
-            <div class="how-desc">MediaPipe Pose runs on-device, tracking every joint frame-by-frame. No video leaves your phone at this stage.</div></div>
+            <div><div class="how-title">AI tracks your body frame by frame <span class="tag">ON-DEVICE · INSTANT</span></div>
+            <div class="how-desc">Pose tracking runs on your phone — ML Kit on Android, Apple Vision on iOS — following 12 body joints frame by frame. On Android, racquet and ball detection runs on-device alongside it. Your full recording never leaves the device.</div></div>
           </div>
           <div class="how-step">
             <div class="how-n">03</div>
@@ -1065,48 +1178,81 @@ nav{top:38px;}
           </div>
         </div>
       </div>
-      <!--div class="how-right">
-        <div class="skel-panel">
-          <svg width="100%" height="100%" viewBox="0 0 800 260" preserveAspectRatio="xMidYMid meet" style="position:absolute;inset:0;">
-            <defs><pattern id="g" width="50" height="40" patternUnits="userSpaceOnUse"><line x1="50" y1="0" x2="50" y2="40" stroke="rgba(10,14,10,0.04)" stroke-width="1"/><line x1="0" y1="40" x2="50" y2="40" stroke="rgba(10,14,10,0.04)" stroke-width="1"/></pattern></defs>
-            <rect width="800" height="260" fill="url(#g)"/>
-            <circle cx="260" cy="46" r="18" fill="none" stroke="#0a0e0a" stroke-width="2"/>
-            <line x1="260" y1="64" x2="260" y2="138" stroke="#0a0e0a" stroke-width="2"/>
-            <line x1="260" y1="90" x2="224" y2="108" stroke="#0a0e0a" stroke-width="2"/>
-            <line x1="260" y1="90" x2="302" y2="102" stroke="#0a0e0a" stroke-width="2"/>
-            <line x1="224" y1="108" x2="200" y2="150" stroke="#0a0e0a" stroke-width="2"/>
-            <line x1="302" y1="102" x2="348" y2="78" stroke="#0a0e0a" stroke-width="2"/>
-            <line x1="348" y1="78" x2="390" y2="58" stroke="#0a0e0a" stroke-width="2"/>
-            <line x1="260" y1="138" x2="236" y2="196" stroke="#0a0e0a" stroke-width="2"/>
-            <line x1="260" y1="138" x2="284" y2="196" stroke="#0a0e0a" stroke-width="2"/>
-            <line x1="236" y1="196" x2="228" y2="232" stroke="#0a0e0a" stroke-width="2"/>
-            <line x1="284" y1="196" x2="292" y2="232" stroke="#0a0e0a" stroke-width="2"/>
-            <circle cx="260" cy="90" r="3.5" fill="#0a0e0a"/><circle cx="224" cy="108" r="3.5" fill="#0a0e0a"/>
-            <circle cx="302" cy="102" r="3.5" fill="#0a0e0a"/><circle cx="260" cy="138" r="3.5" fill="#0a0e0a"/>
-            <circle cx="236" cy="196" r="3.5" fill="#0a0e0a"/><circle cx="284" cy="196" r="3.5" fill="#0a0e0a"/>
-            <circle cx="348" cy="78" r="12" fill="rgba(255,74,94,0.15)" stroke="#ff4a5e" stroke-width="2"/>
-            <circle cx="348" cy="78" r="3.5" fill="#ff4a5e"/>
-            <line x1="358" y1="70" x2="418" y2="48" stroke="#ff4a5e" stroke-width="1" stroke-dasharray="3,2"/>
-            <rect x="420" y="36" width="82" height="26" fill="#ff4a5e" rx="1"/>
-            <text x="461" y="46" font-family="Barlow Condensed" font-weight="700" font-size="12" fill="#fafaf7" text-anchor="middle">8° CLOSED</text>
-            <text x="461" y="58" font-family="JetBrains Mono" font-size="8" fill="#fafaf7" text-anchor="middle">RACKET FACE</text>
-            <circle cx="228" cy="232" r="9" fill="none" stroke="#00c896" stroke-width="1.5"/>
-            <circle cx="292" cy="232" r="9" fill="none" stroke="#00c896" stroke-width="1.5"/>
-            <line x1="220" y1="232" x2="178" y2="218" stroke="#00c896" stroke-width="1" stroke-dasharray="3,2"/>
-            <rect x="90" y="207" width="88" height="22" fill="#00c896" rx="1"/>
-            <text x="134" y="222" font-family="JetBrains Mono" font-size="8.5" fill="#0a0e0a" text-anchor="middle">STANCE OK ✓</text>
-            <text x="20" y="20" font-family="JetBrains Mono" font-size="9" fill="rgba(10,14,10,0.4)">T = 0.84s · IMPACT FRAME</text>
-            <text x="780" y="20" font-family="JetBrains Mono" font-size="9" fill="rgba(10,14,10,0.4)" text-anchor="end">MEDIAPIPE · 47 JOINTS</text>
-          </svg>
-        </div>
-        <div class="tech-grid">
-          <div class="tech-card"><div class="tech-badge lm">ON-DEVICE</div><div class="tech-name">MediaPipe</div><div class="tech-desc">47 landmarks per frame. Runs entirely on-device using Apple Vision framework.</div></div>
-          <div class="tech-card"><div class="tech-badge ik">CLOUD</div><div class="tech-name">Gemini Vision</div><div class="tech-desc">Google's multimodal AI.</div></div>
-          <div class="tech-card"><div class="tech-badge pl">iOS FIRST</div><div class="tech-name">Swift / SwiftUI</div><div class="tech-desc">Native iOS performance. ARKit-ready for future real-time overlay features.</div></div>
-          <div class="tech-card"><div class="tech-badge pl">PLAY STORE</div><div class="tech-name">Android App</div><div class="tech-desc">Native Android performance.</div></div>
-        </div>
-      </div-->
     </div>
+  </div>
+</section>
+
+<!-- GUIDES -->
+<section id="guides">
+  <div class="wrap">
+    <div class="eyebrow">TENNIS TECHNIQUE GUIDES</div>
+    <h2 class="sec-title" style="margin-bottom:14px;">Learn the technique, free.</h2>
+    <p style="font-size:16px;line-height:1.6;color:var(--ink-soft);max-width:680px;">Everything TEKRISE measures, written up properly &mdash; what each swing fault is, the healthy range for it, and how to fix it. Useful whether or not you use the app.</p>
+
+    <div class="gl-grid">
+      <a class="gl-item" href="/guides/tennis-swing-faults">
+        <div class="gl-k">GLOSSARY</div>
+        <div class="gl-t">Tennis swing faults, measured</div>
+        <div class="gl-d">Every technique fault we detect, with the exact measurement, the healthy range, and how to fix it &mdash; plus which one to fix first.</div>
+      </a>
+      <a class="gl-item" href="/guides/how-to-improve-your-forehand">
+        <div class="gl-k">GUIDE</div>
+        <div class="gl-t">How to improve your forehand</div>
+        <div class="gl-d">The five changes that actually move a club-level forehand, the order to do them in, and how to film your swing usefully.</div>
+      </a>
+      <a class="gl-item" href="/guides/ai-tennis-swing-analysis-explained">
+        <div class="gl-k">GUIDE</div>
+        <div class="gl-t">How accurate is AI swing analysis?</div>
+        <div class="gl-d">What happens to your video, what a phone camera measures reliably, what it cannot &mdash; and an honest comparison with a human coach.</div>
+      </a>
+      <a class="gl-item" href="/guides/practice-tennis-alone">
+        <div class="gl-k">GUIDE</div>
+        <div class="gl-t">How to practise tennis alone</div>
+        <div class="gl-d">Why solo practice often produces no improvement, how to structure a session that does, and how to track progress with nobody watching.</div>
+      </a>
+    </div>
+
+    <p style="margin-top:22px;"><a href="/guides/" style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--ink);">ALL GUIDES &rarr;</a></p>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" style="background:var(--cream2);">
+  <div class="wrap">
+    <div class="eyebrow">PRICING</div>
+    <h2 class="sec-title" style="margin-bottom:14px;">What TEKRISE costs.</h2>
+    <p style="font-size:16px;line-height:1.6;color:var(--ink-soft);max-width:680px;">TEKRISE is free to start. The free plan gives you <strong>3 AI swing analyses every day</strong>, funded by a short ad while your swing is being analysed &mdash; no credit card and no account required. Paid plans raise the daily limit and remove the ads.</p>
+
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-name">Free</div>
+        <div class="price-amt">$0</div>
+        <div class="price-per">FOREVER</div>
+        <div class="price-quota"><strong>3 analyses per day</strong><br>Ad-supported. No card, no account needed.</div>
+      </div>
+      <div class="price-card">
+        <div class="price-name">Plus</div>
+        <div class="price-amt">$14.90</div>
+        <div class="price-per">PER MONTH</div>
+        <div class="price-quota"><strong>10 analyses per day</strong><br>No ads.</div>
+      </div>
+      <div class="price-card feat">
+        <span class="price-tag">MOST POPULAR</span>
+        <div class="price-name">Pro</div>
+        <div class="price-amt">$29.90</div>
+        <div class="price-per">PER MONTH</div>
+        <div class="price-quota"><strong>30 analyses per day</strong><br>No ads. New subscribers get 50% off the first 3 months.</div>
+      </div>
+      <div class="price-card">
+        <div class="price-name">Ultra</div>
+        <div class="price-amt">$69.90</div>
+        <div class="price-per">PER MONTH</div>
+        <div class="price-quota"><strong>200 analyses per day</strong><br>No ads. For coaches and high-volume users.</div>
+      </div>
+    </div>
+
+    <div class="price-note">PRICES IN USD &middot; ANNUAL PLANS AVAILABLE AT A DISCOUNT &middot; BILLED BY THE APP STORE OR GOOGLE PLAY &middot; CANCEL ANYTIME</div>
+    <p style="margin-top:18px;"><a href="/pricing" style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--ink);">FULL PRICING DETAILS &rarr;</a></p>
   </div>
 </section>
 
@@ -1119,7 +1265,7 @@ nav{top:38px;}
         <h2 class="sec-title">Chip in what<br>feels right.</h2>
       </div>
       <div style="text-align:right;max-width:320px;">
-        <div style="font-size:14px;line-height:1.55;color:var(--ink-soft);">These aren't paywalls or subscriptions — just a few friendly amounts to say thanks. Any amount helps, and it all goes through Ko-fi.</div>
+        <div style="font-size:14px;line-height:1.55;color:var(--ink-soft);">These are donations, not subscriptions — just a few friendly amounts to say thanks. Any amount helps, and it all goes through Ko-fi.</div>
       </div>
     </div>
 
@@ -1150,7 +1296,7 @@ nav{top:38px;}
         </div>
         <div class="pl-feats">
           <div class="pl-feat">Helps cover server &amp; AI costs</div>
-          <div class="pl-feat">Keeps TEKRISE free for players who need it</div>
+          <div class="pl-feat">Keeps the free tier open for players who need it</div>
           <div class="pl-feat">Our heartfelt thanks</div>
         </div>
         <button class="pl-cta" onclick="openPledge()">DONATE $15 <span>→</span></button>
@@ -1186,7 +1332,7 @@ nav{top:38px;}
       </div>
       <div class="trust">
         <div class="trust-ico">💚</div>
-        <div><div class="trust-title">100% OPTIONAL</div><div class="trust-sub">THE APP STAYS FREE</div></div>
+        <div><div class="trust-title">100% OPTIONAL</div><div class="trust-sub">ALWAYS A FREE TIER</div></div>
       </div>
       <div class="trust">
         <div class="trust-ico">⚡</div>
@@ -1207,7 +1353,7 @@ nav{top:38px;}
         <div class="road-status"><div class="road-dot"></div>SHIPPED</div>
         <div class="road-date">Q1 2026</div>
         <div class="road-title">Core AI engine</div>
-        <div class="road-list"><span>MediaPipe pose tracking</span><span>Gemini Vision integration</span><span>Forehand analysis MVP</span></div>
+        <div class="road-list"><span>On-device pose tracking</span><span>Gemini AI integration</span><span>Forehand analysis MVP</span></div>
       </div>
       <div class="road-step done">
         <div class="road-status"><div class="road-dot"></div>SHIPPED</div>
@@ -1215,17 +1361,17 @@ nav{top:38px;}
         <div class="road-title">Closed alpha</div>
         <div class="road-list"><span>On-device pose tracking</span><span>Racquet &amp; ball detection</span><span>Drill recommendations</span></div>
       </div>
-      <div class="road-step now">
-        <div class="road-status"><div class="road-dot"></div>IN PROGRESS</div>
+      <div class="road-step done">
+        <div class="road-status"><div class="road-dot"></div>SHIPPED</div>
         <div class="road-date">Q3 2026</div>
         <div class="road-title">Public beta</div>
         <div class="road-list"><span>Android open beta</span><span>Different shot types</span><span>Progress tracking</span></div>
       </div>
-      <div class="road-step">
-        <div class="road-status"><div class="road-dot"></div>PLANNED</div>
-        <div class="road-date">Q4 2026</div>
+      <div class="road-step now">
+        <div class="road-status"><div class="road-dot"></div>AVAILABLE NOW</div>
+        <div class="road-date">Q3 2026</div>
         <div class="road-title">v1.0 launch</div>
-        <div class="road-list"><span>App Store release</span><span>Coach dashboard</span><span>iCloud sync</span></div>
+        <div class="road-list"><span>Live on the App Store</span><span>Live on Google Play</span><span>Coach tools</span></div>
       </div>
       <div class="road-step">
         <div class="road-status"><div class="road-dot"></div>PLANNED</div>
@@ -1294,8 +1440,9 @@ nav{top:38px;}
     <div class="eyebrow">WHO'S BEHIND TEKRISE</div>
     <h2 class="sec-title" style="margin-bottom:24px;">Made by players.</h2>
 
-    <p style="font-size:16px;line-height:1.6;color:var(--ink-soft);max-width:640px;">TEKRISE is a small, independent project built by tennis enthusiasts — people who love the game, got tired of plateauing, and wanted honest feedback that didn't cost a fortune. We're not a big company and we don't have outside investors. That's exactly why your support matters: it keeps us independent, and it keeps the app free.</p>
-    <p style="font-size:13px;line-height:1.7;color:var(--ink-fog);max-width:640px;margin-top:16px;font-family:'JetBrains Mono',monospace;letter-spacing:.02em; visibility: hidden;">[ PLACEHOLDER — add your real story here: who you are, why you built TEKRISE, and a photo or two. People donate to people, so a genuine, personal note matters more than anything else on this page. ]</p>
+    <p style="font-size:16px;line-height:1.6;color:var(--ink-soft);max-width:640px;">TEKRISE is a small, independent project built by tennis enthusiasts — people who love the game, got tired of plateauing, and wanted honest feedback that didn't cost a fortune. We're not a big company and we don't have outside investors. That's exactly why your support matters: it keeps us independent, and it keeps the free tier open.</p>
+    <p style="font-size:16px;line-height:1.6;color:var(--ink-soft);max-width:640px;margin-top:16px;">I built TEKRISE because the feedback that actually changes your technique — someone watching closely and telling you what your body just did — is expensive, occasional, and unavailable to most players. A phone camera plus on-device pose tracking can give you a useful slice of that on every practice session, for free. It is not a coach, and I say so throughout this site — including on the <a href="/guides/tennis-swing-faults" style="color:var(--ink);text-decoration:underline;text-underline-offset:2px;">page where every measurement it makes is published</a>, limits and all.</p>
+    <p style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--ink-fog);margin-top:18px;">— FOUNDER, TEKRISE</p>
   </div>
 </section>
 
@@ -1334,11 +1481,11 @@ nav{top:38px;}
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is the app really free?</div>
-        <div class="faq-a"><div class="faq-a-inner">Yes — the core swing analysis is free to use, and we'll always do our best to keep it that way. Running it isn't free for us (servers and AI cost money on every analysis), which is exactly why donations help. There may be optional paid extras down the line, but the feedback that helps you improve stays free.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">It's free to start — no credit card, no account required — and there will always be a free tier. You get AI swing analysis every day on the free plan, funded by a short ad while your swing is being analysed. Running it isn't free for us (servers and AI cost money on every analysis), so there are optional paid subscriptions that lift the daily limit and remove the ads.</div></div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Where does my donation go?</div>
-        <div class="faq-a"><div class="faq-a-inner">Straight into keeping TEKRISE alive and free: the server and AI costs behind every analysis, new features and shot types, and the time it takes to keep improving the app. We're an independent project with no outside investors — donations are what keep us going.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Straight into keeping TEKRISE alive: the server and AI costs behind every analysis, new features and shot types, and the time it takes to keep improving the app. Donations help keep the free tier as generous as we can make it. We're an independent project with no outside investors.</div></div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How accurate is the AI?</div>
@@ -1349,6 +1496,7 @@ nav{top:38px;}
         <div class="faq-a"><div class="faq-a-inner">The easiest way is a one-off donation via Ko-fi — give whatever feels right, even a couple of dollars helps. You can also help by telling a hitting partner about the app, or sending us feedback so we can make it better. Questions? Email <strong><a href="mailto:hello@tekrise.app">hello@tekrise.app</a></strong>.</div></div>
       </div>
     </div>
+    <p style="margin-top:26px;"><a href="/faq" style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--ink);">ALL FREQUENTLY ASKED QUESTIONS &rarr;</a></p>
   </div>
 </section>
 
@@ -1441,6 +1589,8 @@ nav{top:38px;}
   </div>
 </section>
 
+</main>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">
@@ -1457,11 +1607,13 @@ nav{top:38px;}
     </div>
     <span class="footer-wm">TEKRISE</span>
   </div>
-  <div class="footer-copy">© 2026 TEKRISE · AI TENNIS SWING ANALYSIS</div>
+  <div class="footer-copy">© <span data-site-year>2026</span> TEKRISE · AI TENNIS SWING ANALYSIS</div>
   <div class="footer-links">
-    <a href="privacy.html">Privacy</a>
-    <a href="terms.html">Terms</a>
-    <a href="delete-account.html">Delete Account</a>
+    <a href="/guides/">Guides</a>
+    <a href="/faq">FAQ</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+    <a href="/delete-account">Delete Account</a>
   </div>
 </footer>
 
@@ -1505,7 +1657,7 @@ async function handleSubmit(e) {
   btn.disabled = true;
   status.style.color = 'var(--ink-soft)';
   status.textContent = 'SENDING…';
-  const { error } = await sbClient.from('feedback').insert(payload);
+  const { error } = await supabaseClient().from('feedback').insert(payload);
   if (error) {
     btn.disabled = false;
     status.style.color = 'var(--coral)';

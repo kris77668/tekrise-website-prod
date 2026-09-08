@@ -1,0 +1,81 @@
+/* Guide/answer-page components. Loaded AFTER legal.css, which supplies the
+   palette, nav, .legal-wrap document shell, .legal-body typography and footer.
+   Only what the guides add lives here. */
+
+/* Breadcrumb */
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--ink-fog);margin-bottom:14px;}
+.crumbs a{color:var(--ink-soft);text-decoration:none;}
+.crumbs a:hover{color:var(--ink);}
+.crumbs span{margin:0 8px;opacity:.5;}
+
+/* The direct answer — the passage built to be quoted. */
+.answer{
+  border:1.5px solid var(--ink);border-left-width:5px;border-left-color:var(--lime);
+  border-radius:2px;background:var(--cream2);padding:22px 26px;margin:26px 0 8px;
+}
+.answer-h{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;color:var(--ink-fog);margin-bottom:10px;}
+.answer p{font-size:17px;line-height:1.55;color:var(--ink);margin:0;}
+
+/* Key takeaways */
+.takeaways{border:1px solid var(--ink-fog2);border-radius:2px;padding:20px 24px;margin:24px 0 8px;}
+.takeaways-h{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.18em;color:var(--ink-fog);margin-bottom:12px;}
+.takeaways ul{margin:0;padding:0;list-style:none;}
+.takeaways li{font-size:15px;color:var(--ink-soft);margin:9px 0;padding-left:22px;position:relative;}
+.takeaways li::before{content:'';position:absolute;left:0;top:9px;width:9px;height:9px;background:var(--lime);border-radius:1px;}
+.takeaways strong{color:var(--ink);font-weight:600;}
+
+/* Fault entries — the glossary's core unit */
+.fault{border:1px solid var(--ink-fog2);border-radius:2px;padding:22px 24px;margin:20px 0;background:var(--cream);}
+.fault h3{margin-top:0;font-size:22px;}
+.fault-id{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--ink-fog);margin-bottom:8px;}
+.fault-cue{font-size:15px;color:var(--ink);font-weight:600;margin:10px 0;padding-left:14px;border-left:3px solid var(--lime);}
+.fault dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:14px 0 0;font-size:13.5px;}
+.fault dt{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--ink-fog);padding-top:3px;}
+.fault dd{color:var(--ink-soft);margin:0;}
+.fault dd b{color:var(--ink);font-weight:600;}
+
+/* Data table */
+.gtable-wrap{overflow-x:auto;margin:18px 0;}
+.gtable{border-collapse:collapse;width:100%;min-width:520px;font-size:13.5px;}
+.gtable th,.gtable td{border:1px solid var(--ink-fog2);padding:9px 12px;text-align:left;vertical-align:top;}
+.gtable th{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;background:var(--cream2);color:var(--ink);font-weight:500;}
+.gtable td{color:var(--ink-soft);}
+.gtable td b{color:var(--ink);font-weight:600;}
+
+/* FAQ block */
+.gfaq{margin-top:16px;}
+.gfaq-item{border-top:1px solid var(--ink-fog2);padding:16px 0;}
+.gfaq-q{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;margin-bottom:6px;}
+.gfaq-a{font-size:15px;color:var(--ink-soft);}
+
+/* Related + CTA */
+.related{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0 8px;}
+.rel-card{border:1px solid var(--ink-fog2);border-radius:2px;padding:18px 20px;text-decoration:none;display:block;transition:border-color .15s;}
+.rel-card:hover{border-color:var(--ink);}
+.rel-k{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.16em;color:var(--ink-fog);margin-bottom:7px;}
+.rel-t{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:19px;line-height:1.1;color:var(--ink);}
+.gcta{border:1.5px solid var(--ink);border-radius:2px;background:var(--ink);color:var(--cream);padding:26px 28px;margin:32px 0 0;}
+.gcta h2{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:28px;margin:0 0 8px;border:0;padding:0;color:var(--cream);}
+.gcta p{font-size:15px;color:rgba(250,250,247,.72);margin:0 0 18px;}
+.gcta-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.gbtn{display:inline-block;background:var(--lime);color:var(--ink);padding:12px 20px;border-radius:2px;text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:.1em;}
+.gbtn.ghost{background:transparent;color:var(--cream);border:1.5px solid rgba(250,250,247,.4);padding:10.5px 20px;}
+
+/* Guides index */
+.guide-list{display:grid;gap:14px;margin-top:24px;}
+/* These live inside .legal-body, whose `a` rule underlines links at a higher
+   specificity than a bare .class - so the reset has to be qualified too. */
+.legal-body a.guide-card,
+.legal-body a.rel-card,
+.legal-body a.gbtn{text-decoration:none;}
+
+.guide-card{border:1px solid var(--ink-fog2);border-radius:2px;padding:22px 24px;text-decoration:none;display:block;transition:border-color .15s;}
+.guide-card:hover{border-color:var(--ink);}
+.guide-card h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:24px;line-height:1.05;color:var(--ink);margin:0 0 8px;border:0;padding:0;}
+.guide-card p{font-size:14.5px;color:var(--ink-soft);margin:0;}
+
+@media(max-width:640px){
+  .related{grid-template-columns:1fr;}
+  .fault dl{grid-template-columns:1fr;gap:2px 0;}
+  .fault dt{padding-top:10px;}
+}

@@ -1,0 +1,79 @@
+# TEKRISE
+
+> TEKRISE is an AI tennis swing analysis app for iOS and Android. A player records or
+> uploads a short video of a swing; the app tracks 12 body joints on the device (plus the
+> racquet and ball on Android), then returns written AI coaching that names what to fix
+> first, a drill plan, and progress tracking over time. It is built for players who train with a coach and for players who
+> train alone.
+
+## What it does
+
+- Records or imports a phone video of a tennis swing (forehand, backhand, serve, volley, slice).
+- Tracks 12 body joints frame by frame on the device — ML Kit Pose Detection on Android,
+  Apple Vision on iOS. On-device racquet and ball detection runs on Android only.
+- Sends a silent clip of at most 3 seconds to Google Gemini for coaching analysis. The full
+  original recording stays on the phone.
+- Returns written AI coaching that names what to fix first, a personalised drill plan, a
+  technique score, and per-shot progress trends.
+- Coach tools: a coach can review swings a student shares, leave feedback, and see what the
+  student practised between lessons.
+- Available in 13 languages; the AI coaching reply is returned in the language the app is set to.
+
+## What it is not
+
+- It is not a replacement for a tennis coach. It measures the swing and reports what happened;
+  it cannot run live drills, feed balls, read an opponent, or adjust a grip mid-swing.
+- It is not a motion-capture lab. Estimates come from a single phone camera, so it is a reliable
+  guide to technique patterns and change over time, not a laboratory measurement.
+
+## Pricing
+
+- Free: 3 AI swing analyses per day, funded by a short ad. No credit card, no account required.
+- Plus: USD 14.90 / month — 10 analyses per day, no ads.
+- Pro: USD 29.90 / month — 30 analyses per day, no ads. New subscribers get 50% off the first 3 months.
+- Ultra: USD 69.90 / month — 200 analyses per day, no ads.
+- Annual plans are available at a discount. Billing is handled by the App Store or Google Play.
+
+## Guides
+
+Measurement-based tennis technique guides, free and open. They apply whether or not
+you use the app.
+
+- [Tennis swing faults, measured](https://tekrise.app/guides/tennis-swing-faults):
+  every technique fault TEKRISE detects, with the exact body measurement, the healthy
+  range (e.g. arm extension 155-175 degrees at contact; peak hip-shoulder separation
+  45-55 degrees), the threshold at which it is flagged, and how to fix it. Includes
+  which fault to fix first and what the measurements cannot tell you.
+- [How to improve your tennis forehand](https://tekrise.app/guides/how-to-improve-your-forehand):
+  the five changes that actually improve a club-level forehand, the order to fix them
+  in, how to film your swing usefully, and a self-check you can run today.
+- [AI tennis swing analysis, explained](https://tekrise.app/guides/ai-tennis-swing-analysis-explained):
+  what happens to your video, what phone-based analysis measures reliably, what it
+  cannot measure, and an honest comparison with a human coach.
+- [How to practise tennis alone](https://tekrise.app/guides/practice-tennis-alone):
+  why solo practice often produces no improvement, how to structure a session that
+  does, what to do with no partner or court time, and how to track progress.
+- [All guides](https://tekrise.app/guides/)
+
+## Pages
+
+- [Home](https://tekrise.app/): what TEKRISE does, how it works, pricing, and FAQ.
+- [Pricing](https://tekrise.app/pricing): all four plans, what the free tier includes,
+  which plan suits which player, and how to cancel.
+- [FAQ](https://tekrise.app/faq): accuracy, whether it replaces a coach, cost, privacy,
+  supported shots, phones and languages.
+- [Get the app](https://tekrise.app/get): App Store and Google Play links.
+- [Privacy Policy](https://tekrise.app/privacy): what is collected, what stays on the device.
+- [Terms of Service](https://tekrise.app/terms)
+- [Delete your account](https://tekrise.app/delete-account)
+
+## Download
+
+- App Store: https://apps.apple.com/app/id6776563439
+- Google Play: https://play.google.com/store/apps/details?id=com.tekrise.aitennis
+
+## Contact
+
+- General: hello@tekrise.app
+- Partnerships and clubs: partnerships@tekrise.app
+- Bug reports: bugs@tekrise.app
