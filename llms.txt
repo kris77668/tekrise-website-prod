@@ -28,7 +28,7 @@
 
 ## Pricing
 
-- Free: 3 AI swing analyses per day, funded by a short ad. No credit card, no account required.
+- Free: full AI swing analyses, funded by a short ad. No credit card, no account required.
 - Plus: USD 14.90 / month — 10 analyses per day, no ads.
 - Pro: USD 29.90 / month — 30 analyses per day, no ads. New subscribers get 50% off the first 3 months.
 - Ultra: USD 69.90 / month — 200 analyses per day, no ads.
