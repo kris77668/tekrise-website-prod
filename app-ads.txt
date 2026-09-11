@@ -1,5 +1,1 @@
-# app-ads.txt — IAB Tech Lab authorized digital sellers (app inventory).
-# Declares who may sell TEKRISE ad inventory. Must stay at the ROOT of the
-# domain listed as the developer website on Google Play / the App Store.
-# Snippet issued by AdMob for publisher pub-8823690831835674.
 google.com, pub-8823690831835674, DIRECT, f08c47fec0942fa0
