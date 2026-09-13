@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your TEKRISE partner code</title>
+<meta name="description" content="Use your partner code in the TEKRISE AI tennis app.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#a2d147">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/vendor/fonts.css">
+<link rel="stylesheet" href="/legal.css">
+<style>
+  .get-wrap{min-height:calc(100vh - 72px - 137px);display:flex;flex-direction:column;justify-content:center;}
+  .code-box{
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    margin:26px 0 8px;padding:16px 18px;border:2px solid var(--ink);border-radius:2px;
+    background:var(--cream);max-width:560px;
+  }
+  .code-value{
+    font-family:'JetBrains Mono',monospace;font-weight:700;font-size:clamp(24px,8vw,38px);
+    letter-spacing:.12em;word-break:break-all;flex:1 1 auto;min-width:0;
+  }
+  .copy-btn{
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    padding:10px 14px;border:1.5px solid var(--ink);border-radius:2px;background:var(--ink);color:var(--lime);
+    cursor:pointer;flex:0 0 auto;
+  }
+  .copy-btn:focus-visible{outline:2px solid var(--tangerine);outline-offset:3px;}
+  .steps{max-width:640px;margin:18px 0 0;padding-left:20px;}
+  .steps li{margin:6px 0;}
+  .store-buttons{display:flex;gap:16px;flex-wrap:wrap;margin:26px 0 12px;}
+  .store-btn{
+    display:inline-flex;align-items:center;gap:14px;
+    min-height:58px;padding:12px 22px;border:1.5px solid var(--ink);border-radius:2px;
+    background:var(--cream);color:var(--ink);text-decoration:none;
+  }
+  .store-btn.primary{background:var(--ink);color:var(--lime);}
+  .store-btn:focus-visible{outline:2px solid var(--tangerine);outline-offset:4px;}
+  .sb-text{display:flex;flex-direction:column;line-height:1.05;}
+  .sb-sub{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.72;}
+  .sb-main{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:19px;letter-spacing:.05em;margin-top:2px;}
+  .home-link{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--ink-soft);text-decoration:underline;text-underline-offset:3px;}
+  .status{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:var(--ink-soft);min-height:1.1em;}
+  @media(max-width:520px){
+    .get-wrap{justify-content:flex-start;}
+    .store-buttons{flex-direction:column;gap:12px;}
+    .store-btn{width:100%;box-sizing:border-box;}
+    .copy-btn{width:100%;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">
+    <div class="nav-logo-mark">
+      <svg width="30" height="30" viewBox="0 0 120 120" aria-hidden="true">
+        <defs><clipPath id="nbc"><circle cx="60" cy="60" r="54"/></clipPath></defs>
+        <circle cx="60" cy="60" r="54" fill="#a2d147"/>
+        <g clip-path="url(#nbc)">
+          <path d="M 12 25 Q 60 60 12 95" fill="none" stroke="#fafaf7" stroke-width="5.6" stroke-linecap="round"/>
+          <path d="M 108 25 Q 60 60 108 95" fill="none" stroke="#fafaf7" stroke-width="5.6" stroke-linecap="round"/>
+        </g>
+        <path d="M 44.9 46.2 L 74.1 46.2 L 74.1 53.6 L 64.1 53.6 L 64.1 77.2 L 54.8 77.2 L 54.8 53.6 L 44.9 53.6 Z" fill="#0a0e0a"/>
+      </svg>
+    </div>
+    <span class="nav-wordmark">TEKRISE</span>
+  </a>
+  <a class="nav-back" href="/">&larr; BACK TO HOME</a>
+</nav>
+
+<div class="legal-wrap get-wrap">
+  <div class="legal-eyebrow">PARTNER CODE</div>
+  <h1 class="legal-title">YOUR <span class="hl">CODE</span></h1>
+  <p class="legal-intro">
+    Your coach, club or creator gave you a TEKRISE code. Use it in the app to link your
+    account to them and see their offer.
+  </p>
+
+  <div id="hasCode" hidden>
+    <div class="code-box">
+      <span class="code-value" id="codeValue"></span>
+      <button class="copy-btn" id="copyBtn" type="button">Copy code</button>
+    </div>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+
+    <ol class="steps">
+      <li>Install TEKRISE.</li>
+      <li>Enter the code when you <b>create your account</b>, or later in <b>Profile &rarr; Partner code</b>.</li>
+      <li>Open the subscription screen to see the offer. The price is always shown by the App Store or Google Play before you pay.</li>
+    </ol>
+    <p class="legal-intro" style="margin-top:12px;font-size:14px;">
+      Codes are for accounts that have never subscribed, and each account can use one code.
+    </p>
+
+    <div class="store-buttons" id="actions"></div>
+  </div>
+
+  <div class="callout lime" id="noCode" hidden>
+    <div class="callout-h">No code in this link</div>
+    <p>Ask whoever shared it for the full link, or <a href="/get">download TEKRISE</a> and enter the code in the app.</p>
+  </div>
+
+  <p style="margin-top:22px;"><a class="home-link" href="/">Back to home</a></p>
+</div>
+
+<footer>
+  <div class="footer-wm">TEKRISE</div>
+  <div class="footer-copy">&copy; <span data-site-year></span> TEKRISE &middot; AN INDIE PROJECT</div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+  </div>
+</footer>
+
+<script src="/site-config.js"></script>
+<script>
+(function () {
+  // Link shape: https://tekrise.app/partner?c=ANNA
+  // The page states NO price and NO discount: it cannot know which deal a code
+  // carries, and a price that is not the store's is misleading pricing.
+  var APPLE_APP_ID = '6776563439';
+  var APP_STORE_URL = 'https://apps.apple.com/app/id' + APPLE_APP_ID;
+  var PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.tekrise.aitennis';
+
+  // Same rule as the app (PartnerService.normalizeCode + the DB CHECK).
+  var raw = new URLSearchParams(window.location.search).get('c') || '';
+  var code = raw.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 20);
+  if (code.length < 3) { document.getElementById('noCode').hidden = false; return; }
+
+  document.getElementById('hasCode').hidden = false;
+  // textContent, never innerHTML: the code comes from the URL.
+  document.getElementById('codeValue').textContent = code;
+
+  var status = document.getElementById('status');
+  document.getElementById('copyBtn').addEventListener('click', function () {
+    function done() { status.textContent = 'Copied ' + code; }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(code).then(done, function () {
+        status.textContent = 'Copy failed. Note the code: ' + code;
+      });
+    } else {
+      status.textContent = 'Note the code: ' + code;
+    }
+  });
+
+  var ua = navigator.userAgent || '';
+  var isIOS = /iPad|iPhone|iPod/.test(ua) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/.test(ua);
+
+  function btn(sub, main, href, primary) {
+    var a = document.createElement('a');
+    a.className = 'store-btn' + (primary ? ' primary' : '');
+    a.href = href;
+    a.rel = 'noopener';
+    var text = document.createElement('span');
+    text.className = 'sb-text';
+    var s = document.createElement('span'); s.className = 'sb-sub'; s.textContent = sub;
+    var m = document.createElement('span'); m.className = 'sb-main'; m.textContent = main;
+    text.appendChild(s); text.appendChild(m); a.appendChild(text);
+    return a;
+  }
+
+  var actions = document.getElementById('actions');
+  var apple = btn('Download on the', 'App Store', APP_STORE_URL, isIOS);
+  var play = btn('Get it on', 'Google Play', PLAY_STORE_URL, isAndroid);
+  if (isAndroid) { actions.appendChild(play); actions.appendChild(apple); }
+  else { actions.appendChild(apple); actions.appendChild(play); }
+})();
+</script>
+</body>
+</html>
