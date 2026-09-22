@@ -111,7 +111,7 @@ h1 .hl{background:var(--lime);padding:0 16px 0 12px;margin-left:-4px;display:inl
 }
 .btn-ghost:hover{background:var(--ink);color:var(--cream);}
 .hero-footnote{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;color:var(--ink-fog);}
-.hero-store-links{display:flex;gap:12px;margin-top:20px;margin-bottom:20px;}
+.hero-store-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px;margin-bottom:20px;}
 .store-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:16px;text-decoration:none;color:var(--cream);background:var(--ink);border:1px solid var(--ink);transition:transform .15s,background .15s,color .15s,box-shadow .15s;position:relative;box-shadow:0 8px 20px rgba(10,14,10,0.10);}
 .store-icon-btn:hover{transform:translateY(-2px);background:var(--ink-soft);color:var(--cream);box-shadow:0 12px 30px rgba(10,14,10,0.14);}
 .store-icon-btn svg{width:28px;height:28px;fill:currentColor;}
@@ -963,7 +963,7 @@ nav{top:38px;}
           </svg>
           <span class="sr-only">Google Play</span>
         </a>
-        <a class="store-icon-btn apk" rel="noopener" title="Download APK directly" href="https://github.com/kris77668/tekrise-website-prod/releases/download/tennis-download/tekrise-tennis.apk" target="_blank">
+        <a class="store-icon-btn apk" data-apk-url rel="noopener" title="Download APK directly" href="https://dl.tekrise.app/tekrise-tennis.apk" target="_blank">
           <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
           <span class="sr-only">Download APK</span>
         </a>

@@ -120,7 +120,8 @@
   var STORES_LIVE = true;
   var APP_STORE_URL = 'https://apps.apple.com/app/id6776563439';
   var PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.tekrise.aitennis';
-  var APK_URL = 'https://github.com/kris77668/tekrise-website-prod/releases/download/tennis-download/tekrise-tennis.apk';
+  // Value comes from site-config.js; the literal is an offline fallback.
+  var APK_URL = (window.TEKRISE_SITE && window.TEKRISE_SITE.apkUrl) || 'https://dl.tekrise.app/tekrise-tennis.apk';
 
   var ua = navigator.userAgent || '';
   var isIOS = /iPad|iPhone|iPod/.test(ua) ||
