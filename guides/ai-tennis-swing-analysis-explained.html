@@ -213,7 +213,7 @@
   <li><strong>Pose tracking, on your phone.</strong> A pose model finds 12 body joints &mdash; shoulders, elbows, wrists, hips, knees, ankles &mdash; in every frame. This runs on the device itself: ML Kit on Android, Apple Vision on iOS. Nothing is uploaded for this step.</li>
   <li><strong>Racquet and ball detection, also on your phone (Android).</strong> A separate object-detection model locates the racquet and ball. On iPhone this model is not shipped yet, so the analysis there runs on pose alone.</li>
   <li><strong>Derived measurements.</strong> Raw joint coordinates are useless to a coach. They are converted into readable quantities: joint angles, hip&ndash;shoulder separation, torso lean, stance width relative to your own body, racquet-head speed, follow-through ratio.</li>
-  <li><strong>Coaching feedback.</strong> A short silent clip &mdash; at most 3 seconds, the swing you chose &mdash; is sent to Google Gemini, which returns the written coaching. Your full original recording stays on your phone.</li>
+  <li><strong>Coaching feedback.</strong> A short silent clip &mdash; at most 3 seconds, the swing you chose &mdash; is sent to our AI coaching engine, which returns the written coaching. Your full original recording stays on your phone.</li>
 </ul>
 
 <h2 id="accuracy"><span class="n">02</span> How accurate is it, honestly</h2>

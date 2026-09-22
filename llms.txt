@@ -11,7 +11,7 @@
 - Records or imports a phone video of a tennis swing (forehand, backhand, serve, volley, slice).
 - Tracks 12 body joints frame by frame on the device — ML Kit Pose Detection on Android,
   Apple Vision on iOS. On-device racquet and ball detection runs on Android only.
-- Sends a silent clip of at most 3 seconds to Google Gemini for coaching analysis. The full
+- Sends a silent clip of at most 3 seconds to its AI coaching engine for analysis. The full
   original recording stays on the phone.
 - Returns written AI coaching that names what to fix first, a personalised drill plan, a
   technique score, and per-shot progress trends.

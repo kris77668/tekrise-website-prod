@@ -202,18 +202,40 @@
     <p>We do <strong>not</strong> sell your personal information. We share data only with the
     service providers needed to operate the app, and only for the purposes below.</p>
     <ul>
-      <li><strong>AI coaching provider (Google).</strong> To generate your feedback, we send your
-        short swing video clip together with the movement and technique data derived from it — the
-        body-position ("pose") keypoints and biomechanical measurements — along with the shot type,
-        dominant hand, and gender (when set), to Google's Gemini AI service, which processes it and
-        returns coaching text. We do not send your full original recording; only the short swing
-        clip leaves your device, and it carries no audio. This processing happens on Google's
-        systems and is subject to Google's terms.</li>
+      <li><strong>AI coaching provider.</strong> To generate your feedback, we send your short swing
+        video clip, together with the profile and swing details needed for coaching (such as the
+        shot type, your dominant hand, and your gender when set), to a third-party AI service
+        provider, which processes it and returns coaching text. To improve accuracy, we may also
+        send the movement and technique data derived from your clip, such as the body-position
+        ("pose") data shown on your results. We do not send your name or email
+        address. We do not send your full original recording; only the short swing clip leaves your
+        device, and it carries no audio. The provider processes this data on our behalf under its
+        terms with us. To suggest videos after an analysis, we also send the written coaching text
+        (no video, and no name or email) to the same provider.</li>
+      <li><strong>Video suggestions (YouTube API Services).</strong> TEKRISE uses
+        <strong>YouTube API Services</strong> to suggest YouTube videos related to your coaching
+        feedback. Our servers send YouTube only a short search phrase for a common tennis mistake
+        and your app language. We do not send your name, email, account, swing clip, or coaching
+        text, and we do not access or connect to your YouTube or Google account. From YouTube we
+        receive and store only public information about videos (the video ID, title, channel name,
+        and thumbnail link). We refresh it at least every 30 days and remove videos that are no
+        longer available. For each of your analyses we keep which common mistakes it was matched to,
+        so opening the result again doesn't repeat the lookup.
+        When the app shows a suggestion, the thumbnail image loads directly from YouTube's servers,
+        so Google can see your device's IP address. If you tap a video, it opens in the YouTube app
+        or your browser, where YouTube's own terms and privacy practices apply. See the
+        <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener">YouTube Terms of
+        Service</a> and the
+        <a href="https://www.google.com/policies/privacy" target="_blank" rel="noopener">Google
+        Privacy Policy</a>.</li>
       <li><strong>Clip storage (Cloudflare).</strong> Your uploaded swing clips are stored using
         Cloudflare R2 object storage. Clips are not publicly listed or browsable — playback uses
         short-lived links generated for you.</li>
       <li><strong>Hosting and database (Supabase).</strong> Your account data, your analysis
         results, and your usage records are stored with our backend provider.</li>
+      <li><strong>Email delivery (Resend).</strong> Messages you send us through the feedback
+        form in the app or on our website are forwarded to our own inbox by our email delivery
+        provider, so we can read and reply to them.</li>
       <li><strong>Subscriptions (RevenueCat).</strong> If you purchase a subscription, purchase
         and entitlement data is processed by RevenueCat and the relevant app store (Apple App
         Store or Google Play) to manage it.</li>
