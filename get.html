@@ -51,6 +51,7 @@
     .store-btn{transition:none;}
     .store-btn:hover{transform:none;}
   }
+  .store-btn.apk{order:9;}
 </style>
 </head>
 <body>
@@ -119,6 +120,7 @@
   var STORES_LIVE = true;
   var APP_STORE_URL = 'https://apps.apple.com/app/id6776563439';
   var PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.tekrise.aitennis';
+  var APK_URL = 'https://github.com/kris77668/tekrise-website-prod/releases/download/tennis-download/tekrise-tennis.apk';
 
   var ua = navigator.userAgent || '';
   var isIOS = /iPad|iPhone|iPod/.test(ua) ||
@@ -129,6 +131,7 @@
 
   var APPLE_ICON = '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.36 12.9c-.02-2.06 1.68-3.05 1.76-3.1-0.96-1.4-2.46-1.6-2.99-1.62-1.27-.13-2.48.75-3.13.75-.64 0-1.64-.73-2.7-.71-1.39.02-2.67.81-3.38 2.05-1.44 2.5-.37 6.2 1.03 8.23.68.99 1.5 2.1 2.56 2.06 1.03-.04 1.42-.66 2.66-.66 1.24 0 1.59.66 2.68.64 1.11-.02 1.81-1.01 2.49-2 .78-1.15 1.1-2.26 1.12-2.32-.02-.01-2.15-.83-2.17-3.27zM14.3 6.9c.56-.68.94-1.63.84-2.57-.81.03-1.79.54-2.37 1.22-.52.6-.98 1.56-.86 2.48.9.07 1.83-.46 2.39-1.13z"/></svg>';
   var PLAY_ICON = '<svg width="20" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.3c-.2.2-.32.5-.32.9v17.6c0 .4.12.7.32.9l.06.05L13.5 12v-.02L3.66 2.25l-.06.05z" fill="#00c896"/><path d="M17 15.3l-3.5-3.3v-.02L17 8.7l4 2.28c1.14.65 1.14 1.72 0 2.37L17 15.3z" fill="#ff6b1a"/><path d="M17 15.3 13.5 12 3.6 21.7c.37.4.98.45 1.67.06L17 15.3z" fill="#ff4a5e"/><path d="M17 8.7 5.27 2.24C4.58 1.85 3.97 1.9 3.6 2.3L13.5 12 17 8.7z" fill="#a2d147"/></svg>';
+  var APK_ICON = '<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>';
 
   function makeBtn(icon, sub, main, href, primary) {
     var a = document.createElement('a');
@@ -143,6 +146,8 @@
 
   var appleBtn = makeBtn(APPLE_ICON, 'Download on the', 'App Store', APP_STORE_URL, isIOS);
   var playBtn = makeBtn(PLAY_ICON, 'Get it on', 'Google Play', PLAY_STORE_URL, isAndroid);
+  var apkBtn = makeBtn(APK_ICON, 'Direct download', 'Android APK', APK_URL, false);
+  apkBtn.classList.add('apk');
 
   var actions = document.getElementById('getActions');
   var comingSoon = document.getElementById('comingSoon');
@@ -151,6 +156,8 @@
   // Emphasise the visitor's platform first.
   if (isAndroid) { actions.appendChild(playBtn); actions.appendChild(appleBtn); }
   else { actions.appendChild(appleBtn); actions.appendChild(playBtn); }
+  // Not installable on iOS — omit there. order:9 (CSS) keeps it last regardless.
+  if (!isIOS) actions.appendChild(apkBtn);
 
   comingSoon.hidden = true;
   actions.hidden = false;
