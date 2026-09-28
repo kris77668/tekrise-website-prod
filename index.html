@@ -111,7 +111,7 @@ h1 .hl{background:var(--lime);padding:0 16px 0 12px;margin-left:-4px;display:inl
 }
 .btn-ghost:hover{background:var(--ink);color:var(--cream);}
 .hero-footnote{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;color:var(--ink-fog);}
-.hero-store-links{display:flex;gap:12px;margin-top:20px;margin-bottom:20px;}
+.hero-store-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px;margin-bottom:20px;}
 .store-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:16px;text-decoration:none;color:var(--cream);background:var(--ink);border:1px solid var(--ink);transition:transform .15s,background .15s,color .15s,box-shadow .15s;position:relative;box-shadow:0 8px 20px rgba(10,14,10,0.10);}
 .store-icon-btn:hover{transform:translateY(-2px);background:var(--ink-soft);color:var(--cream);box-shadow:0 12px 30px rgba(10,14,10,0.14);}
 .store-icon-btn svg{width:28px;height:28px;fill:currentColor;}
@@ -329,7 +329,7 @@ section{border-top:1px solid var(--ink-fog2);}
 .form-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:26px;letter-spacing:.02em;margin-bottom:28px;}
 .form-grid{display:flex;flex-direction:column;gap:16px;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.ff label{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;color:var(--ink-soft);margin-bottom:6px;}
+.ff label,.ff .ff-label{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;color:var(--ink-soft);margin-bottom:6px;}
 .ff input,.ff textarea,.ff select{
   width:100%;height:44px;background:var(--cream2);border:1px solid var(--ink-fog2);
   border-radius:2px;padding:0 14px;font-family:'Inter Tight',sans-serif;font-size:14px;
@@ -340,10 +340,12 @@ section{border-top:1px solid var(--ink-fog2);}
 .role-chips{display:flex;gap:8px;flex-wrap:wrap;}
 .rchip{
   padding:8px 14px;border:1px solid var(--ink-fog2);border-radius:2px;
-  font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:13px;letter-spacing:.06em;
+  background:none;color:var(--ink);
+  font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:13px;line-height:inherit;letter-spacing:.06em;
   cursor:pointer;transition:background .15s,border-color .15s;
 }
 .rchip.on{background:var(--lime);border-color:var(--ink);}
+.rchip:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
 
 /* ── FOOTER ── */
 footer{
@@ -363,12 +365,18 @@ footer{
 .footer-links a{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;color:rgba(250,250,247,.5);text-decoration:none;transition:color .15s;}
 .footer-links a:hover{color:var(--lime);}
 
+/* ── STICKY HEADER (banner + nav) ──
+   ONE sticky wrapper instead of two sticky bars with a hard-coded offset: the
+   banner's height changes with width and wrapping (≈46px desktop, ≈68px on
+   small phones), so a fixed `nav{top:38px}` slid the nav under it. */
+.site-head{position:sticky;top:0;z-index:101;}
+.site-head nav{position:relative;top:0;}   /* relative: anchors .mobile-nav */
+
 /* ── CAMPAIGN BANNER ── */
 .campaign-bar{
   background:var(--ink);color:var(--cream);
   padding:10px 56px;display:flex;align-items:center;justify-content:space-between;gap:24px;
   font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;
-  position:sticky;top:0;z-index:101;
 }
 .cb-pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--coral);margin-right:8px;animation:pulse 1.5s ease-in-out infinite;}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.3);}}
@@ -378,7 +386,6 @@ footer{
 .cb-mid b{color:var(--cream);font-weight:600;}
 .cb-cta{background:var(--lime);color:var(--ink);padding:6px 14px;border-radius:2px;text-decoration:none;font-weight:700;font-size:11px;letter-spacing:.12em;transition:opacity .15s;}
 .cb-cta:hover{opacity:.85;}
-nav{top:38px;}
 
 /* ── FUNDING STATUS HERO ── */
 .funding{padding:80px 56px;background:var(--cream2);border-top:1px solid var(--ink-fog2);border-bottom:1px solid var(--ink-fog2);}
@@ -499,13 +506,17 @@ nav{top:38px;}
 .faq-grid{border:1px solid var(--ink-fog2);}
 .faq-item{border-bottom:1px solid var(--ink-fog2);}
 .faq-item:last-child{border-bottom:none;}
-.faq-q{padding:20px 28px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;letter-spacing:.01em;transition:background .15s;}
+.faq-q{width:100%;padding:20px 28px;border:0;background:none;color:inherit;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;line-height:inherit;letter-spacing:.01em;transition:background .15s;}
 .faq-q:hover{background:var(--cream2);}
-.faq-q::after{content:'+';font-size:24px;font-weight:300;color:var(--ink-fog);transition:transform .2s;line-height:1;}
+.faq-q:focus-visible{outline:2px solid var(--ink);outline-offset:-2px;}
+.faq-q::after{content:'+';flex-shrink:0;font-size:24px;font-weight:300;color:var(--ink-fog);transition:transform .2s;line-height:1;}
 .faq-item.open .faq-q::after{transform:rotate(45deg);}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;padding:0 28px;}
-.faq-item.open .faq-a{max-height:300px;padding:0 28px 24px;}
-.faq-a-inner{font-size:14px;line-height:1.65;color:var(--ink-soft);}
+/* 0fr→1fr opens to the answer's real height, so no answer is ever clipped (a
+   fixed max-height cap was). Closed answers are also hidden from Tab/readers. */
+.faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease,padding .3s ease;padding:0 28px;}
+.faq-item.open .faq-a{grid-template-rows:1fr;padding:0 28px 24px;}
+.faq-a-inner{min-height:0;overflow:hidden;visibility:hidden;transition:visibility .3s;font-size:14px;line-height:1.65;color:var(--ink-soft);}
+.faq-item.open .faq-a-inner{visibility:visible;}
 
 /* ── TRUST BAR ── */
 .trust-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--ink-fog2);margin-top:32px;background:var(--cream2);}
@@ -882,6 +893,7 @@ nav{top:38px;}
 <body>
 
 <!-- CAMPAIGN BANNER -->
+<header class="site-head">
 <div class="campaign-bar">
   <div class="cb-left"><span class="cb-pulse"></span><span class="cb-text-desktop">A PROJECT BY TENNIS ENTHUSIASTS</span><span class="cb-text-mobile"><b>FREE</b> TO START &middot; BUILT FOR PLAYERS<br>NO CARD, NO ACCOUNT NEEDED</span></div>
   <div class="cb-mid">
@@ -934,6 +946,7 @@ nav{top:38px;}
     <a href="#pledges" class="btn-primary">SUPPORT US →</a>
   </div-->
 </nav>
+</header>
 
 <main>
 
@@ -963,7 +976,7 @@ nav{top:38px;}
           </svg>
           <span class="sr-only">Google Play</span>
         </a>
-        <a class="store-icon-btn apk" rel="noopener" title="Download APK directly" href="https://github.com/kris77668/tekrise-website-prod/releases/download/tennis-download/tekrise-tennis.apk" target="_blank">
+        <a class="store-icon-btn apk" data-apk-url rel="noopener" title="Download APK directly" href="https://dl.tekrise.app/tekrise-tennis.apk" target="_blank">
           <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
           <span class="sr-only">Download APK</span>
         </a>
@@ -1474,31 +1487,31 @@ nav{top:38px;}
 
     <div class="faq-grid">
       <div class="faq-item open">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Will TEKRISE replace my tennis coach?</div>
+        <button type="button" class="faq-q" aria-expanded="true" onclick="toggleFaq(this)">Will TEKRISE replace my tennis coach?</button>
         <div class="faq-a"><div class="faq-a-inner">No — and it's not meant to. TEKRISE does one thing: it measures your swing and shows you what's happening. That's maybe 10–15% of what a great coach does — it can't read your opponent, run live drills, feed balls, fix your grip mid-swing, or keep you motivated. Think of it as the slow-motion replay and the measuring tape: <strong>the eye, not the coach.</strong></div></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">I don't have a coach — is this still for me?</div>
+        <button type="button" class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">I don't have a coach — is this still for me?</button>
         <div class="faq-a"><div class="faq-a-inner">Absolutely. If you practise on your own, TEKRISE gives you the clear, technical feedback that's otherwise hard to get without someone watching — so you work on the right thing next instead of grooving the same mistake. Improve on your own schedule, at your own pace.</div></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">I'm a coach — how does TEKRISE help me?</div>
+        <button type="button" class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">I'm a coach — how does TEKRISE help me?</button>
         <div class="faq-a"><div class="faq-a-inner">It solves your biggest problem: students reinforcing bad habits in the six days between lessons. They arrive having practised the right things, so you spend less time repeating corrections and more on strategy, footwork and match play. A Coach dashboard shows what each student worked on, and you earn a share on every student you refer. <a href="#coaches" style="color:inherit;font-weight:700;">See For Coaches →</a></div></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is the app really free?</div>
+        <button type="button" class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">Is the app really free?</button>
         <div class="faq-a"><div class="faq-a-inner">It's free to start — no credit card, no account required — and there will always be a free tier. You get AI swing analysis on the free plan, funded by a short ad while your swing is being analysed. Running it isn't free for us (servers and AI cost money on every analysis), so there are optional paid subscriptions that lift the daily limit and remove the ads.</div></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Where does my donation go?</div>
+        <button type="button" class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">Where does my donation go?</button>
         <div class="faq-a"><div class="faq-a-inner">Straight into keeping TEKRISE alive: the server and AI costs behind every analysis, new features and shot types, and the time it takes to keep improving the app. Donations help keep the free tier as generous as we can make it. We're an independent project with no outside investors.</div></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How accurate is the AI?</div>
+        <button type="button" class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">How accurate is the AI?</button>
         <div class="faq-a"><div class="faq-a-inner">TEKRISE tracks your body pose frame-by-frame on-device and checks your racket using AI vision around the moment of impact. It's genuinely useful for spotting technique patterns and tracking change over time — but it's an estimate from a single phone camera, not a motion-capture lab. We're honest about that: it's a guide, not gospel, but it will keep getting better.</div></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How do I support TEKRISE?</div>
+        <button type="button" class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">How do I support TEKRISE?</button>
         <div class="faq-a"><div class="faq-a-inner">The easiest way is a one-off donation via Ko-fi — give whatever feels right, even a couple of dollars helps. You can also help by telling a hitting partner about the app, or sending us feedback so we can make it better. Questions? Email <strong><a href="mailto:hello@tekrise.app">hello@tekrise.app</a></strong>.</div></div>
       </div>
     </div>
@@ -1570,21 +1583,21 @@ nav{top:38px;}
         <div class="form-title">Send us a message</div>
         <form class="form-grid" onsubmit="handleSubmit(event)">
           <div class="form-row">
-            <div class="ff"><label>FIRST NAME</label><input id="f-first" type="text" placeholder="Alex"></div>
-            <div class="ff"><label>LAST NAME</label><input id="f-last" type="text" placeholder="Kowalski"></div>
+            <div class="ff"><label for="f-first">FIRST NAME</label><input id="f-first" type="text" placeholder="Alex"></div>
+            <div class="ff"><label for="f-last">LAST NAME</label><input id="f-last" type="text" placeholder="Kowalski"></div>
           </div>
-          <div class="ff"><label>EMAIL</label><input id="f-email" type="email" required placeholder="you@email.com"></div>
+          <div class="ff"><label for="f-email">EMAIL</label><input id="f-email" type="email" required placeholder="you@email.com"></div>
           <div class="ff">
-            <label>I AM A...</label>
-            <div class="role-chips">
-              <div class="rchip on" onclick="selectRole(this)">Player</div>
-              <div class="rchip" onclick="selectRole(this)">Coach</div>
-              <div class="rchip" onclick="selectRole(this)">Club</div>
-              <div class="rchip" onclick="selectRole(this)">Press</div>
-              <div class="rchip" onclick="selectRole(this)">Other</div>
+            <span class="ff-label" id="role-label">I AM A...</span>
+            <div class="role-chips" role="group" aria-labelledby="role-label">
+              <button type="button" class="rchip on" aria-pressed="true" onclick="selectRole(this)">Player</button>
+              <button type="button" class="rchip" aria-pressed="false" onclick="selectRole(this)">Coach</button>
+              <button type="button" class="rchip" aria-pressed="false" onclick="selectRole(this)">Club</button>
+              <button type="button" class="rchip" aria-pressed="false" onclick="selectRole(this)">Press</button>
+              <button type="button" class="rchip" aria-pressed="false" onclick="selectRole(this)">Other</button>
             </div>
           </div>
-          <div class="ff"><label>MESSAGE</label><textarea id="f-message" required placeholder="Tell us what's on your mind..."></textarea></div>
+          <div class="ff"><label for="f-message">MESSAGE</label><textarea id="f-message" required placeholder="Tell us what's on your mind..."></textarea></div>
           <button type="submit" class="btn-hero" style="width:100%;justify-content:space-between;" id="submit-btn">
             <span>SEND MESSAGE</span><span class="arr">→</span>
           </button>
@@ -1631,8 +1644,14 @@ function setPricing(annual) {
   document.getElementById('coach-price').textContent = annual ? '$19' : '$29';
 }
 function selectRole(el) {
-  document.querySelectorAll('.rchip').forEach(c => c.classList.remove('on'));
-  el.classList.add('on');
+  document.querySelectorAll('.rchip').forEach(c => {
+    c.classList.toggle('on', c === el);
+    c.setAttribute('aria-pressed', String(c === el));
+  });
+}
+function toggleFaq(btn) {
+  const isOpen = btn.parentElement.classList.toggle('open');
+  btn.setAttribute('aria-expanded', String(isOpen));
 }
 function toggleMobileNav(btn) {
   const nav = btn.closest('nav');
@@ -1663,7 +1682,14 @@ async function handleSubmit(e) {
   btn.disabled = true;
   status.style.color = 'var(--ink-soft)';
   status.textContent = 'SENDING…';
-  const { error } = await supabaseClient().from('feedback').insert(payload);
+  // try/catch: if supabase-js failed to load, supabaseClient() throws and the
+  // button would stay disabled on "SENDING…" forever.
+  let error;
+  try {
+    ({ error } = await supabaseClient().from('feedback').insert(payload));
+  } catch (err) {
+    error = err;
+  }
   if (error) {
     btn.disabled = false;
     status.style.color = 'var(--coral)';
@@ -1683,7 +1709,7 @@ async function handleSubmit(e) {
     btn.style.color = '';
     status.textContent = '';
     e.target.reset();
-    document.querySelectorAll('.rchip').forEach((c,i) => c.classList.toggle('on', i===0));
+    selectRole(document.querySelector('.rchip'));
   }, 4000);
 }
 </script>

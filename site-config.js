@@ -1,13 +1,18 @@
 /* ============================================================
    SITE CONFIG — single source of truth for the public domain.
 
-   When you move off the temporary tekrise.pages.dev domain (or
-   change the contact inbox), edit the TWO values below ONLY.
+   tekrise.app is the permanent domain. To change it (or the contact
+   inbox), edit the TWO values below ONLY.
    Every page reads from here, so nothing else needs touching.
    ============================================================ */
 (function () {
   var SITE_DOMAIN   = 'tekrise.app';     // no protocol, no trailing slash
   var CONTACT_EMAIL = 'hello@tekrise.app';
+  // Direct APK download (sideload path for regions without Google Play, e.g.
+  // mainland China). Hosted on a public Cloudflare R2 bucket, NOT GitHub — the
+  // repo name must never end up in a public-facing URL. The only place this
+  // should ever be written; get.html and index.html both read it from here.
+  var APK_URL = 'https://dl.tekrise.app/tekrise-tennis.apk';
 
   // Supabase public config. Both values are PUBLIC by design (the anon key is
   // the same one that ships in the mobile app; data is protected by RLS, not by
@@ -20,6 +25,7 @@
   window.TEKRISE_SITE = {
     domain: SITE_DOMAIN,
     email: CONTACT_EMAIL,
+    apkUrl: APK_URL,
     supabaseUrl: SUPABASE_URL,
     supabaseAnonKey: SUPABASE_ANON_KEY,
   };
@@ -33,6 +39,10 @@
     document.querySelectorAll('[data-site-email]').forEach(function (el) {
       el.textContent = CONTACT_EMAIL;
       if (el.tagName === 'A') el.setAttribute('href', 'mailto:' + CONTACT_EMAIL);
+    });
+    // <a data-apk-url></a>  →  href becomes the direct APK download URL
+    document.querySelectorAll('[data-apk-url]').forEach(function (el) {
+      el.setAttribute('href', APK_URL);
     });
     // <span data-site-year></span>  →  current year (footer copyright)
     document.querySelectorAll('[data-site-year]').forEach(function (el) {
